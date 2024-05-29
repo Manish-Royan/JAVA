@@ -1,5 +1,5 @@
 import java.lang.*;
-public class AddVariable {
+public class AddTwoVariable {
 	public static void main(String[] args) {
 		int a = 10;
 		int b = 10;
