@@ -8,7 +8,7 @@ public class CheckOddEven {
 		
 		Scanner input = new Scanner(System.in);
 		n = input.nextInt();
-		`
+		
 		if(n%2==0) {
 			System.out.print(n + " is Even Number");
 		} else {
