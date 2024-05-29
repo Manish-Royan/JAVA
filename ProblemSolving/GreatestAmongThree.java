@@ -1,4 +1,4 @@
-/* Print greatest among three */
+/* Print to find greatest among three */
 
 public class GreatestAmongThree {
 	public static void main(String[] args) {
