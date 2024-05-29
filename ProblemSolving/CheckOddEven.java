@@ -1,7 +1,7 @@
 /* Check if the given number is Odd or Even */
 
 import java.util.Scanner;
-public class CheclOddEven {
+public class CheckOddEven {
 	public static void main(String[] args) {
 		int n;
 		System.out.println("Enter any number");
