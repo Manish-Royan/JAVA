@@ -1,6 +1,6 @@
 # Java Stdin and Stdout I
 
-Most HackerRank challenges require to read input from `stdin`**(standard input)** and write output to `stdout` **(standard output)**.
+Most HackerRank challenges require to read input from `stdin` **(standard input)** and write output to `stdout` **(standard output)**.
 
 In computer programming, standard streams are preconnected input and output communication channels between a computer program and its environment when it begins execution. 
 
