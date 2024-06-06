@@ -7,7 +7,8 @@ public class Solution {
         int y = 2; // Second term in Fibonacci sequence
         
         while (x <= limit) {
-            if (x % 2 == 0) {
+            if (x % 2 == 0) 
+            {
                 sum += x;
             }
             int next = x + y;
