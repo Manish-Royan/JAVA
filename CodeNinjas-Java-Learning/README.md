@@ -1,6 +1,7 @@
 # CodeNinjas-Java-Learning
 
-Welcome to the CodeNinjas Java Learning repository! This repository contains all the projects, exercises, and learning materials related to my Java programming journey with CodeNinjas.
+Welcome to the CodeNinjas Java Learning repository! This repository contains all the projects, exercises, and learning materials related to my Java programming journey with [CodeNinjas](https://www.naukri.com/code360/home).
+
 
 # Purpose
 
