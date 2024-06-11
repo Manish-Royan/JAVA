@@ -2,7 +2,7 @@
 
 JDK, JRE, and JVM are the most important parts of the Java programming language. Without these, you can not develop and run java programs on your machine.
 
-![Java environment diagram](https://files.codingninjas.in/note_906_15ab671a957f_2.png)
+![Java environment diagram](https://img-blog.csdnimg.cn/62a6f1b33c964716aa5bb0f2ce7a8dd9.png)
 
 * **JDK**: JDK stands for Java Development Kit. JDK provides an environment to develop and execute the java program. JDK is a kit that includes two things - `Development Tools` to provide an environment to develop your java programs and `JRE` to execute your Java programs.
 
