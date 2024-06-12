@@ -110,6 +110,49 @@ Which type of comments is used to comment on single lines of code?
     4. None of the above
 
 
+### • MCQ: JRE fullform
+
+#### Problem statement:
+
+What does JRE stand for?
+
+**Options:**
+
+    1. Java Runtime Execution
+    2. Java Runtime Environment ➡ [Answer]
+    3. Java Run Execution
+    4. None of the above
+
+
+### • MCQ: JDK fullform
+
+#### Problem statement:
+
+What does JDK stand for?
+
+
+**Options:**
+
+    1. Java Deploy kit
+    2. Java Development Kit ➡ [Answer]
+    3. Java Developed Kit
+    4. Java Developer kit
+
+
+### • MCQ: Find the correct statement
+
+#### Problem statement:
+
+Which of the following statements is correct?
+
+**Options:**
+
+    1. JDK is not a software development environment used for making applets and Java applications.
+    2. Java Virtual Machine, or JVM, do not loads, verifies and executes Java bytecode.
+    3. JRE (Java Runtime Environment) is an installation package that provides an environment to only run(not develop) the java program(or application)onto your machine. ➡ [Answer]
+    4. None of the above
+
+
 ### • MCQ: Java ME
 
 #### Problem statement:
