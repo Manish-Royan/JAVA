@@ -14,6 +14,7 @@ public class Solution {
         System.out.println("The " + nthPrime + "st prime number is: " + number);
     }
 
+    
     // Method to check if a number is prime
     public static boolean isPrime(int num) {
         if (num <= 1) {
