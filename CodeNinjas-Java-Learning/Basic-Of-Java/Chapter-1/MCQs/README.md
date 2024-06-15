@@ -27,6 +27,7 @@ What is the extension of the compiled java classes?
     3. .class ➡ [Answer]
     4. .js
 
+
 ### • MCQ: Compilation in Java
 
 #### Problem statement:
@@ -130,7 +131,6 @@ What does JRE stand for?
 
 What does JDK stand for?
 
-
 **Options:**
 
     1. Java Deploy kit
@@ -171,6 +171,7 @@ Solution description:
 
 Java ME (Micro Edition) is widely used for developing embedded systems, mobiles, and small devices. The primary objective of Java ME is to work on mobiles, wireless devices, set-top boxes, etc.
 ```
+
 
 ### • MCQ: Which Java Edition?
 
