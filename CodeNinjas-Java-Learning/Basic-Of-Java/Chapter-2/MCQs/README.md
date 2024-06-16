@@ -108,11 +108,131 @@ Which data type is considered as a non-primitive data type?
     1. int
     2. long
     3. float
-    4. class
-➡ [Answer]
+    4. class ➡ [Answer]
+
 
 ```
 Solution description:
 
 n Java, there are two types of data types. These are primitive data types and Non-Primitive data types. Int,long, float,double, etc are the primitive data types and Arrays, String, and class are non-primitive data types. Therefore the correct answer is 'class'.
+```
+
+
+### • MCQ: True or False
+
+#### Problem statement:
+
+Can we access the variables outside the method body which are defined inside the method body?
+
+**Options:**
+
+    1. Yes
+    2. No ➡ [Answer]
+
+```
+Solution description:
+
+Variables declared inside a method have a method level scope, and cannot be accessed outside the method body.
+```
+
+
+### • MCQ: Find the output 1
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+    public void display() {
+        int x = 10;
+    }
+
+    public static void main(String args[]) {
+        System.out.println(x);
+    }
+}
+```
+
+**Options:**
+
+    1. 10
+    2. 0
+    3. Compile Time Error ➡ [Answer]
+    4. Runtime Error
+
+```
+Solution description:
+
+The variable 'x' has a method level scope and we can not access it outside the method body.
+```
+
+
+### • MCQ: Find the output 2
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+    int x = 10; 
+
+    public static void main(String args[]) {
+        Solution obj = new Solution();
+        System.out.println(obj.x);
+    }
+}
+```
+
+**Options:**
+
+    1. 10 ➡ [Answer]
+    2. 0
+    3. Compile Time Error 
+    4. Runtime Error
+
+
+```
+Solution description:
+
+'x' has a class-level scope and hence can be accessed with the object reference.
+```
+
+
+### • MCQ: Find the output 3
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+
+    public static void main(String args[]) {
+
+        int x;
+        x = 10;
+        {
+            int y = 20;
+            System.out.print(x + " " + y);
+        }
+
+        System.out.print(x + " " + y);
+    }
+
+}
+
+```
+**Options:**
+
+    1. 10 
+    2. 0
+    3. Compile Time Error ➡ [Answer]
+    4. Runtime Error
+
+```
+Solution description:
+
+The second print statement doesn't have access to 'y', because the scope of the 'y' is limited to block only.
 ```
