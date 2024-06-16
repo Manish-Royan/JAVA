@@ -236,3 +236,97 @@ Solution description:
 
 The second print statement doesn't have access to 'y', because the scope of the 'y' is limited to block only.
 ```
+
+
+### • MCQ: Local variable
+
+#### Problem statement:
+
+Which of the following variables is a local variable?
+
+```Java
+public class Example {
+    int num = 10;
+    float b = 10.9f;
+
+    public void method() {
+        int x = 20;
+        int y = 30;
+    }
+}
+```
+
+**Options:**
+
+    1. num
+    2. x
+    3. x and y both ➡ [Answer]
+    4. b    
+
+```
+Solution description:
+
+Local variables are the variables that are defined inside the method body, constructor, or a block. In the above code, 'x' and 'y' variables are defined inside the method body, therefore 'x' and 'y' both are the local variables.
+```
+
+
+### • MCQ: Class level variable
+
+#### Problem statement:
+
+Which of the following variables is a class level variable?
+
+```Java
+public class Example {
+    int num = 10;
+    float b = 10.9f;
+
+    public void method() {
+        int x = 20;
+        int y = 30;
+    }
+}
+```
+
+**Options:**
+
+    1. num
+    2. num and b both ➡ [Answer]
+    3. a and y both    
+    4. b   
+
+```
+Solution description:
+
+Class level variables are the variables that are defined inside the class but outside the method body. In the above code, the variables 'num' and 'b' both are declared inside the class and outside the method body. Therefore option '2' is the correct answer.
+``` 
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+    static int x = 10;
+
+    public static void main(String args[]) {
+        System.out.println(x);
+    } 
+}
+```
+
+**Options:**
+
+    1. 10 ➡ [Answer]
+    2. 0
+    3. Compile Time Error
+    4. Runtime Error
+
+```
+Solution description:
+
+The variable 'x' is a static variable and it can easily accessed inside the static method without creating any object of the class.
+```
