@@ -4,11 +4,11 @@ TypeCasting in Java is the process of converting one primitive data type into an
 
 When we assign the value of one data type to another data type, then there is a chance that two data types might not be compatible with each other. The Java compiler will automatically perform the conversion if the data types are consistent. This type of conversion is known as Automatic Type Conversion. If the java compiler cannot perform the conversion automatically, they need to be cast explicitly. 
 
-## There are two types of TypeCasting in Java.
+## There are two types of TypeCasting in Java:
 
 1. **Widening or Automatic Type Conversion**: **When we assign a value of a smaller data type to a large data type, this process is known as Widening Type Casting**. It is **also known as Automatic Type Conversion** because the Java compiler will perform the conversion automatically. This can happen only when the two data types are compatible. 
 
-        `byte` -> `short` -> `int` -> `long` -> `float` -> `double` ( Widening or Automatic Type Conversion)
+        byte -> short -> int -> long -> float -> double ( Widening or Automatic Type Conversion)
 
     For example, In Java, `int` data types are compatible, but it isn't compatible with `char` and `boolean` data types. Also, `char` and `boolean` data types are not compatible with each other.
 
