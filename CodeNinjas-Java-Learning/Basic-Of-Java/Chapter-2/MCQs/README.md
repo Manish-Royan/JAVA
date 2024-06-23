@@ -330,3 +330,92 @@ Solution description:
 
 The variable 'x' is a static variable and it can easily accessed inside the static method without creating any object of the class.
 ```
+
+
+### • MCQ: Types of type casting
+
+#### Problem statement:
+
+Which of the following Type Casting is available in Java?
+
+**Options:**
+
+    1. Widening Type Casting
+    2. Narrowing Type Casting
+    3. Both a and b ➡ [Answer]
+    4. None of the above
+
+    
+```
+Solution description:
+
+In Java, both widening and narrowing type casting are available.
+```
+
+
+### • MCQ: Type casting losing data
+
+#### Problem statement:
+
+Which of the following Type Casting is responsible for loss of data?
+
+
+**Options:**
+
+    1. Narrowing Type Casting ➡ [Answer]
+    2. Widening Type Casting
+    3. No Type Conversion
+    4. None of the above
+
+```
+Solution description:
+
+In narrowing type casting, we assign a value of large data type into a small data type. So, there may be a chance of losing the data.
+```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following java code?
+
+public class Example {
+    public static void main(String args[]) {
+        char ch = 'a';
+        int num = 10;
+        ch = num;
+        System.out.println(ch);
+    }
+}
+
+**Options:**
+
+    1. 10
+    2. 0
+    3. compile time error ➡ [Answer]
+    4. None of the above
+
+```
+Solution description:
+
+In Java, char and boolean data types are not compatible with numeric data types. Therefore, when we cast char with num, it gives the compile-time error.
+```
+
+
+### • MCQ: True or False
+
+#### Problem statement:
+
+Is type casting possible from boolean to char?
+
+**Options:**
+
+    1. Yes ➡ [Answer]
+    2. No
+
+```
+Solution description:
+
+In Java char and boolean data types are not compatible with each other. Therefore type casting is not possible between them.
+```
