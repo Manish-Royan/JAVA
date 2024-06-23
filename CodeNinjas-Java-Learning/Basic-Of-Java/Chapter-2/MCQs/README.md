@@ -419,3 +419,71 @@ Solution description:
 
 In Java char and boolean data types are not compatible with each other. Therefore type casting is not possible between them.
 ```
+
+
+### • MCQ: Overflow in java
+
+#### Problem statement:
+
+Which of the following is true about overflow?
+
+**Options:**
+
+    1. Overflow in java happens when we assign a value to a variable which is more than its range ➡ [Answer]
+    2. Overflow in java happens when we assign a value to a variable which is less than its range
+    3. Both of the above
+    4. None of the above
+
+```
+Solution description:
+
+for example, the maximum value of int data type is 2,147,483,647 (Integer.MAX_VALUE) and after incrementing 1 on this value, it will return -2,147,483,648 (Integer.MIN_VALUE). This is known as overflow.
+
+```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+Problem statement
+What is the output of the following code?
+
+public class Solution {
+    public static void main(String args[]) {
+
+        int x = -2147483648;
+        System.out.println(x - 1);
+    }
+}
+
+**Options:**
+
+    1. 2147483647 ➡ [Answer]
+    2. -2147483647
+    3. Error
+    4. None
+
+```
+Solution description:
+
+The above program is the example of underflow in java.
+```
+
+
+### • MCQ: True or False
+
+#### Problem statement:
+
+In case of overflow and underflow, does the Java compiler throw any error?
+
+**Options:**
+
+    1. True
+    2. False ➡ [Answer]
+
+```
+Solution description:
+
+In case of overflow and underflow, the Java compiler doesn't throw any error. It simply changes the value.
+```
