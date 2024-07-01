@@ -102,3 +102,147 @@ Solution description:
 
 There is no such type (--) of operator in java.
 ```
+
+
+### • MCQ: Operands in unary operators
+
+#### Problem statement:
+
+How many operand unary operators take?
+
+**Options:**
+
+    1. 1 ➡ [Answer]
+    2. 2
+    3. 3
+    4. None of the above
+
+```
+Solution description:
+
+Unary operator in java takes only one operand.
+```
+
+
+### • MCQ:  Types of decrement operators
+
+#### Problem statement:
+
+How many types of decrement operators in java?How many types of decrement operators in java?
+
+**Options:**
+
+    1. 1 
+    2. 2 ➡ [Answer]
+    3. 3
+    4. None of the above
+
+```
+Solution description:
+
+There are two types of decrement operators in java. These are pre-decrement operators and post-decrement operators.
+```
+
+
+### • MCQ: Find the output 1
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+
+    public static void main(String args[]) {
+
+        int x = 5;
+        int y  = 6;
+
+        if(x++ == --y) {
+            System.out.println("Coding Ninjas");
+        }
+        else {
+            System.out.println("Ninjas");
+        }
+    }
+}
+```
+
+**Options:**
+
+    1. Ninjas
+    2. Coding Ninjas ➡ [Answer]
+    3. Compile time error
+    4. Runtime error
+
+```
+Solution description:
+
+At the time of evaluating the expression (x++ == --y), x (5) is compared to y (6-1 = 5). Therefore the condition passes and prints "Coding Ninjas".
+```
+
+
+### • MCQ: Find the output 2
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+
+    public static void main(String args[]) {
+
+        int x = 6;
+        int y  = 5;
+
+        if(++y == x--) {
+            System.out.println("Coding Ninjas");
+        }
+        else {
+            System.out.println("Ninjas");
+        }
+    }
+}
+``` 
+
+**Options:**
+
+   1. Ninjas
+    2. Coding Ninjas ➡ [Answer]
+    3. Compile time error
+    4. Runtime error
+
+```
+Solution description:
+
+At the time of evaluating the expression (++y == x--), y (6) is compared to x (6). Therefore the condition passes and prints "Coding Ninjas".
+```
+
+
+### • MCQ: Find the output 3
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+    public static void main(String args[]) {
+        int a = 10, b = 1;
+        System.out.println(!(a < b));
+    }
+}
+```
+**Options:**
+
+    1. true ➡ [Answer]
+    2. false
+    3. Compilation error
+    4. Runtime error
+
+```
+Solution description:
+
+In the above program, we are using unary not operators that change the true to false and vice versa. Since the condition ( a < b) is false but we are using an unary not operator that changes the result to true.
+```
