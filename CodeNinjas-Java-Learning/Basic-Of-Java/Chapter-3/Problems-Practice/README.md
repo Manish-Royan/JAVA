@@ -56,3 +56,33 @@ class Solution {
 }
 ```
 
+
+### • Swap Two Numbers
+
+#### Problem statement:
+
+You are given two numbers 'a' and 'b' as input. You must swap the values of 'a' and 'b'.
+
+```Java
+public class Solution {
+    public static void swapNumber(int[] a, int[] b) {
+        // Use XOR swapping algorithm
+        a[0] = a[0] ^ b[0];
+        b[0] = a[0] ^ b[0];
+        a[0] = a[0] ^ b[0];
+    }
+
+    public static void main(String[] args) {
+        int[] a = {8};
+        int[] b = {5};
+
+        System.out.println("Before swapping:");
+        System.out.println("a = " + a[0] + ", b = " + b[0]);
+
+        swapNumber(a, b);
+
+        System.out.println("After swapping:");
+        System.out.println("a = " + a[0] + ", b = " + b[0]);
+    }
+}
+```
