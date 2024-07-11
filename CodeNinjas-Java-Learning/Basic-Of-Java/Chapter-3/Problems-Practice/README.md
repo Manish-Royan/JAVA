@@ -57,11 +57,11 @@ class Solution {
 ```
 
 
-### • Swap Two Numbers
+### • Problem: Swap Two Numbers
 
 #### Problem statement:
 
-You are given two numbers 'a' and 'b' as input. You must swap the values of 'a' and 'b'.
+You are given two numbers `a` and `b` as input. You must swap the values of `a` and `b`.
 
 ```Java
 public class Solution {
@@ -83,6 +83,42 @@ public class Solution {
 
         System.out.println("After swapping:");
         System.out.println("a = " + a[0] + ", b = " + b[0]);
+    }
+}
+```
+
+
+### • Problem: Calculate Simple Interest
+
+#### Problem statement:
+Take the principal amount, rate of interest, and the time period as input and calculate the Simple Interest.
+
+    Note: Return answer as Floor integer value.
+
+```Java
+class Solution {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input principal amount
+        double principal = scanner.nextDouble();
+
+        // Input rate of interest
+        double rate = scanner.nextDouble();
+
+        // Input time period
+        double time = scanner.nextDouble();
+
+        // Calculate Simple Interest
+        double simpleInterest = (principal * rate * time) / 100;
+
+        // Round down to nearest integer using Math.floor()
+        int result = (int) Math.floor(simpleInterest);
+
+        // Print the result
+        System.out.println(result);
+
+        scanner.close();
     }
 }
 ```
