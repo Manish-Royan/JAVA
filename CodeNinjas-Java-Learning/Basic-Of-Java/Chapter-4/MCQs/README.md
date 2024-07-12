@@ -38,7 +38,7 @@ The modulus operator in java is used to find the remainder of division.
 ```
 
 
-### • MCQ: Find the output 1
+### • MCQ: Find the output
 
 #### Problem statement:
 
@@ -72,7 +72,7 @@ The operator * has higher priority than the + operator. So, the multiplication o
 ```
 
 
-### • MCQ: Find the output 2
+### • MCQ: Find the output
 
 #### Problem statement:
 
@@ -124,7 +124,7 @@ Unary operator in java takes only one operand.
 ```
 
 
-### • MCQ:  Types of decrement operators
+### • MCQ: Types of decrement operators
 
 #### Problem statement:
 
@@ -144,7 +144,7 @@ There are two types of decrement operators in java. These are pre-decrement oper
 ```
 
 
-### • MCQ: Find the output 1
+### • MCQ: Find the output
 
 #### Problem statement:
 
@@ -182,7 +182,7 @@ At the time of evaluating the expression (x++ == --y), x (5) is compared to y (6
 ```
 
 
-### • MCQ: Find the output 2
+### • MCQ: Find the output
 
 #### Problem statement:
 
@@ -220,7 +220,7 @@ At the time of evaluating the expression (++y == x--), y (6) is compared to x (6
 ```
 
 
-### • MCQ: Find the output 3
+### • MCQ: Find the output
 
 #### Problem statement:
 
@@ -245,4 +245,119 @@ public class Solution {
 Solution description:
 
 In the above program, we are using unary not operators that change the true to false and vice versa. Since the condition ( a < b) is false but we are using an unary not operator that changes the result to true.
+```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+
+    public static void main(String args[]) {
+
+        int a = 7, b = 18, c = 45;
+        a -= 4;
+        b *= 2;
+        c /= 9;
+        System.out.println(a + " " + b + " " + c);
+    }
+}
+```
+**Options:**
+
+    1. 3 18 5 
+    2. 3 36 5 ➡ [Answer]
+    3. 3 9 9
+    4. None of the above
+
+```
+Solution description:
+
+In the above program, we are using assignment operators, So that a -= 4 means a = a - 4 = 3, b *= 2 means b = b * 2 = 36, and c /= 9 means c = c / 9 = 5.
+```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+
+    public static void main(String args[]) {
+
+        int num = 18;
+        num %= 2;
+        System.out.println(num);
+    }
+}
+```
+**Options:**
+
+    1. 0
+    2. 9 ➡ [Answer]
+    3. 18
+    4. Compile time error
+
+```
+Solution description:
+
+In the above program, we are using a modulo assignment operator. It returns the remainder. But when we use modulo 18 % 2. It returns 0.
+```
+
+
+### • MCQ: Types of assignment operators
+
+#### Problem statement:
+
+How many types of assignment operators in java?
+
+**Options:**
+
+    1. 3
+    2. 5 ➡ [Answer]
+    3. 4
+    4. 6
+
+```
+Solution description:
+
+There are 5 assignment operators in java. These are +=, -=, *=, /=, and %=.
+```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+
+    public static void main(String args[]) {
+
+        int num = 18;
+        num *= 2;
+        System.out.println(num);
+    }
+}
+```
+**Options:**
+
+    1. 18
+    2. 36 ➡ [Answer]
+    3. 9
+    4. Compile time error
+
+```
+Solution description:
+
+In the above program, we are using a multiplication assignment operator. So that, num *= 2 means num = num * 2 = 36.
 ```

@@ -136,7 +136,7 @@ Variables declared inside a method have a method level scope, and cannot be acce
 ```
 
 
-### • MCQ: Find the output 1
+### • MCQ: Find the output
 
 #### Problem statement:
 
@@ -168,7 +168,7 @@ The variable 'x' has a method level scope and we can not access it outside the m
 ```
 
 
-### • MCQ: Find the output 2
+### • MCQ: Find the output
 
 #### Problem statement:
 
@@ -200,7 +200,7 @@ Solution description:
 ```
 
 
-### • MCQ: Find the output 3
+### • MCQ: Find the output
 
 #### Problem statement:
 

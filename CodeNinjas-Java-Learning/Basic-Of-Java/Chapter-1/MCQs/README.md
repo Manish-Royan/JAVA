@@ -59,7 +59,7 @@ Which of the following commands is used to run java code?
 
 #### Problem statement:
 
-Why is the java main() method public?
+Why is the java `main()` method public?
 
 **Options:**
 
