@@ -1,4 +1,4 @@
-# Welcome to the world of Java!
+# Challenge 1 - Printing to Stdout
 
 In this challenge, we practice printing to stdout.
 
