@@ -1,4 +1,4 @@
-# Java Stdin and Stdout I
+# # Challenge 2 - Java Stdin and Stdout I
 
 Most HackerRank challenges require to read input from `stdin` **(standard input)** and write output to `stdout` **(standard output)**.
 
@@ -25,4 +25,3 @@ The code above creates a Scanner object named *scanner*  and uses it to read a S
 ## *@Challenge*
 
 In this challenge, you must read  integers from `stdin` and then print them to `stdout`. Each integer must be printed on a new line. 
-
