@@ -37,4 +37,4 @@ The second column contains the integer, expressed in exactly `3` digits; if the 
 
 
 ## Explanation
-    Each String is left-justified with trailing whitespace through the first  characters means we have to give `%-15s` left-justified. The leading digit of the integer is the  character, and each integer that was less than  digits now has leading zeroes means if value if less than 3 digit than it have to converted into 3 digit with leading zero by `%03d` - zero will assign in front of two/lessthan two integer number.
+    Each String is left-justified with trailing whitespace through the first  characters means we have to give `%-15s` left-justified. The leading digit of the integer is the  character, and each integer that was less than 3 digits now has leading zeroes means if value if less than 3 digit than it have to converted into 3 digit with leading zero by `%03d` - zero will assign in front of two/lessthan two integer number.
