@@ -1,4 +1,4 @@
-# # Challenge 4 - Java Loops I
+# # Challenge 6 - Java Loops I
 
 ## *@Challenge*
 In this challenge, we're going to use loops to help us do some simple multiplication.
