@@ -21,29 +21,28 @@ where `formattedPayment` is `payment` formatted according to the appropriate `Lo
 * The output should be formatted as specified, with each country's currency on a separate line.
 
 
-### Function Description
+## Input Format
 
-`findDay` has the following parameters:
+A single double-precision number denoting `payment`.
 
-* `int` : `month`
-* `int` : `day`
-* `int` : `year`
+## Sample Input
+    12324.134
 
-It should returns `string` : *the day of the week in **capital letters***.
+## Constraints
 
-### Input Format:
-A single line of input containing the space separated *month*, *day* and *year*, respectively, in **MM** **DD** **YYYY** format.
+0 <= payment <=10^9
 
-### Constraints:
+## Output Format
+On the first line, print US: *u* where `u` is `payment` formatted for US currency.
+On the second line, print India: *i* where `i` is `payment` formatted for Indian currency.
+On the third line, print China: *c* where `c` is `payment` formatted for Chinese currency.
+On the fourth line, print France: *f*, where `f` is `payment` formatted for French currency.
 
-*2000 < year < 3000*
+## Sample Output
+    US: $12,324.13
+    India: Rs.12,324.13
+    China: ¥12,324.13
+    France: 12 324,13 €
 
-
-### Sample Input:
-
-   08 05 2015
-
-    
-### Sample Format:
-
-    WEDNESDAY
+## Explanation
+Each line contains the value of `payment` formatted according to the four countries' respective currencies.
