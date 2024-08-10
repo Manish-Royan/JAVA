@@ -11,7 +11,7 @@ public class Solution {
         s = s.trim(); //The `trim()` method removes leading and trailing spaces from the string.
         
         //Creating an array
-        String token[] = s.split("[^a-zA-z]+"); //The regular expression [^a-zA-Z]+ is used to split the string wherever there are one or more characters that are not letters (a-z or A-Z). This effectively removes punctuation and other non-alphabetic characters.
+        String token[] = s.split("[^a-zA-Z]+"); //The regular expression [^a-zA-Z]+ is used to split the string wherever there are one or more characters that are not letters (a-z or A-Z). This effectively removes punctuation and other non-alphabetic characters.
         
         if(s.length() == 0)
         {
