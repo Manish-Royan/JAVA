@@ -362,23 +362,22 @@ Solution description:
 In the above program, we are using a multiplication assignment operator. So that, num *= 2 means num = num * 2 = 36.
 ```
 
-### • MCQ:  Types of assignment operators
+### • MCQ: Result of relational operators
 
 #### Problem statement:
 
-How many types of assignment operators in java?
+The result of a relational operator is always?
 
 **Options:**
 
-    1. 3
-    2. 5
-    3. 4
-    4. 6
-➡ [Answer]
+    1. int 
+    2. boolean ➡ [Answer]
+    3. float
+    4. Compile Time Error
 
 ```
 Solution description:
 
-There are 5 assignment operators in java. These are +=, -=, *=, /=, and %=.
+The result of a relational operator is always a boolean value. It either returns true or false.
 
 ```
