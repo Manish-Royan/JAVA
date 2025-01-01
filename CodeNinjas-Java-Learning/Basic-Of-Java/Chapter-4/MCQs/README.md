@@ -380,7 +380,6 @@ The result of a relational operator is always?
 Solution description:
 
 The result of a relational operator is always a boolean value. It either returns true or false.
-
 ```
 
 
@@ -401,5 +400,42 @@ Minimum number of operands are required to use relational operators in Java?
 Solution description:
 
 There are 2 operands required to use relational operators.
+```
 
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+
+    public static void main(String args[]) {
+
+        char ch = 'a';
+
+        if(ch > 70) {
+            System.out.println("Coding Ninjas");
+        }
+
+        else {
+            System.out.println("Ninjas");
+        }
+    }
+}
+```
+
+**Options:**
+
+    1. Coding Ninjas ➡ [Answer]
+    2. Ninjas
+    3. Compilation error
+    4. Runtime error
+
+```
+Solution description:
+
+The ASCII value of a is 97, which is greater than 70. So that it passes the condition and prints the message.
 ```
