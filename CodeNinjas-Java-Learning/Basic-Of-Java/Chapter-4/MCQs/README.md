@@ -439,3 +439,44 @@ Solution description:
 
 The ASCII value of a is 97, which is greater than 70. So that it passes the condition and prints the message.
 ```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+
+    public static void main(String args[]) {
+
+        int a = 10;
+        int b = 20;
+
+        if(a != b) {
+            System.out.println("Ninjas");
+        }
+
+        else {
+            System.out.println("Coding Ninjas");
+        }
+    }
+}
+```
+
+**Options:**
+
+    1. Coding Ninjas
+    2. Ninjas ➡ [Answer]
+    3. Compilation error
+    4. Runtime error
+
+➡ [Answer]
+
+```
+Solution description:
+
+The value of a is not equal to b. Therefore the condition fails and an else block is executed and prints the result.
+```
