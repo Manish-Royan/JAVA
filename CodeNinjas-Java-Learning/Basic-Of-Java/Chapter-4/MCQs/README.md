@@ -362,6 +362,7 @@ Solution description:
 In the above program, we are using a multiplication assignment operator. So that, num *= 2 means num = num * 2 = 36.
 ```
 
+
 ### • MCQ: Result of relational operators
 
 #### Problem statement:
@@ -379,5 +380,26 @@ The result of a relational operator is always?
 Solution description:
 
 The result of a relational operator is always a boolean value. It either returns true or false.
+
+```
+
+
+### • MCQ: Operands in relational operators
+
+#### Problem statement:
+
+Minimum number of operands are required to use relational operators in Java?
+
+**Options:**
+
+    1. 2 ➡ [Answer]
+    2. 3
+    3. 1
+    4. None of the above
+
+```
+Solution description:
+
+There are 2 operands required to use relational operators.
 
 ```
