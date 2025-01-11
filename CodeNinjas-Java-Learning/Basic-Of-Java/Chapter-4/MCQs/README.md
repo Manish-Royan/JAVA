@@ -473,10 +473,74 @@ public class Solution {
     3. Compilation error
     4. Runtime error
 
-➡ [Answer]
-
 ```
 Solution description:
 
 The value of a is not equal to b. Therefore the condition fails and an else block is executed and prints the result.
+```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+
+    public static void main(String arg[]) {
+        int a = 10;
+        int b = 20;
+        int c = 30;
+
+        System.out.println((b > a) && (c > b));  
+    }
+}
+```
+
+**Options:**
+
+    1. true ➡ [Answer]
+    2. false
+    3. Compilation error
+    4. Runtime error
+
+```
+Solution description:
+
+Logical AND operator returns true if both the condition becomes true. In the above example, both the conditions are true. Therefore it returns true.
+```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+
+    public static void main(String arg[]) {
+        int a = 10;
+        int b = 20;
+        int c = 30;
+
+        System.out.println((b > a) || (c < b));  
+    }
+}
+```
+
+**Options:**
+
+    1. true ➡ [Answer]
+    2. false
+    3. Compilation error
+    4. Runtime error
+
+```
+Solution description:
+
+Logical OR operator returns true if any one condition becomes true. In the above example, one condition is true and the other condition is false. Therefore it returns true.
 ```
