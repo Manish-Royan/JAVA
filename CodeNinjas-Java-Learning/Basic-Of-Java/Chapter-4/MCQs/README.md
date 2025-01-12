@@ -544,3 +544,113 @@ Solution description:
 
 Logical OR operator returns true if any one condition becomes true. In the above example, one condition is true and the other condition is false. Therefore it returns true.
 ```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+    public static void main(String arg[]) {
+        int a = 6;
+        int b = 7;
+
+        System.out.println("a | b = " + (a | b));
+    }
+}
+```
+
+**Options:**
+
+    1. a | b = 7 ➡ [Answer]
+    2. a | b = 6
+    3. a | b = 0
+    4. a | b = 9
+
+```
+Solution description:
+
+Binary representation of 6 is 0110 and binary representation of 7 is 0111. This operator returns 1 if either one of the bits is 1. So after comparing every bit it returns 7 as an answer.
+```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+    public static void main(String args[]) {
+        int a = 6;
+
+        System.out.println(" ~a = " + ~a);
+    }
+}
+```
+
+**Options:**
+
+    1. 9 ➡ [Answer]
+    2. 6    
+    3. -7
+    4. -8
+
+```
+Solution description:
+
+In the above program, we are using the Bitwise complement operator. It simply inverts the bits. #### The binary representation of 6 is 000000000000000000000000000000110, after performing inverting the bits, it becomes 111111111111111111111111111111001. So the decimal representation would be -7.
+```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+    public static void main(String arg[]) {
+        int a = 8;
+        System.out.println("a >> 2 = " + (a >> 2));
+    }
+}
+```
+
+**Options:**
+
+    1. a >> 2 = 8
+    2. a >> 2 = 5 
+    3. a >> 2 = 2 ➡ [Answer]
+    4. a >> 2 = 7    
+
+```
+Solution description:
+
+In the above program, we are using the Signed right shift operator (>>). This operator is used to shift the bits of the number to the right and fills 0 in the void spaces that are left as a result. The binary representation of 8 is 1 0 0 0, signed right shift removes the number of 0's to the right, therefore, it becomes 1 0, the decimal representation of 1 0 is 2.
+```
+
+
+### • MCQ: Guess the operator
+
+#### Problem statement:
+
+Which of the following operators is return 1 if the corresponding bits are different?
+
+**Options:**
+
+    1. Bitwise complement operator
+    2. Unsigned right shift operator
+    3. Signed right shift operator
+    4. Bitwise Exclusive Or operator ➡ [Answer]
+
+```
+Solution description:
+
+The Bitwise Exclusive Or operator is returned 1 if the corresponding bits are different.
+```
