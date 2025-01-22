@@ -595,9 +595,9 @@ public class Solution {
 
 **Options:**
 
-    1. 9 ➡ [Answer]
+    1. 9 
     2. 6    
-    3. -7
+    3. -7 ➡ [Answer]
     4. -8
 
 ```
@@ -653,4 +653,96 @@ Which of the following operators is return 1 if the corresponding bits are diffe
 Solution description:
 
 The Bitwise Exclusive Or operator is returned 1 if the corresponding bits are different.
+```
+
+
+### • MCQ: Other name of ternary operator
+
+#### Problem statement:
+
+Java ternary operator sometimes called?
+
+**Options:**
+
+    1. Relational operator
+    2. Logical operator
+    3. Conditional operator ➡ [Answer]
+    4. None of the above
+
+```
+Solution description:
+
+Java ternary operator is also called Conditional operator.
+```
+
+
+### • MCQ: Other name of ternary operator
+
+#### Problem statement:
+
+Java ternary operator sometimes called?
+
+**Options:**
+
+    1. Relational operator
+    2. Logical operator
+    3. Ternary operator ➡ [Answer]
+    4. None of the above
+
+```
+Solution description:
+
+The ternary operator is the only operator in java that takes three operands.
+```
+
+
+### • MCQ: Find the output
+
+#### Problem statement:
+
+What is the output of the following code?
+
+```Java
+public class Solution {
+    public static void main(String argo[]) {
+        int a = 50;
+        int b = 100;
+        int c = (a > b) ? a : b;
+
+        System.out.println(c);
+    }
+} 
+```
+
+**Options:**
+
+    1. 100 ➡ [Answer]
+    2. 50
+    3. Compilation error
+    4. Runtime error  
+
+```
+Solution description:
+
+The above program simply finds the maximum among three numbers. It first checks if a is greater than b or not, if yes then print a else print b.
+```
+
+
+### • MCQ: Use of ternary operator
+
+#### Problem statement:
+
+We can use ternary operator in place of?
+
+**Options:**
+
+    1. If else
+    2. Switch statement
+    3. Both ➡ [Answer]
+    4. None of the above
+
+```
+Solution description:
+
+We can use ternary operator in place of if else and switch statement.
 ```
