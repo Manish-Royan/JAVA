@@ -46,7 +46,8 @@ iv. **Secured**: Java is best known for its security. With Java, we can develop 
 * No explicit pointer.Java does not use pointers, which helps prevent unauthorized memory access. 
 * The JVM verifies Java bytecode before execution, ensuring that it adheres to Java’s security constraints. 
 * Java applications run in a restricted environment (sandbox) that limits their access to system resources and user data, enhancing security
-* Java Programs run inside a virtual machine sandbox: 
+* Java Programs run inside a virtual machine sandbox:
+
   ![java-security](https://github.com/user-attachments/assets/4a1eb95d-6c5d-4df3-a576-ff4512267c3b)
 
    * **Classloader**: Classloader in Java is a part of the **Java Runtime Environment (*JRE*)** which is **used to load Java classes into the Java Virtual Machine dynamically**. It adds security by separating the package for the classes of the local file system from those that are imported from network sources.
