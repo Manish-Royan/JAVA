@@ -2,7 +2,7 @@
 
 **The primary objective of Java programming language creation was to make it *portable*, *simple* and *secure* programming language**. Apart from this, there are also some excellent features which play an important role in the popularity of this language. The features of Java are also known as Java buzzwords.
 
-[IMG]
+![java-features](https://github.com/user-attachments/assets/19bf79d6-c88b-47e8-8b1f-260bf422f753)
 
 ## » A list of the most important features/buzzwords of the Java language is given below:
 
@@ -26,6 +26,8 @@ ii. **Object-oriented**:Java is an object-oriented programming language. Everyth
 
 iii. **Platform Independent**: Java is platform independent because it is different from other languages like C, C++, etc. which are compiled into platform specific machines while Java is a write once, run anywhere language. A platform is the hardware or software environment in which a program runs.
 
+![platform-independent-java](https://github.com/user-attachments/assets/3c5296e1-894d-402b-b33c-fc6b1bfd81bf)
+
 There are two types of platforms software-based and hardware-based. Java provides a software-based platform.
 
 The Java platform differs from most other platforms in the sense that it is a software-based platform that runs on top of other hardware-based platforms. It has two components:
@@ -45,7 +47,8 @@ iv. **Secured**: Java is best known for its security. With Java, we can develop 
 * The JVM verifies Java bytecode before execution, ensuring that it adheres to Java’s security constraints. 
 * Java applications run in a restricted environment (sandbox) that limits their access to system resources and user data, enhancing security
 * Java Programs run inside a virtual machine sandbox: 
-[IMG]
+  ![java-security](https://github.com/user-attachments/assets/4a1eb95d-6c5d-4df3-a576-ff4512267c3b)
+
    * **Classloader**: Classloader in Java is a part of the **Java Runtime Environment (*JRE*)** which is **used to load Java classes into the Java Virtual Machine dynamically**. It adds security by separating the package for the classes of the local file system from those that are imported from network sources.
     * **Bytecode Verifier**: It checks the code fragments for illegal code that can violate access rights to objects.
     * **Security Manager**: It determines what resources a class can access such as reading and writing to the local disk.
