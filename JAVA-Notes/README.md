@@ -40,4 +40,5 @@ This repository contains my personal notes on Core Java and Advanced Java, compi
 * [JavaPoint](https://www.tpointtech.com/java-tutorial)
 * [GeeksforGeeks](https://www.geeksforgeeks.org/java/)
 * [Oracle Java Documentation](https://docs.oracle.com/javase/tutorial/)
-* **Core Java-Fundamental** by *Cay S. Horstmann*
+* **Book Suggestion** for Core Java: **Core Java-Fundamental** by *Cay S. Horstmann*
+* **YouTube Channels Suggestion** for Core Java: [Bro Code](https://www.youtube.com/@BroCodez), [Learn Coding](https://www.youtube.com/playlist?list=PLqleLpAMfxGAdqZeY_4uVQOPCnAjhH-eT), [Java By Saurabh Sir](https://www.youtube.com/playlist?list=PLX9Zi6XTqOKQ7TdRz0QynGIKuMV9Q2H8E), [Telusko](https://www.youtube.com/playlist?list=PLsyeobzWxl7pe_IiTfNyr55kwJPWbgxB5)
