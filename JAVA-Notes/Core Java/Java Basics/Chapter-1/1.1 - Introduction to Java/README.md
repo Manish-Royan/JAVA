@@ -17,7 +17,8 @@ Java is known for its *simplicity*, *robustness*, and *security* *features*, mak
 ##  ▸ Key principle of OOP:
 The key principles of Object-Oriented Programming (OOP) are **encapsulation**, **inheritance**, **polymorphism**, and **abstraction**; these are often referred to as the "***four pillars***" of OOP, allowing objects to interact with each other by managing data and behaviors within a structured way. 
 
-[IMG]
+![Key principle of OOP](https://github.com/user-attachments/assets/5a8395c0-1f80-4832-a355-787388efad85)
+
 
 ### » Explanation of each principle:
 
