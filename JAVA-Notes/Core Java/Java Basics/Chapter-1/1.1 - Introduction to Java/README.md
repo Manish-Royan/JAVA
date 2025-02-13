@@ -7,10 +7,10 @@ It was designed to be platform-independent, meaning it is intended to let applic
 Java is known for its *simplicity*, *robustness*, and *security* *features*, making it a popular choice for **enterprise-level applications**. Java applications are compiled to ***byte code*** (**.class** file), that can run on any **Java Virtual Machine**. Java makes writing, compiling, and debugging programming easy. It helps to create reusable code and modular programs.
 
 
-## Q. What is high-level programming language?
+## Q. What is high-level programming language❓
 → A high level programming language is a programming language that is designed to be easy to read, write and understand by humans. These languages are typically more abstract and closer to natural human languages than low-level language which are closer to machine code and hardware architecture.
 
-## Q. What is high-level programming language?
+## Q. What is high-level programming language❓
 → Object-oriented programming (OOP) is a programming paradigm based on the concept of "**object**", which are self-contained units that contains both ***data*** (***attributes*** or ***properties***) and ***methods*** (***function*** or ***procedures***) to operate on that data.
 
 
@@ -31,7 +31,7 @@ iii.**Polymorphism**: Allows objects of different classes to respond to the same
 iv.**Abstraction**: Focuses on essential features of an object, hiding unnecessary complexities, providing a high-level view of functionality. 
 
 
-## Why Use Java?
+## Q. Why Use Java❓
 * Java works on different platforms (Windows, Mac, Linux, Raspberry Pi, etc.)
 * It is one of the most popular programming languages in the world
 * It has a large demand in the current job market
@@ -43,7 +43,6 @@ iv.**Abstraction**: Focuses on essential features of an object, hiding unnecessa
 * As Java is close to *C++* and *C#*, it makes it easy for programmers to switch to Java or vice versa
 
 
-## Java Quickstart
 In Java, every application begins with a **class** name, and that ***class* must match the filename**.
 
 Let's create our first Java file, called **Main.java**, which can be done in any text editor (like Notepad).
