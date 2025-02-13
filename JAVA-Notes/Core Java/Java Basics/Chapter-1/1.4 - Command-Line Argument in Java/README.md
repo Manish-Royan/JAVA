@@ -17,8 +17,8 @@ System.out.println("Your first argument is: "+args[0]);
 If you save this file as CLA.java, compile and run it as follows:
 
 ```
-javac Main.java
-java Main Hello
+javac CLA.java
+java CLA Hello
 ```
 
 * First, we compile source by (**javac CLA.java**). The **javac** invoke the Java-complier to complie the **.java** file and after compiling, complier creates coressponding **.class** file which total length of instruction is 8bits (4bits+4bits) which is eqivalent to 1Byte that's why **.class** file is also know as **byte code**. If there is syntax error the source code won't be complie (*compile time error*) and throw exception and no **.classs** will be created by complier.
