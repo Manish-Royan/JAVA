@@ -91,7 +91,7 @@ A** thread is like a separate program, executing concurrently**. We can write Ja
 
 ix. **Dynamic**: Java is a dynamic language. **It supports the dynamic loading of classes**. It means **classes are loaded on demand**. It also supports functions from its native languages, *i.e., C and C++*.
 
-Java supports dynamic compilation and automatic memory management (garbage collection).
+Java supports dynamic compilation and automatic memory management (**garbage collection**).
 
 * Java can link in new class libraries, methods, and objects dynamically.
 * Java programs carry substantial amounts of run-time type information, enabling dynamic linking in a safe and expedient manner.
