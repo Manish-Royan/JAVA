@@ -43,10 +43,7 @@ iv.**Abstraction**: Focuses on essential features of an object, hiding unnecessa
 * As Java is close to *C++* and *C#*, it makes it easy for programmers to switch to Java or vice versa
 
 
-<<<<<<< Updated upstream
-=======
 ## Java Quickstart ⏩
->>>>>>> Stashed changes
 In Java, every application begins with a **class** name, and that ***class* must match the filename**.
 
 Let's create our first Java file, called **Main.java**, which can be done in any text editor (like Notepad).
