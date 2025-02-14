@@ -50,6 +50,9 @@ Output: Your first argument is: Hello
 Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0
 ```
 
+### 👉 Because it was looking something in array that wasn't there.
+
+
 ### » Why does this happen?
 * ***args*** is an array **(String[] args)** that holds command-line arguments.
 * When you run the program without passing any arguments, ***args*** is an empty array **(args.length == 0)**.
