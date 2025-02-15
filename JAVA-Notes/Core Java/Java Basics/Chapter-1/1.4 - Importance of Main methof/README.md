@@ -135,7 +135,7 @@ class MainMethod {
 
 ## ▸ Anatomy of JAVA
 
-[IMG]
+![1_8ls-fv5l7V61wXLQwWrHEQ](https://github.com/user-attachments/assets/c0010386-9df7-4504-845d-39d66d48a585)
 
 ## Q. Why main method is ***public*** in Java❓
 ⇛ "**public**" is an access modiier in Java. The main method is "**public**" so JVM can call or access main method form outside of public class. The JVM (which execute code) call main method form outside of class, if the main method is not "public" then JVM cna't call or access the main method nad our program cannot be execute and since main method cannot be executed then whole program cannot be executed.
