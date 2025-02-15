@@ -108,7 +108,7 @@ Exception in thread "main" java.lang.StackOverflowError
 ```
 ### 👉 The error occurs because Java has a limited memory stack, and calling main infinitely fills up the stack space.
 
-### How to Fix It❓
+### ⛔ How to Fix It❓
 » If you want to prevent infinite recursion, you should have a stopping condition:
 
 ```JAVA
@@ -127,9 +127,9 @@ class MainMethod {
 ### Q. When is this concept used❓
 ⇛ Even though this program causes an error, recursive calls to the main method can be used in certain cases:
 
-1. Restarting a Java Program:
+1. **Restarting a Java Program**:
     * You can use main recursion with a base case to restart a program without exiting.
-2. Simulating Recursion for Learning Purposes:
+2. **Simulating Recursion for Learning Purposes**:
     * Some programmers use this to understand recursion behavior.
 ### 👉 However, it is not a good practice to use main for recursion because main is meant to start the program, not act as a recursive function.
 
@@ -137,20 +137,20 @@ class MainMethod {
 
 ![1_8ls-fv5l7V61wXLQwWrHEQ](https://github.com/user-attachments/assets/c0010386-9df7-4504-845d-39d66d48a585)
 
-## Q. Why main method is ***public*** in Java❓
-⇛ "**public**" is an access modiier in Java. The main method is "**public**" so JVM can call or access main method form outside of public class. The JVM (which execute code) call main method form outside of class, if the main method is not "public" then JVM cna't call or access the main method nad our program cannot be execute and since main method cannot be executed then whole program cannot be executed.
+## Q. Why main method is `public` in Java❓
+⇛ "`public`" is an access modiier in Java. The main method is `public` so JVM can call or access main method form outside of `public` class. The JVM (which execute code) call main method form outside of class, if the main method is not "`public`" then JVM can't call or access the main method and our program cannot be execute and since main method cannot be executed then whole program cannot be executed.
 
 
-## Q. Why main method is ***static*** in Java❓
-⇛ The main method is "**static**" so we can access the main method without creating any object. It won't neccessary to create a **new object** to run method since it is "**static**". If it was not "**static**" then we have to call it by creating another object of class so, that's why Java Developer created main method "**static**". Since main method is the beginning of program, **when JVM calls the main method it won't have to depend upon another class object to be execute and it will execute by itself without object creation**.
+## Q. Why main method is `static` in Java❓
+⇛ The main method is "`static`" so we can access the main method without creating any object. It won't neccessary to create a **new object** to run method since it is "`static`". If it was not "`static`" then we have to call it by creating another object of class so, that's why Java Developer created main method "`static`". Since main method is the beginning of program, **when JVM calls the main method it won't have to depend upon another class object to be execute and it will execute by itself without object creation**.
 
 
-## Q. Why main method is ***void*** in Java❓
-⇛ "**void**" is a data-type, whenever write "**void**" as return type it means we don't expect any value in return from main method.
+## Q. Why main method is `void` in Java❓
+⇛ "`void`" is a data-type, whenever write "`void`" as return type it means we don't expect any value in return from main method.
 
 
-## Q. What is (Stirng[] args)❓
-⇛ It is array of **String**, ***args*** is an array of **String** (Stirng[] args) which store command-line arguments passed to the program. It stores Java command-line arguments and is an array of type java.lang.String class. 
+## Q. What is `(Stirng[] args)`❓
+⇛ It is array of **String**, ***args*** is an array of **String** `(Stirng[] args)` which store command-line arguments passed to the program. It stores Java `command-line arguments` and is an array of type `java.lang.String class`. 
 
 
 ## ▸ Importance of Main Method
