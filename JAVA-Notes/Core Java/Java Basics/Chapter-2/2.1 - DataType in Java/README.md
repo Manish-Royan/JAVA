@@ -7,7 +7,7 @@ Data types define the type and value range of the data for the different types o
 ## ▸ Data Type in Java 
 **Java is a strongly typed language**. This means that every **variable must have a declared type**. Based on the data type of a variable, the operating system allocates memory and decides what can be stored in the reserved memory. Therefore, by assigning different data types to variables, we can store *integers*, *decimals*, or *characters* in these variables.
 
-[IMG]
+![Screenshot 2025-02-19 005331](https://github.com/user-attachments/assets/8afb4da7-c7c8-4c97-96f0-b1691d0910f2)
 
 Data types in Java are of different sizes and values that can be stored in the variable that is made as per convenience and circumstances to cover up all test cases. Java has two categories in which data types are segregated:
 
@@ -31,14 +31,14 @@ Data types in Java are of different sizes and values that can be stored in the v
 | 9. **Usage in Collections**: Cannot be used directly in collections (*e.g., `ArrayList<int>` is invalid*). Require **wrapper classes** (*e.g., `Integer`, `Double`*).| 9. **Usage in Collections**: Used in collections (*e.g., `ArrayList<Integer>`*).
 | 10. **Example**: `int`, `char`, `boolean`| 10. **Example**: `String`, `Arrays`, `Classes`
 
-### #Example for pass by value of primitive data-type:
+### #Example for pass by value in primitive data-type:
 ```Java
 // Primitive (passed by value)
 void increment(int x) { x++; }
 int num = 5;
 increment(num); // num remains 5
 ```
-### #Example for pass by reference of non-primitive data-type:
+### #Example for pass by reference in non-primitive data-type:
 ```Java
 // Non-Primitive (passed by reference)
 void addElement(ArrayList<Integer> list) { list.add(10); }
