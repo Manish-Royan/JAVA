@@ -10,7 +10,7 @@ Java is known for its *simplicity*, *robustness*, and *security* *features*, mak
 ## Q. What is high-level programming language❓
 → A high level programming language is a programming language that is designed to be easy to read, write and understand by humans. These languages are typically more abstract and closer to natural human languages than low-level language which are closer to machine code and hardware architecture.
 
-## Q. What is high-level programming language❓
+## Q. What is object-oriented programming language❓
 → Object-oriented programming (OOP) is a programming paradigm based on the concept of "**object**", which are self-contained units that contains both ***data*** (***attributes*** or ***properties***) and ***methods*** (***function*** or ***procedures***) to operate on that data.
 
 
