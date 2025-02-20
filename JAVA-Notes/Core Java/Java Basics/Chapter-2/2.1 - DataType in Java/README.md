@@ -89,3 +89,10 @@ int[] arr = {1, 2}; // Array object in heap
 | double | 8(64bits) | ±1.7e308 |  Approximately ±1.79769313486231570E+308 (15 significant decimal digits) | 0.0d | 64-bit IEEE 754 floating-point. Default for decimals (higher precision).			
 | char | 2(16bits) | ❌ | 0 to 65,535 (Unicode characters) | '\u0000' | 16-bit Unicode character (*e.g., `A`, `€`, `\n`*).		
 | boolean | 1 bit (JVM-dependent - Not precisely defined) | ❌ | **true** or **false** | false | Represents logical values. Size is JVM-dependent (often 1 byte in practice).			
+
+
+## Primitive Data type
+
+Java has 8 primitive data types, which are predefined, non-object types used to store simple values directly in memory. They are the building blocks for data manipulation in Java and are optimized for speed and memory efficiency. A primitive data type specifies the type of a variable and the kind of values it can hold.
+
+### There are 8 primitive data types, and they are:
