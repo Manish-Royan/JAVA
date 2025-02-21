@@ -96,3 +96,5 @@ int[] arr = {1, 2}; // Array object in heap
 Java has 8 primitive data types, which are predefined, non-object types used to store simple values directly in memory. They are the building blocks for data manipulation in Java and are optimized for speed and memory efficiency. A primitive data type specifies the type of a variable and the kind of values it can hold.
 
 ### There are 8 primitive data types, and they are:
+
+i. byte:
