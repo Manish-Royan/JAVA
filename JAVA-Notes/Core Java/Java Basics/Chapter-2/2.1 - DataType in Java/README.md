@@ -97,4 +97,4 @@ Java has 8 primitive data types, which are predefined, non-object types used to 
 
 ### There are 8 primitive data types, and they are:
 
-i. byte:
+i. byte: byte data type holds 8btis.
