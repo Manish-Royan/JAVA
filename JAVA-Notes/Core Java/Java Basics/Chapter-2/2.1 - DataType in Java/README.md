@@ -91,10 +91,66 @@ int[] arr = {1, 2}; // Array object in heap
 | boolean | 1 bit (JVM-dependent - Not precisely defined) | ❌ | **true** or **false** | false | Represents logical values. Size is JVM-dependent (often 1 byte in practice).			
 
 
-## Primitive Data type
+## **Primitive Data type**
 
 Java has 8 primitive data types, which are predefined, non-object types used to store simple values directly in memory. They are the building blocks for data manipulation in Java and are optimized for speed and memory efficiency. A primitive data type specifies the type of a variable and the kind of values it can hold.
 
 ### There are 8 primitive data types, and they are:
 
-i. byte: byte data type holds 8btis.
+i. **`byte`**: The byte data type is an 8 bit two's complement integer—variables of type byte store numeric values between -128 to 127 (inclusive). The range defines the minimum (-128) and maximum (127) value a byte can store. The default value of a byte variable is 0, which is used to save space in large arrays, which is mainly beneficial in integers since a byte is four times smaller than an integer. The byte data type is useful for saving memory in large arrays. 
+
+
+### Size: 1 byte (8 bits) 
+
+### Range: -128 to 127 (signed 2's complement integer).
+
+### Default value: 0
+
+### Purpose:
+
+* Stores small integers to save memory (e.g., pixel values, file I/O streams).
+
+* Useful in arrays where memory conservation is critical.
+
+### Syntax:
+```Java
+byte byteVar;
+```
+
+### Example:
+```Java
+class ByteDemo {
+  public static void main(String[] args) {
+    
+        byte byteVar = 126;
+  
+        // byteVar is of 8 bit
+        System.out.println(byteVar);
+        // Increment of byteVar value
+        byteVar++;
+        System.out.println(byteVar);
+  
+        // It overflows here because
+        // byte hold values of range -128 to 127
+        byteVar++;
+        System.out.println(byteVar);
+  
+        // Looping back within the range
+        byteVar++;
+        System.out.println(byteVar);
+  }
+}
+```
+
+The code above outputs the following:
+```
+126
+
+127
+
+-128
+
+-127
+```
+
+
