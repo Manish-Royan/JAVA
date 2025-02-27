@@ -46,6 +46,9 @@ byte c = -128;  // Min value
 * Useful in arrays where memory conservation is critical.
 
 
+### Q. When to use such data-type?
+→ Use byte for large arrays (e.g., image processing) or when interfacing with 8-bit data streams.
+
 ### 📌 Example:
 ```Java
 class ByteDemo {
@@ -186,6 +189,9 @@ short s = 32000;
 
 * Legacy systems or protocols requiring 16-bit values (e.g., old file formats).
 
+### Q. When to use such data-type?
+→ Use short for memory optimization in large arrays or when interfacing with legacy protocols.
+
 ### 📌 Example:
 ```Java
 class ShortDemo {
@@ -229,6 +235,9 @@ int num = 2147483647;
 * Default choice for integer values (e.g., loop counters, arithmetic operations).
 
 * Used in most calculations due to its balance of range and memory usage.
+
+## Q. When to use such data-type?
+→ Use int as the default for whole numbers unless memory constraints or larger ranges are required.
 
 ### 📌 Example:
 ```Java
@@ -336,7 +345,9 @@ long longVar;
 ### » Range: -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 
 ```Java
-long bigNumber = 9223372036854775807L; // Must use L 
+long l = -9223372036854775808L;
+long m = 9223372036854775807L;
+// long n = 9223372036854775808L; // ERROR! Out of range
 ```
 
 ### » Default value: 0
@@ -347,6 +358,8 @@ long bigNumber = 9223372036854775807L; // Must use L
 
 * Requires an `L` suffix for literals to distinguish from int.
 
+### Q. When to use such data-type?
+→ Use long for very large numbers (e.g., global population counts) or 64-bit systems.
 
 ### 📌 Example:
 ```Java
@@ -376,6 +389,60 @@ In Java 8 and later, you can represent an unsigned 64-bit long using the long da
 ### ↳ Floating-Point Data Types (Decimals): `float`, `double`
 
 5️⃣ **`float`**: The float data type is a single-precision 32-bit IEEE 754 floating-point. Use a float (instead of double) if you need to save memory in large arrays of floating-point numbers. The size of the float data type is 4 bytes (32 bits). Its default value is 0.0f. However, it's important to note that the float data type is not suitable for precise values, such as currency, due to potential rounding errors in floating-point arithmetic.
+
+
+### » Syntax:
+```Java
+float floatVar;
+```
+
+### » Size: 32-bit (4 bytes)
+
+### » Range: ±3.4e38 (6–7 decimal digits of precision).
+
+```Java
+float f = 3.14f;
+// float g = 3.14; // ERROR! Missing 'f' suffix
+```
+
+### » Default value: 0.0f
+
+### » Purpose:
+
+* Stores single-precision floating-point numbers (decimal values).
+
+* Sacrifices precision for range and memory efficiency.
+
+* Requires an `f` suffix for literals.
+
+### Q. When to use such data-type?
+→ Use float for memory-sensitive applications requiring fractional values.
+
+### 📌 Example:
+```Java
+class FloatDemo {
+  public static void main(String[] args) {
+    float pi = 3.1415f; // Precision loss after 6-7 decimals.
+    System.out.println(pi);
+  }
+}
+```
+
+~~~
+Note: In the code example above, the F suffix of the floatVar variable tells the compiler that it's a float literal. Without it, the above code will return an error.
+~~~
+
+
+### The code above outputs the following ⬇️:
+```
+3.1415
+```
+
+
+6️⃣ **`double`**: 
+
+
+
 
 ### Use float or double?
 
