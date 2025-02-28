@@ -340,7 +340,7 @@ Size of int in Java: 4 bytes
 long longVar;
 ```
 
-### » Size: 64-bit (8 bytes)
+### » Size: 8 bytes (64-bit)
 
 ### » Range: -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807
 
@@ -396,13 +396,14 @@ In Java 8 and later, you can represent an unsigned 64-bit long using the long da
 float floatVar;
 ```
 
-### » Size: 32-bit (4 bytes)
+### » Size: 4 bytes (32 bits)
 
-### » Range: ±3.4e38 (6–7 decimal digits of precision).
+### » Range: ±3.4e38 (6–7 decimal digits of precision). 
 
 ```Java
-float f = 3.14f;
-// float g = 3.14; // ERROR! Missing 'f' suffix
+float f = 3.1415927f;  
+float f = -1.4e-45f;  
+// float x = 3.1415926535f; // Precision loss beyond 7 digits  
 ```
 
 ### » Default value: 0.0f
@@ -416,7 +417,57 @@ float f = 3.14f;
 * Requires an `f` suffix for literals.
 
 ### Q. When to use such data-type?
-→ Use float for memory-sensitive applications requiring fractional values.
+→ Use float for memory-sensitive applications requiring fractional values. We should use a floating point type whenever you need a number with a decimal, such as 9.99 or 3.14515.
+
+
+### 📌 Example:
+```Java
+class FloatDemo {
+  public static void main(String[] args) {
+    float pi = 3.1415f; // Precision loss after 6-7 decimals.
+    System.out.println(pi);
+  }
+}
+```
+
+~~~
+Note: In the code example above, the F suffix of the floatVar variable tells the compiler that it's a float literal. Without it, the above code will return an error.
+~~~
+
+
+### The code above outputs the following ⬇️:
+```
+3.1415
+```
+
+6️⃣ **`double`**: The double data type is a double-precision 64-bit IEEE 754 floating-point. For decimal values, this data type is generally the default choice. The size of the double data type is 8 bytes or 64 bits.
+
+
+### » Syntax:
+```Java
+double doubleVar;
+```
+
+### » Size: 8 bytes (64 bits)
+
+### » Range: ±4.9E-324 to ±1.7976931348623157E308
+
+```Java
+double d = 3.141592653589793;  
+double d = -4.9e-324;  
+// double x = 1.7e309; // ERROR! Out of range  
+```
+
+### » Default value: 0.0d
+
+### » Purpose:
+
+* Default choice for decimals (higher precision than float).
+* Offers high precision (15-16 decimal digits).
+
+### Q. When to use such data-type?
+→ Use `double` for scientific calculations or financial applications requiring precision.
+
 
 ### 📌 Example:
 ```Java
@@ -439,11 +490,24 @@ Note: In the code example above, the F suffix of the floatVar variable tells the
 ```
 
 
-6️⃣ **`double`**: 
-
-
-
-
 ### Use float or double?
 
-The precision of a floating point value indicates how many digits the value can have after the decimal point. The precision of float is only six or seven decimal digits, while double variables have a precision of about 16 digits. Therefore it is safer to use double for most calculations.
+The precision of a floating point value indicates how many digits the value can have after the decimal point. The precision of `float` is only six or seven decimal digits, while `double` variables have a precision of about 16 digits. Therefore it is safer to use `double` for most calculations.
+
+### Scientific Numbers:
+A floating point number can also be a scientific number with an "`e`" to indicate the power of 10:
+
+```Java
+public class Main {
+  public static void main(String[] args) {
+    float f1 = 35e3f;
+    double d1 = 12E4d;
+    System.out.println(f1); //35000.0
+    System.out.println(d1); //120000.0
+  }
+}
+```
+
+
+## # Important Notes 📝
+Both `float` and `double` data types were designed especially for scientific calculations, where approximation errors are acceptable. If accuracy is the most prior concern then, it is recommended not to use these data types and use `BigDecimal` class instead. **It is recommended to go through *rounding off errors in java*.**
