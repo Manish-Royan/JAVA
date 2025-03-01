@@ -3,7 +3,7 @@
 Java has 8 primitive data types, which are predefined, non-object types used to store simple values directly in memory. They are the building blocks for data manipulation in Java and are optimized for speed and memory efficiency. A primitive data type specifies the type of a variable and the kind of values it can hold.
 
 
-## Q. Why Java Has Primitive Types?
+## Q. Why Java Has Primitive Types❓
 
 * **Efficiency**: Primitive types are faster than objects since they store values directly in memory (no overhead like objects).
 
@@ -11,6 +11,65 @@ Java has 8 primitive data types, which are predefined, non-object types used to 
 
 * **Platform Independence**: Java ensures that primitive types have fixed sizes across all platforms (unlike C/C++ where sizes depend on the OS and CPU architecture).
 
+
+## ▸ Key Characteristics of Primitive Data Types:
+* **Fixed Size**: Sizes are platform-independent (unlike **C/C++**).
+
+* **Stack Allocation**: Stored in stack memory for fast access.
+
+* **No Methods**: They are not objects and cannot call methods (e.g., `5.toString()` **is invalid**).
+
+* **Performance**: Faster than objects (**no heap memory overhead**).
+
+
+## Q. When to Use Which Primitive Type❓
+|  **Scenario** |  **Recommended Type** | **Reason**
+|:-----|:--------|:-----
+| Small integers | `byte`/`short` | Save memory in large arrays.
+| General integers | `int` | Default for whole numbers.
+| Very large integers | `long` | **Timestamps**, **unique IDs**.
+| General decimals | `double` | Higher precision.
+| Memory-sensitive decimals | `float` | SRare (e.g., 3D graphics).
+| Single characters | `char` | Text processing.
+| True/false logic | `boolean` | Conditional checks.
+
+## ▸ Common Mistakes & Best Practices:
+
+1. Avoid `float` for Precision: Use `double` unless memory is critical.
+2. Use Underscores for Readability:
+    ```Java
+    int billion = 1_000_000_000; // Better than 1000000000.
+    ```
+3. Explicit Suffixes:
+    ```Java
+    long bigNumber = 100L; // 'L' suffix for long.
+    float pi = 3.14f;      // 'f' suffix for float.
+    ```
+4. No Boolean Casting:
+    ```Java
+    // Invalid in Java (valid in C/C++):
+    // if (1) { ... } 
+    // Use:
+    if (isValid) { ... }
+    ```
+
+
+### 📌 Example: Primitive Types in Action:
+
+```Java
+public class PrimitiveDemo {
+  public static void main(String[] args) {
+    byte seats = 100;          // Stadium seating capacity
+    int daysInYear = 365;      // Default integer
+    long nationalDebt = 28_834_000_000_000L; // Huge number
+    double gravity = 9.80665;  // Precise decimal
+    char grade = 'A';          // Student grade
+    boolean isRaining = false; // Weather status
+
+    System.out.println("National Debt: " + nationalDebt);
+  }
+}
+```
 
 ### ▸ There are 8 primitive data types, and they are:
 
@@ -490,7 +549,7 @@ Note: In the code example above, the F suffix of the floatVar variable tells the
 ```
 
 
-### Use float or double?
+### Use float or double❓
 
 The precision of a floating point value indicates how many digits the value can have after the decimal point. The precision of `float` is only six or seven decimal digits, while `double` variables have a precision of about 16 digits. Therefore it is safer to use `double` for most calculations.
 
@@ -511,3 +570,102 @@ public class Main {
 
 ## # Important Notes 📝
 Both `float` and `double` data types were designed especially for scientific calculations, where approximation errors are acceptable. If accuracy is the most prior concern then, it is recommended not to use these data types and use `BigDecimal` class instead. **It is recommended to go through *rounding off errors in java*.**
+
+### ↳ Other types: `char`, `boolean`
+
+7️⃣ **`char`**: The `char` data type is a single 16-bit Unicode character with the size of 2 bytes (16 bits).
+
+### » Syntax:
+```Java
+char charVar;
+```
+
+### » Size: 2 bytes (16 bits)
+
+### » Range: 0 to 65,535 (Unicode characters)
+
+```Java
+char letter = 'A';
+char symbol = '$';
+char A = '\u0041'; // Unicode for 'A'  
+char unicodeChar = '\u03A9'; // Unicode for 'Ω' (Omega)
+// char c = -1; // ERROR! Negative values invalid  
+System.out.println(unicodeChar); // Prints Ω
+```
+
+### » Default value: '\u0000' (null character)
+
+### » Purpose:
+
+* Represents Unicode characters for international text.
+
+* Used in string manipulation and GUI applications.
+
+### Q. When to use such data-type?
+→ Use char for text processing or handling individual symbols.
+
+### 📌 Example:
+```Java
+class CharDemo {
+  public static void main(String[] args) {
+    char grade = 'A';  
+    System.out.println(grade);
+  }
+}
+```
+
+### The code above outputs the following ⬇️:
+```
+A
+```
+
+## Q. Why is the Size of char 2 bytes in Java❓
+⇛ Unlike languages such as C or C++ that use the **ASCII** character set, Java uses the Unicode character set to support internationalization. Unicode requires more than 8 bits to represent a wide range of characters from different languages, including Latin, Greek, Cyrillic, Chinese, Arabic, and more. As a result, Java uses 2 bytes to store a `char`, ensuring it can represent any Unicode character.
+
+
+## Why Java Uses Unicode Instead of ASCII❓
+1. ASCII Limitation:
+
+  * ASCII (used in C, C++) is only 7-bit (or 8-bit in extended ASCII) and supports only 128 (or 256) characters.
+  * It can represent basic English letters, numbers, and symbols but not characters from other languages.
+
+2. Unicode Advantage:
+
+  * Unicode is a universal character set that includes characters from all major writing systems.
+  * Java’s `char` uses 16 bits (UTF-16), allowing it to represent 65,536 characters (much more than ASCII).
+  * It supports Latin, Greek, Cyrillic, Arabic, Chinese, Japanese, Hindi, and even emojis!
+
+
+### 📌 Example of Unicode in Java:
+```Java
+public class UnicodeExample {
+    public static void main(String[] args) {
+        char letter = 'A';       // Normal ASCII character
+        char hindiChar = '\u0939'; // Unicode for 'ह' (Hindi character)
+        char omega = '\u03A9';    // Unicode for 'Ω' (Greek Omega)
+        char smiley = '\u263A';   // Unicode for ☺ (Smiley Face)
+
+        System.out.println("Letter: " + letter);
+        System.out.println("Hindi Character: " + hindiChar);
+        System.out.println("Greek Letter: " + omega);
+        System.out.println("Smiley Face: " + smiley);
+    }
+}
+```
+
+### The code above outputs the following ⬇️:
+```
+Letter: A
+Hindi Character: ह
+Greek Letter: Ω
+Smiley Face: ☺
+```
+
+### ▸ Unicode Helps in Internationalization
+⇛ Because of Unicode, Java applications can: 
+
+✅ Support multiple languages (useful in global applications).
+
+✅ Display special symbols, scientific notations, and emojis.
+
+✅ Handle different scripts like Devanagari, Chinese, Japanese, Arabic, etc.
