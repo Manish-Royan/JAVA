@@ -313,10 +313,9 @@ class IntDemo {
 132
 ```
 
-```
-Note: 
-"Unlike other programming languages like C and C++, the data type system in Java is different. In programming languages like C and C++, the size of the int data type depends on the operating system and architecture (e.g., 16-bit, 32-bit, or 64-bit systems). However, in Java, int is always 32 bits (4 bytes) regardless of the platform because Java is platform-independent and runs on the JVM, which ensures uniform data type sizes across all operating systems."
-```
+### » Note 📝
+→ "Unlike other programming languages like C and C++, the data type system in Java is different. In programming languages like C and C++, the size of the int data type depends on the operating system and architecture (e.g., 16-bit, 32-bit, or 64-bit systems). However, in Java, int is always 32 bits (4 bytes) regardless of the platform because Java is platform-independent and runs on the JVM, which ensures uniform data type sizes across all operating systems."
+
 
 ## Q. Why Does `int` Size Depend on OS in C and C++❓
 
@@ -439,10 +438,8 @@ In the code example above, the `L` suffix of the num variable tells the compiler
 42903420404
 ```
 
-```
-Note:
-In Java 8 and later, you can represent an unsigned 64-bit long using the long data type, which has value in the range [0, 264-1].
-```
+### » Note 📝
+→ In Java 8 and later, you can represent an unsigned 64-bit long using the long data type, which has value in the range [0, 264-1].
 
 ##
 ### ↳ Floating-Point Data Types (Decimals): `float`, `double`
@@ -489,9 +486,9 @@ class FloatDemo {
 }
 ```
 
-~~~
-Note: In the code example above, the F suffix of the floatVar variable tells the compiler that it's a float literal. Without it, the above code will return an error.
-~~~
+### » Note 📝
+→ In the code example above, the F suffix of the floatVar variable tells the compiler that it's a float literal. Without it, the above code will return an error.
+
 
 
 ### The code above outputs the following ⬇️:
@@ -538,9 +535,9 @@ class FloatDemo {
 }
 ```
 
-~~~
-Note: In the code example above, the F suffix of the floatVar variable tells the compiler that it's a float literal. Without it, the above code will return an error.
-~~~
+### » Note 📝
+→ In the code example above, the `F` suffix of the floatVar variable tells the compiler that it's a float literal. Without it, the above code will return an error.
+
 
 
 ### The code above outputs the following ⬇️:
@@ -549,11 +546,11 @@ Note: In the code example above, the F suffix of the floatVar variable tells the
 ```
 
 
-### Use float or double❓
+### Q. When to use float or double❓
 
 The precision of a floating point value indicates how many digits the value can have after the decimal point. The precision of `float` is only six or seven decimal digits, while `double` variables have a precision of about 16 digits. Therefore it is safer to use `double` for most calculations.
 
-### Scientific Numbers:
+### » Scientific Numbers:
 A floating point number can also be a scientific number with an "`e`" to indicate the power of 10:
 
 ```Java
@@ -623,17 +620,17 @@ A
 ⇛ Unlike languages such as C or C++ that use the **ASCII** character set, Java uses the Unicode character set to support internationalization. Unicode requires more than 8 bits to represent a wide range of characters from different languages, including Latin, Greek, Cyrillic, Chinese, Arabic, and more. As a result, Java uses 2 bytes to store a `char`, ensuring it can represent any Unicode character.
 
 
-## Why Java Uses Unicode Instead of ASCII❓
+## Q. Why Java Uses Unicode Instead of ASCII❓
 1. ASCII Limitation:
 
-  * ASCII (used in C, C++) is only 7-bit (or 8-bit in extended ASCII) and supports only 128 (or 256) characters.
-  * It can represent basic English letters, numbers, and symbols but not characters from other languages.
+    * ASCII (used in C, C++) is only 7-bit (or 8-bit in extended ASCII) and supports only 128 (or 256) characters.
+    * It can represent basic English letters, numbers, and symbols but not characters from other languages.
 
 2. Unicode Advantage:
 
-  * Unicode is a universal character set that includes characters from all major writing systems.
-  * Java’s `char` uses 16 bits (UTF-16), allowing it to represent 65,536 characters (much more than ASCII).
-  * It supports Latin, Greek, Cyrillic, Arabic, Chinese, Japanese, Hindi, and even emojis!
+    * Unicode is a universal character set that includes characters from all major writing systems.
+    * Java’s `char` uses 16 bits (UTF-16), allowing it to represent 65,536 characters (much more than ASCII).
+    * It supports Latin, Greek, Cyrillic, Arabic, Chinese, Japanese, Hindi, and even emojis!
 
 
 ### 📌 Example of Unicode in Java:
@@ -669,3 +666,50 @@ Smiley Face: ☺
 ✅ Display special symbols, scientific notations, and emojis.
 
 ✅ Handle different scripts like Devanagari, Chinese, Japanese, Arabic, etc.
+
+### ▸ Different languages use different Unicode encodings, and memory allocation depends on the encoding format they use. Lets explain in depth:
+
+### 🔹 Unicode and Different Encoding Formats
+Unicode itself is just a standard for representing characters. It doesn't specify how characters should be stored in memory. Instead, different encoding formats like **UTF-8**, **UTF-16**, and **UTF-32** determine how many bytes are used for each character.
+
+### 1. Java (UTF-16) → Uses 2 Bytes (or sometimes 4 Bytes)
+  * Java's char uses **UTF-16** encoding.
+  * Most characters (like English letters) are stored in 2 bytes (16 bits).
+  * Some special Unicode characters (like emojis, rare Chinese characters) require 4 bytes because they fall into the "supplementary range."
+
+### 📌 Example of Unicode in Java:
+```Java
+char ch1 = 'A';       // Takes 2 bytes
+char ch2 = 'ह';       // Takes 2 bytes (Devanagari script)
+char ch3 = '😀';     // Takes 4 bytes (Emoji - supplementary character)
+```
+
+### 2. C, C++ (ASCII / UTF-8) → Uses 1 Byte (or Variable)
+  * By default, C and C++ char is 1 byte (8 bits) and follows ASCII.
+  * If Unicode is required, wchar_t or UTF-8 encoding is used, which can take 1 to 4 bytes per character depending on the character.
+  * UTF-8 is variable-length encoding:
+    * English letters → 1 byte (A → 0x41)
+    * Latin, Greek, Cyrillic → 2 bytes
+    * Chinese, Japanese → 3 bytes
+    * Emojis → 4 bytes
+
+
+### 📌 Example of Unicode in C++:
+```cpp
+#include <iostream>
+using namespace std;
+int main() {
+    wchar_t ch1 = L'ह';   // Hindi character (may take 2 or 4 bytes depending on system)
+    char32_t ch2 = U'😀'; // Emoji (4 bytes in UTF-8)
+    cout << "Size of wchar_t: " << sizeof(wchar_t) << " bytes" << endl;
+    cout << "Size of char32_t: " << sizeof(char32_t) << " bytes" << endl;
+    return 0;
+}
+```
+
+
+### The code above outputs the following ⬇️:
+```
+Size of wchar_t: 2 bytes (or 4 bytes, depending on OS)
+Size of char32_t: 4 bytes
+```
