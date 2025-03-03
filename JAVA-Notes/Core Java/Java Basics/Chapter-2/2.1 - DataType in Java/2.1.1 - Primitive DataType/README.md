@@ -75,7 +75,8 @@ public class PrimitiveDemo {
 
 ### ↳ Integer types (Whole Numbers): `byte`, `short`, `int`, `long`
 
-1️⃣ **`byte`**: The `byte` data type is an 8 bit two's complement integer—variables of type byte store numeric values between -128 to 127 (inclusive). The range defines the minimum (-128) and maximum (127) value a `byte` can store. The default value of a `byte` variable is 0, which is used to save space in large arrays, which is mainly beneficial in integers since a `byte` is four times smaller than an integer. The `byte` data type is useful for saving memory in large arrays.
+## 1️⃣ **`byte`**: 
+The `byte` data type is an 8 bit two's complement integer—variables of type byte store numeric values between -128 to 127 (inclusive). The range defines the minimum (-128) and maximum (127) value a `byte` can store. The default value of a `byte` variable is 0, which is used to save space in large arrays, which is mainly beneficial in integers since a `byte` is four times smaller than an integer. The `byte` data type is useful for saving memory in large arrays.
 
 *"Since the 'byte' data type in Java allocates 8 bits, it is called a byte."* The term "byte" refers to a unit of digital information that consists of 8 bits, which is why the byte data type in Java is 8 bits long.
 
@@ -223,7 +224,8 @@ iii. Java implicitly narrows the `char` to `byte` in this specific case.
 » For non-literal values or out-of-range characters, you must use an **explicit cast** (e.g., `(byte)`), but this can lead to data loss.
 
 
-2️⃣ **`short`**: The `short` data type is a 16-bit signed two’s complement integer. Similar to byte, a `short` is used when memory savings matter, especially in large arrays where space is constrained. 
+## 2️⃣ **`short`**: 
+The `short` data type is a 16-bit signed two’s complement integer. Similar to byte, a `short` is used when memory savings matter, especially in large arrays where space is constrained. 
 
 
 ### » Syntax:
@@ -267,11 +269,12 @@ class ShortDemo {
 ```
 
 
-3️⃣ **`int`**: The `int` data type is a 32 bit signed two's complement integer. This numeric data type is used to store numbers that lie between the range of -2,147,483,648 to 2,147,483,647 (inclusive). The range defines the minimum and maximum value of the `int` **array** in Java for storing. 
+## 3️⃣ **`int`**:
+The `int` data type is a 32 bit signed two's complement integer. This numeric data type is used to store numbers that lie between the range of -2,147,483,648 to 2,147,483,647 (inclusive). The range defines the minimum and maximum value of the `int` **array** in Java for storing. 
 
-```
-Remember:  In Java SE 8 and later, we can use the int data type to represent an unsigned 32-bit integer, which has a value in the range [0, 2  32  -1]. Use the Integer class to use the int data type as an unsigned integer. 
-```
+
+👉 Remember:  In Java SE 8 and later, we can use the int data type to represent an unsigned 32-bit integer, which has a value in the range [0, 2  32  -1]. Use the Integer class to use the int data type as an unsigned integer. 
+
 
 ### » Syntax:
 ```Java
@@ -391,7 +394,8 @@ Size of int in Java: 4 bytes
 ✅ This design removes compatibility issues and ensures code runs the same everywhere.
 
 
-4️⃣ **`long`**: The `long` data type can store whole numbers from *-9223372036854775808* to *9223372036854775807*. This is used when `int` is not large enough to store the value. Note that you should end the value with an `"L"`. The `Long` class also contains methods like ***compareUnsigned***, ***divideUnsigned*** etc to support arithmetic operations for unsigned `long`.
+## 4️⃣ **`long`**:
+The `long` data type can store whole numbers from *-9223372036854775808* to *9223372036854775807*. This is used when `int` is not large enough to store the value. Note that you should end the value with an `"L"`. The `Long` class also contains methods like ***compareUnsigned***, ***divideUnsigned*** etc to support arithmetic operations for unsigned `long`.
 
 ### » Syntax:
 ```Java
@@ -444,7 +448,8 @@ In the code example above, the `L` suffix of the num variable tells the compiler
 ##
 ### ↳ Floating-Point Data Types (Decimals): `float`, `double`
 
-5️⃣ **`float`**: The float data type is a single-precision 32-bit IEEE 754 floating-point. Use a float (instead of double) if you need to save memory in large arrays of floating-point numbers. The size of the float data type is 4 bytes (32 bits). Its default value is 0.0f. However, it's important to note that the float data type is not suitable for precise values, such as currency, due to potential rounding errors in floating-point arithmetic.
+## 5️⃣ **`float`**: 
+The float data type is a single-precision 32-bit IEEE 754 floating-point. Use a float (instead of double) if you need to save memory in large arrays of floating-point numbers. The size of the float data type is 4 bytes (32 bits). Its default value is 0.0f. However, it's important to note that the float data type is not suitable for precise values, such as currency, due to potential rounding errors in floating-point arithmetic.
 
 
 ### » Syntax:
@@ -496,7 +501,8 @@ class FloatDemo {
 3.1415
 ```
 
-6️⃣ **`double`**: The double data type is a double-precision 64-bit IEEE 754 floating-point. For decimal values, this data type is generally the default choice. The size of the double data type is 8 bytes or 64 bits.
+## 6️⃣ **`double`**: 
+The double data type is a double-precision 64-bit IEEE 754 floating-point. For decimal values, this data type is generally the default choice. The size of the double data type is 8 bytes or 64 bits.
 
 
 ### » Syntax:
@@ -570,7 +576,8 @@ Both `float` and `double` data types were designed especially for scientific cal
 
 ### ↳ Other types: `char`, `boolean`
 
-7️⃣ **`char`**: The `char` data type is a single 16-bit Unicode character with the size of 2 bytes (16 bits).
+## 7️⃣ **`char`**: 
+The `char` data type is a single 16-bit Unicode character with the size of 2 bytes (16 bits).
 
 ### » Syntax:
 ```Java
@@ -712,4 +719,49 @@ int main() {
 ```
 Size of wchar_t: 2 bytes (or 4 bytes, depending on OS)
 Size of char32_t: 4 bytes
+```
+
+## 8️⃣ `Boolean`:
+The `boolean` data type represents a logical value that can be either *true* or *false*. Conceptually, it represents a single bit of information, but the actual size used by the virtual machine is implementation-dependent and typically at least one byte (eight bits) in practice. Values of the boolean type are not implicitly or explicitly converted to any other type using casts. However, programmers can write conversion code if needed.
+
+### » Syntax:
+```Java
+boolean booleanVar;
+```
+
+### » Size: ~1 bit (logically), but JVM typically uses 1 byte (8bits)
+
+### » Range: *true* or *false*
+
+```Java
+boolean b = true;  
+boolean b = false;  
+// boolean x = 0; // ERROR! Not allowed in Java  
+```
+
+### » Default value: `false`
+
+### » Purpose:
+
+* Controls program flow in conditionals and loops.
+
+* Represents binary states (e.g., *on/off*, *yes/no*).
+
+
+### Q. When to use such data-type?
+→ Use `boolean` for logical conditions or flags.
+
+### 📌 Example:
+```Java
+class BooleanDemo {
+  public static void main(String[] args) {
+    boolean isJavaFun = true;  
+    System.out.println(isJavaFun);
+  }
+}
+```
+
+### The code above outputs the following ⬇️:
+```
+true
 ```
