@@ -71,7 +71,7 @@ public class PrimitiveDemo {
 }
 ```
 
-### ▸ There are 8 primitive data types, and they are:
+## ▸ There are 8 primitive data types, and they are:
 
 ### ↳ Integer types (Whole Numbers): `byte`, `short`, `int`, `long`
 
