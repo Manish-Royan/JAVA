@@ -11,6 +11,10 @@ Non-primitive data types are also called ***reference types*** because they refe
 
 A String is a sequence of characters. In Java, String is an immutable object, meaning once created, it cannot be changed.
 
+The String type is so much used and integrated in Java, that some call it "***the special ninth type***".
+
+A String in Java is actually a non-primitive data type, because it refers to an object. The String object has methods that are used to perform certain operations on strings.
+
 ```Java
 public class StringExample {
     public static void main(String[] args) {
