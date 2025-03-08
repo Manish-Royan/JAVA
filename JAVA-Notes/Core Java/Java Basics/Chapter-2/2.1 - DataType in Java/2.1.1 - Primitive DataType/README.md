@@ -76,7 +76,7 @@ public class PrimitiveDemo {
 ### ↳ Integer types (Whole Numbers): `byte`, `short`, `int`, `long`
 
 ## 1️⃣ **`byte`**: 
-The `byte` data type is an 8 bit two's complement integer—variables of type byte store numeric values between -128 to 127 (inclusive). The range defines the minimum (-128) and maximum (127) value a `byte` can store. The default value of a `byte` variable is 0, which is used to save space in large arrays, which is mainly beneficial in integers since a `byte` is four times smaller than an integer. The `byte` data type is useful for saving memory in large arrays.
+The `byte` data type is an 8 bit two's complement integer—variables of type byte store numeric values between -128 to 127 (inclusive). The default value of a `byte` variable is 0, which is used to save space in large arrays, which is mainly beneficial in integers since a `byte` is four times smaller than an integer. The `byte` data type is useful for saving memory in large arrays.
 
 *"Since the 'byte' data type in Java allocates 8 bits, it is called a byte."* The term "byte" refers to a unit of digital information that consists of 8 bits, which is why the byte data type in Java is 8 bits long.
 
