@@ -212,7 +212,7 @@ System.out.println(b); // Output: 99
     byte b = 'ñ'; // Unicode 241 → exceeds 127 → Compile-time error!
     ```
 
-### ▸ Summary📖
+### ⁕ Summary📖
 ⇛ Java allows `byte b = 'c';` because:
 
 i. '*c*' is a **literal** (constant expression).
@@ -652,7 +652,7 @@ strictfp class Example {
 }
 ```
 
-### ▸ Summary📖
+### ⁕ Summary📖
 ✅ Java float and double behave similarly to C/C++ but are strictly defined and platform-independent.
 
   * Same size everywhere (4 & 8 bytes) (Unlike C/C++, where sizes depend on OS)
