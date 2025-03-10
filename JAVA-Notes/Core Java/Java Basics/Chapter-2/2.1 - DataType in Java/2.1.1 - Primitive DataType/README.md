@@ -221,7 +221,7 @@ ii. Its Unicode value (**99**) fits within the byte range (-128 to 127).
 
 iii. Java implicitly narrows the `char` to `byte` in this specific case.
 
-» For non-literal values or out-of-range characters, you must use an **explicit cast** (e.g., `(byte)`), but this can lead to data loss.
+👉 For non-literal values or out-of-range characters, you must use an **explicit cast** (e.g., `(byte)`), but this can lead to data loss.
 
 
 ## 2️⃣ **`short`**: 
