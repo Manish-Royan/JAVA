@@ -273,7 +273,7 @@ class ShortDemo {
 The `int` data type is a 32 bit signed two's complement integer. This numeric data type is used to store numbers that lie between the range of -2,147,483,648 to 2,147,483,647 (inclusive). The range defines the minimum and maximum value of the `int` **array** in Java for storing. 
 
 
-👉 Remember:  In Java SE 8 and later, we can use the int data type to represent an unsigned 32-bit integer, which has a value in the range [0, 2  32  -1]. Use the Integer class to use the int data type as an unsigned integer. 
+👉 Remember:  In Java SE 8 and later, we can use the int data type to represent an unsigned 32-bit integer, which has a value in the range [0, 2^32  -1]. Use the Integer class to use the int data type as an unsigned integer.
 
 
 ### » Syntax:
