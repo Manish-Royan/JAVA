@@ -299,7 +299,7 @@ int num = 2147483647;
 * Used in most calculations due to its balance of range and memory usage.
 
 ## Q. When to use such data-type?
-→ Use int as the default for whole numbers unless memory constraints or larger ranges are required.
+→ Use `int` as the default for whole numbers unless memory constraints or larger ranges are required.
 
 ### 📌 Example:
 ```Java
@@ -318,6 +318,11 @@ class IntDemo {
 
 ### » Note 📝
 → "Unlike other programming languages like C and C++, the data type system in Java is different. In programming languages like C and C++, the size of the int data type depends on the operating system and architecture (e.g., 16-bit, 32-bit, or 64-bit systems). However, in Java, int is always 32 bits (4 bytes) regardless of the platform because Java is platform-independent and runs on the JVM, which ensures uniform data type sizes across all operating systems."
+
+## Did you that 💭?
+→ PSY's "Gangnam Style" became so popular that it broke YouTube's original view counter. Initially, YouTube used a **32-bit** signed integer to store view counts, which has a maximum value of *2,147,483,647*. When "Gangnam Style" surpassed this number in 2014, YouTube had to upgrade its system to use a **64-bit signed integer**, which can handle up to 9 quintillion views. Quite the milestone for a viral video, isn't it?
+
+After "Gangnam Style" went viral, YouTube switched to a **64-bit** signed integer, akin to `long` in Java, to accommodate much larger numbers. This was a technical adjustment to ensure their system could handle future viral hits without breaking! It's a great example of how real-world usage can push software systems to evolve.
 
 
 ## Q. Why Does `int` Size Depend on OS in C and C++❓
