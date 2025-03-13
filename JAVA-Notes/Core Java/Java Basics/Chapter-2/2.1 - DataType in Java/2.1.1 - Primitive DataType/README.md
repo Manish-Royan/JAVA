@@ -372,7 +372,7 @@ After "Gangnam Style" went viral, YouTube switched to a **64-bit** signed intege
 ### 👉Thus, data type sizes remain the same, avoiding the variability seen in C and C++.
 
 
-### 📌 Example Code to Prove Java int is Always 4 Bytes
+### 📌 Example Code to Prove Java `int` is Always 4 Bytes
 
 ⇛ We can check the size of `int` in Java using:
 
@@ -400,7 +400,9 @@ Size of int in Java: 4 bytes
 
 
 ## 4️⃣ **`long`**:
-The `long` data type can store whole numbers from *-9223372036854775808* to *9223372036854775807*. This is used when `int` is not large enough to store the value. Note that you should end the value with an `"L"`. The `Long` class also contains methods like ***compareUnsigned***, ***divideUnsigned*** etc to support arithmetic operations for unsigned `long`.
+The `long` data type can store whole numbers from *-9223372036854775808* to *9223372036854775807*. This is used when `int` is not large enough to store the value. 
+
+#### 👉 Note that you should end the value with an `"L"`. The `Long` class also contains methods like *compareUnsigned*, *divideUnsigned* etc to support arithmetic operations for unsigned `long`.
 
 ### » Syntax:
 ```Java
