@@ -456,7 +456,7 @@ In the code example above, the `L` suffix of the num variable tells the compiler
 ### ↳ Floating-Point Data Types (Decimals): `float`, `double`
 
 ## 5️⃣ **`float`**: 
-The float data type is a single-precision 32-bit IEEE 754 floating-point. Use a float (instead of double) if you need to save memory in large arrays of floating-point numbers. The size of the float data type is 4 bytes (32 bits). Its default value is 0.0f. However, it's important to note that the float data type is not suitable for precise values, such as currency, due to potential rounding errors in floating-point arithmetic.
+The float data type is a single-precision 32-bit IEEE 754 floating-point. Use a float (instead of **double**) if you need to save memory in large arrays of floating-point numbers. The size of the float data type is **4 bytes (32 bits)**. Its default value is `0.0f`. However, it's important to note that the float data type is not suitable for precise values, such as **currency**, due to potential **rounding errors** in floating-point arithmetic.
 
 
 ### » Syntax:
@@ -485,7 +485,7 @@ float f = -1.4e-45f;
 * Requires an `f` suffix for literals.
 
 ### Q. When to use such data-type?
-→ Use float for memory-sensitive applications requiring fractional values. We should use a floating point type whenever you need a number with a decimal, such as 9.99 or 3.14515.
+→ Use float for memory-sensitive applications requiring fractional values. We should use a floating point type whenever you need a number with a decimal, such as **9.99** or **3.14515**.
 
 
 ### 📌 Example:
@@ -499,7 +499,7 @@ class FloatDemo {
 ```
 
 ### » Note 📝
-→ In the code example above, the F suffix of the floatVar variable tells the compiler that it's a float literal. Without it, the above code will return an error.
+→ In the code example above, the `F` suffix of the floatVar variable tells the compiler that it's a float literal. Without it, the above code will return an error.
 
 
 
