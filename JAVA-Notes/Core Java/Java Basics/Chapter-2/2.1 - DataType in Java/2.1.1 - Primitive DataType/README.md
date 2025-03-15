@@ -509,7 +509,7 @@ class FloatDemo {
 ```
 
 ## 6️⃣ **`double`**: 
-The double data type is a double-precision 64-bit IEEE 754 floating-point. For decimal values, this data type is generally the default choice. The size of the double data type is 8 bytes or 64 bits.
+The double data type is a double-precision **64-bit** IEEE 754 floating-point. For decimal values, **this data type is generally the default choice**.
 
 
 ### » Syntax:
@@ -540,22 +540,16 @@ double d = -4.9e-324;
 
 ### 📌 Example:
 ```Java
-class FloatDemo {
+class DoubleDemo {
   public static void main(String[] args) {
-    float pi = 3.1415f; // Precision loss after 6-7 decimals.
-    System.out.println(pi);
+    
   }
 }
 ```
 
-### » Note 📝
-→ In the code example above, the `F` suffix of the floatVar variable tells the compiler that it's a float literal. Without it, the above code will return an error.
-
-
-
 ### The code above outputs the following ⬇️:
 ```
-3.1415
+
 ```
 
 
