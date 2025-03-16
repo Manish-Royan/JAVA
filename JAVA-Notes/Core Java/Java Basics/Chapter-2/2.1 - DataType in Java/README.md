@@ -87,5 +87,5 @@ int[] arr = {1, 2}; // Array object in heap
 | long | 8(64bits) | 2^64 | -2⁶³(–9,223,372,036,854,775,808) to 2⁶³–1(9,223,372,036,854,775,807)  | 0L | 64-bit integer. Used for very large numbers (e.g., timestamps).			
 | float | 4(32bits) | ±3.4e38  |  Approximately ±3.40282347E+38F (6–7 significant decimal digits) | 0.0f | 32-bit IEEE 754 floating-point. Sacrifices precision for range.			
 | double | 8(64bits) | ±1.7e308 |  Approximately ±1.79769313486231570E+308 (15 significant decimal digits) | 0.0d | 64-bit IEEE 754 floating-point. Default for decimals (higher precision).			
-| char | 2(16bits) | ❌ | 0 to 65,535 (Unicode characters) | '\u0000' | 16-bit Unicode character (*e.g., `A`, `€`, `\n`*).		
+| char | 2(16bits) | ❌ | '\u0000' (0) to '\uffff' (65,535)-(Unicode characters) | '\u0000' | 16-bit Unicode character (*e.g., `A`, `€`, `\n`*).		
 | boolean | 1 bit (JVM-dependent - Not precisely defined) | ❌ | **true** or **false** | false | Represents logical values. Size is JVM-dependent (often 1 byte in practice).			
