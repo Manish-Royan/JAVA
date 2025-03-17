@@ -106,7 +106,7 @@ byte c = -128;  // Min value
 * Useful in arrays where memory conservation is critical.
 
 
-### Q. When to use such data-type?
+### Q. When to use such data-type❓
 → Use byte for large arrays (e.g., image processing) or when interfacing with 8-bit data streams.
 
 ### 📌 Example:
@@ -250,7 +250,7 @@ short s = 32000;
 
 * Legacy systems or protocols requiring 16-bit values (e.g., old file formats).
 
-### Q. When to use such data-type?
+### Q. When to use such data-type❓
 → Use short for memory optimization in large arrays or when interfacing with legacy protocols.
 
 ### 📌 Example:
@@ -298,7 +298,7 @@ int num = 2147483647;
 
 * Used in most calculations due to its balance of range and memory usage.
 
-## Q. When to use such data-type?
+## Q. When to use such data-type❓
 → Use `int` as the default for whole numbers unless memory constraints or larger ranges are required.
 
 ### 📌 Example:
@@ -319,7 +319,7 @@ class IntDemo {
 ### » Note 📝
 → "Unlike other programming languages like C and C++, the data type system in Java is different. In programming languages like C and C++, the size of the int data type depends on the operating system and architecture (e.g., 16-bit, 32-bit, or 64-bit systems). However, in Java, int is always 32 bits (4 bytes) regardless of the platform because Java is platform-independent and runs on the JVM, which ensures uniform data type sizes across all operating systems."
 
-## Did you that 💭?
+## Q. Did you that 💭❓
 → PSY's "Gangnam Style" became so popular that it broke YouTube's original view counter. Initially, YouTube used a **32-bit** signed integer to store view counts, which has a maximum value of *2,147,483,647*. When "Gangnam Style" surpassed this number in 2014, YouTube had to upgrade its system to use a **64-bit signed integer**, which can handle up to 9 quintillion views. Quite the milestone for a viral video, isn't it?
 
 After "Gangnam Style" went viral, YouTube switched to a **64-bit** signed integer, akin to `long` in Java, to accommodate much larger numbers. This was a technical adjustment to ensure their system could handle future viral hits without breaking! It's a great example of how real-world usage can push software systems to evolve.
@@ -450,7 +450,7 @@ In the code example above, the `L` suffix of the num variable tells the compiler
 ```
 
 ### » Note 📝
-→ In Java 8 and later, you can represent an unsigned 64-bit long using the long data type, which has value in the range [0, 264-1].
+→ In Java 8 and later, you can represent an unsigned 64-bit long using the long data type, which has value in the range [0, 2^64-1].
 
 ##
 ### ↳ Floating-Point Data Types (Decimals): `float`, `double`
@@ -542,14 +542,15 @@ double d = -4.9e-324;
 ```Java
 class DoubleDemo {
   public static void main(String[] args) {
-    
+    double doubleVar = 2.71828;  
+    System.out.println(doubleVar);
   }
 }
 ```
 
 ### The code above outputs the following ⬇️:
 ```
-
+2.71828
 ```
 
 
