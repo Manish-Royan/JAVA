@@ -861,3 +861,16 @@ class BooleanDemo {
 ```
 true
 ```
+
+## ▸ Memory Usage & Performance of Primitive Data Type ⏳
+
+|  **Type** |  **Size** | **Performance** | **Used When**
+|:-----|:--------|:-----|:-----
+| `byte` | 1B | Very Fast | Large data sets, memory-sensitive apps
+| `short` | 2B | Fast | Small numbers, memory-limited apps
+| `int` | 4B | Default | General-purpose whole numbers
+| `long` | 8B | Slower | Very large numbers
+| `float` | 4B | Medium | Less precise decimals
+| `double` | 8B | Slow | High-precision calculations
+| `char` | 2B | Fast | Unicode characters
+| `boolean` | 1B (approx.) | Fast | True/false conditions
