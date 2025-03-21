@@ -7,7 +7,7 @@ Non-primitive data types are also called ***reference types*** because they refe
 
 ### # They include:
 
-## 1. `String` (Special Class in Java):
+## 1️⃣ `String` (Special Class in Java):
 
 The String data type stores a sequence or array of characters. A string is a non-primitive data type, but it is predefined in Java. String literals are enclosed in double quotes.
 
@@ -59,7 +59,7 @@ HELLO, JAVA!
 🔹`StringBuffer` & `StringBuilder` are used for mutable strings (i.e., strings that can be modified).
 
 
-## `Arrays`:
+## 2️⃣ `Arrays` (Collection of Elements of Same Type):
 
 An array is a collection of elements of the same data type, stored in contiguous memory locations. 
 
@@ -106,8 +106,75 @@ public class ArrayExample {
 
 ```
 
-### Q. When to Use Strings❓
+### Q. When to Use Array❓
 
 ✅ When you need to store multiple values of the same type in a single variable.
 ✅ When you need fast access to elements using an index.
 
+## 3️⃣ Classes (User-Defined Data Type):
+
+A class is a blueprint for creating objects. It defines properties (fields) and behaviors (methods).
+
+A class is a user-defined data type from which objects are created. It describes the set of properties or methods common to all objects of the same type. It contains fields and methods that represent the behaviour of an object. A class gets invoked by the creation of the respective object.
+
+There are two types of classes: a blueprint and a template. For instance, the architectural diagram of a building is a class, and the building itself is an object created using the architectural diagram.
+
+### 📌 Example:
+[IMG 2]
+[IMG 3]
+
+### » Syntax:
+```Java
+class Student {
+  String name;  // Field
+  void study() { // Method
+    System.out.println(name + " is studying.");
+  }
+}
+
+// Create an object
+Student student1 = new Student();
+student1.name = "Alice";
+student1.study(); // Output: Alice is studying.
+```
+
+### » Key Feature:
+* **Constructors**: Special methods to initialize objects.
+* **Encapsulation**: Use `private` fields with public getters/setters.
+* **Inheritance**: Classes can extend other classes.
+
+### » Purpose:
+* User-defined blueprints for creating objects (e.g., Student, Car).
+* Contains fields (variables) and methods.
+
+### 📌 Example:
+```Java
+class Car {
+    // Fields (attributes)
+    String brand;
+    int speed;
+
+    // Constructor (special method to initialize objects)
+    public Car(String brand, int speed) {
+        this.brand = brand;
+        this.speed = speed;
+    }
+
+    // Method (behavior)
+    public void displayCarInfo() {
+        System.out.println("Car: " + brand + ", Speed: " + speed + " km/h");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Creating an object (instance) of the class
+        Car myCar = new Car("Tesla", 200);
+        myCar.displayCarInfo();  // Output: Car: Tesla, Speed: 200 km/h
+    }
+}
+```
+
+### Q. When to Use Class❓
+✅ When you need to define complex objects (e.g., real-world entities like Cars, Students).
+✅ When you want to group data and behaviors together.
