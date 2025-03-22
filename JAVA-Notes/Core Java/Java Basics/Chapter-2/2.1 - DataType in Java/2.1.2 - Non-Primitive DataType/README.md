@@ -24,7 +24,6 @@ String s2 = new String("Hello"); // Object in heap
 ```
 
 ### » Key Feature:
-
 * **Immutable**: Once created, its value cannot be modified.
 * **Methods**: Supports methods like length(), substring(), equals(), etc.
 
@@ -111,6 +110,7 @@ public class ArrayExample {
 ✅ When you need to store multiple values of the same type in a single variable.
 ✅ When you need fast access to elements using an index.
 
+
 ## 3️⃣ Classes (User-Defined Data Type):
 
 A class is a blueprint for creating objects. It defines properties (fields) and behaviors (methods).
@@ -119,7 +119,7 @@ A class is a user-defined data type from which objects are created. It describes
 
 There are two types of classes: a blueprint and a template. For instance, the architectural diagram of a building is a class, and the building itself is an object created using the architectural diagram.
 
-### 📌 Example:
+### 📌 Demonstartion:
 [IMG 2]
 [IMG 3]
 
@@ -178,3 +178,9 @@ public class Main {
 ### Q. When to Use Class❓
 ✅ When you need to define complex objects (e.g., real-world entities like Cars, Students).
 ✅ When you want to group data and behaviors together.
+
+
+## 4️⃣ `Interfaces` (Abstract Data Type)
+An interface is declared like a class. The key difference is that the interface contains **abstract methods by default**.
+
+An interface is a contract that defines methods without implementation. Classes that "**implement**" an interface must provide an implementation for its methods.
