@@ -51,9 +51,9 @@ HELLO, JAVA!
 
 ### Q. When to Use Strings❓
 
-✅ When you need to store and manipulate textual data.
+✅ When we need to store and manipulate textual data.
 
-✅ When you require string operations like concatenation, substring, etc.
+✅ When we require string operations like concatenation, substring, etc.
 
 🔹`StringBuffer` & `StringBuilder` are used for mutable strings (i.e., strings that can be modified).
 
@@ -107,8 +107,8 @@ public class ArrayExample {
 
 ### Q. When to Use Array❓
 
-✅ When you need to store multiple values of the same type in a single variable.
-✅ When you need fast access to elements using an index.
+✅ When we need to store multiple values of the same type in a single variable.
+✅ When we need fast access to elements using an index.
 
 
 ## 3️⃣ Classes (User-Defined Data Type):
@@ -176,11 +176,63 @@ public class Main {
 ```
 
 ### Q. When to Use Class❓
-✅ When you need to define complex objects (e.g., real-world entities like Cars, Students).
-✅ When you want to group data and behaviors together.
+✅ When we need to define complex objects (e.g., real-world entities like Cars, Students).
+✅ When we want to group data and behaviors together.
 
 
 ## 4️⃣ `Interfaces` (Abstract Data Type)
 An interface is declared like a class. The key difference is that the interface contains **abstract methods by default**.
 
 An interface is a contract that defines methods without implementation. Classes that "**implement**" an interface must provide an implementation for its methods.
+
+### » Syntax:
+```Java
+interface Animal {
+  void eat(); // Abstract method (no body)
+}
+
+class Dog implements Animal {
+  public void eat() {
+    System.out.println("Dog eats bones.");
+  }
+}
+```
+
+### » Key Feature:
+* No Instantiation: Cannot create objects directly.
+* `Default/Static` Methods: Added in Java 8 for backward compatibility.
+```Java
+interface Vehicle {
+  default void start() {
+    System.out.println("Vehicle started.");
+  }
+}
+```
+
+### » Purpose:
+* Defines a **contract** (abstract methods) that classes must implement.
+* Supports polymorphism and multiple inheritance.
+
+### 📌 Example:
+```Java
+interface Drawable {
+  void draw();
+}
+
+class Circle implements Drawable {
+  public void draw() {
+    System.out.println("Drawing a circle.");
+  }
+}
+
+public class InterfaceDemo {
+  public static void main(String[] args) {
+    Drawable shape = new Circle();
+    shape.draw(); // Output: Drawing a circle.
+  }
+}
+```
+
+### Q. When to Use ❓
+✅ When we want to define a common structure that multiple classes should follow.
+✅ When we need multiple inheritance (since Java doesn’t support multiple class inheritance).
