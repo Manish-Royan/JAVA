@@ -233,6 +233,13 @@ public class InterfaceDemo {
 }
 ```
 
-### Q. When to Use ❓
+### Q. When to Use Interface❓
 ✅ When we want to define a common structure that multiple classes should follow.
 ✅ When we need multiple inheritance (since Java doesn’t support multiple class inheritance).
+
+
+## 5️⃣ Enums (Fixed Set of Constants)
+
+An Enum is a special data type that represents a group of fixed constants.
+
+An enum, similar to a class, has attributes and methods. However, unlike classes, enum constants are public, static, and final (unchangeable – cannot be overridden). Developers cannot use an enum to create objects, and it cannot extend other classes. But, the enum can implement interfaces.
