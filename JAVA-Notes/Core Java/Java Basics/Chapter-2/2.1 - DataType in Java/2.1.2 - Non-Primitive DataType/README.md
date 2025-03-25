@@ -243,3 +243,12 @@ public class InterfaceDemo {
 An Enum is a special data type that represents a group of fixed constants.
 
 An enum, similar to a class, has attributes and methods. However, unlike classes, enum constants are public, static, and final (unchangeable – cannot be overridden). Developers cannot use an enum to create objects, and it cannot extend other classes. But, the enum can implement interfaces.
+
+### » Syntax:
+```Java
+enum Day {
+  MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY
+}
+
+Day today = Day.MONDAY;
+```
