@@ -252,3 +252,19 @@ enum Day {
 
 Day today = Day.MONDAY;
 ```
+
+### » Key Feature:
+* **Type-Safe**: Compile-time checks prevent invalid values.
+* **Methods**: Can have methods and constructors.
+```Java
+enum Color {
+  RED("#FF0000"), GREEN("#00FF00");
+  private String hexCode;
+  Color(String hexCode) {
+    this.hexCode = hexCode;
+  }
+  public String getHexCode() {
+    return hexCode;
+  }
+}
+```
