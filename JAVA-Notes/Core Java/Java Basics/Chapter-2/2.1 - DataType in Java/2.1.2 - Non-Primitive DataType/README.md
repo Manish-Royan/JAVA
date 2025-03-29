@@ -273,3 +273,6 @@ enum Color {
 * Represents a fixed set of constants (e.g., days of the week).
 
 ### 📌 Example:
+```Java
+
+```
