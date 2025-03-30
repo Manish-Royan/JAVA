@@ -274,5 +274,14 @@ enum Color {
 
 ### 📌 Example:
 ```Java
+enum Day {
+    SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;
+}
 
+public class EnumExample {
+    public static void main(String[] args) {
+        Day today = Day.FRIDAY;
+        System.out.println("Today is: " + today); // Output: Today is: FRIDAY
+    }
+}
 ```
