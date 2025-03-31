@@ -285,3 +285,5 @@ public class EnumExample {
     }
 }
 ```
+
+### Q. When to Use ❓
