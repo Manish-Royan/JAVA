@@ -287,3 +287,4 @@ public class EnumExample {
 ```
 
 ### Q. When to Use ❓
+✅ When you need a fixed set of values (e.g., days of the week, directions, user roles).
