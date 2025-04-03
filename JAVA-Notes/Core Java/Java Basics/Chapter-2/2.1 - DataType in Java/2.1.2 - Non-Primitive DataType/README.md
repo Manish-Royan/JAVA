@@ -180,7 +180,7 @@ public class Main {
 ✅ When we want to group data and behaviors together.
 
 
-## 4️⃣ `Interfaces` (Abstract Data Type)
+## 4️⃣ `Interfaces` (Abstract Data Type):
 An interface is declared like a class. The key difference is that the interface contains **abstract methods by default**.
 
 An interface is a contract that defines methods without implementation. Classes that "**implement**" an interface must provide an implementation for its methods.
@@ -238,7 +238,7 @@ public class InterfaceDemo {
 ✅ When we need multiple inheritance (since Java doesn’t support multiple class inheritance).
 
 
-## 5️⃣ Enums (Fixed Set of Constants)
+## 5️⃣ Enums (Fixed Set of Constants):
 
 An Enum is a special data type that represents a group of fixed constants.
 
@@ -289,3 +289,8 @@ public class EnumExample {
 ### Q. When to Use ❓
 ✅ When you need a fixed set of values (e.g., days of the week, directions, user roles).
 ✅ When you want to improve code readability and prevent invalid values.
+
+## 6️⃣  Wrapper Classes:
+
+Wrapper classes in Java are built-in classes that allow you to encapsulate (wrap) primitive data types (e.g., `int`, `double`, `boolean`) into objects. This enables primitives to be treated as objects, providing additional functionalities and making them compatible with collections and frameworks that require objects instead of raw data types.
+
