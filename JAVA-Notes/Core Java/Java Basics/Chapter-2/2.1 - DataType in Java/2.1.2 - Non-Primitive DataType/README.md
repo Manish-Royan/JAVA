@@ -294,3 +294,14 @@ public class EnumExample {
 
 Wrapper classes in Java are built-in classes that allow you to encapsulate (wrap) primitive data types (e.g., `int`, `double`, `boolean`) into objects. This enables primitives to be treated as objects, providing additional functionalities and making them compatible with collections and frameworks that require objects instead of raw data types.
 
+### » Syntax:
+```Java
+Integer num = 10;          // Autoboxing (int → Integer)
+int value = num;           // Unboxing (Integer → int)
+Double pi = Double.valueOf(3.14); // Explicit boxing
+```
+```Java
+int primitiveValue = 5;
+Integer wrapperValue = Integer.valueOf(primitiveValue); // Explicit wrapping
+int unwrappedValue = wrapperValue.intValue();          // Explicit unwrapping
+```
