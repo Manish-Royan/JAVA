@@ -350,12 +350,20 @@ public class WrapperDemo {
 |  **Feature** |  **Non-Primitive Types** | **Primitive Types** 
 |:-----|:--------|:-----
 | Memory | Stored in heap. | Stored in stack.
+| Storage | Stores actual values | Stores reference (memory address)
 | Default Value | `null` | Fixed (e.g., 0, false).
 | Mutability | Mutable (except `String`). | Immutable.
 | Methods | Can have methods. | No methods.
 | Nullability | Can be `null`. | Cannot be null.
+| Garbage Collection | Not needed (value-based) | Managed by Java GC
 
 ## Q. Why Non-Primitive Types Matter❓
 * **Real-World Modeling**: Represent entities like users, products, etc.
 * **Object-Oriented Programming**: Enable classes, inheritance, and polymorphism.
 * **Complex Data Structures**: Used in collections (e.g., `ArrayList`, `HashMap`).
+
+## Q. Why Are Non-Primitive Types Important❓
+* Used to model real-world entities (Classes, Objects, Arrays).
+* Enhance code reusability and modularity (Encapsulation, Inheritance).
+* Enable abstraction and extensibility (Interfaces, Abstract Classes).
+* Essential for Java frameworks (Spring, Hibernate, Android Development).
