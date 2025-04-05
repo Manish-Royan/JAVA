@@ -122,7 +122,6 @@ There are two types of classes: a blueprint and a template. For instance, the ar
 
 ### 📌 Demonstartion:
 ![IMG 2](https://github.com/user-attachments/assets/89670d69-a604-430c-a1ab-88b7caed3528)
-![IMG 3](https://github.com/user-attachments/assets/017a4c0b-0290-4a19-8bea-b69642b2baa7)
 
 ### » Syntax:
 ```Java
