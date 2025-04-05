@@ -305,3 +305,38 @@ int primitiveValue = 5;
 Integer wrapperValue = Integer.valueOf(primitiveValue); // Explicit wrapping
 int unwrappedValue = wrapperValue.intValue();          // Explicit unwrapping
 ```
+
+### » Key Feature:
+* Utility Methods: `parseInt()`, `compareTo()`, etc.
+```Java
+String s = "123";
+int n = Integer.parseInt(s); // Converts String to int
+```
+* **Object Representation**: Wrapper classes allow primitive types to behave as objects.
+* **Collections Support**: Since Java collections only accept objects, wrapper classes enable storing primitive data in collections like `ArrayList`.
+
+
+### » Purpose:
+* Converts primitives into objects (e.g., `int` → `Integer`).
+* Required for collections (e.g., `ArrayList<Integer>`).
+* **Autoboxing and Unboxing**: Java automates the conversion between primitives and wrapper classes for simplicity.
+* **Null Handling**: Wrappers can store null values, unlike primitives.
+* **Collections**: Essential for using collections like `ArrayList`, `HashMap`, etc.
+
+
+### 📌 Example:
+```Java
+public class WrapperDemo {
+  public static void main(String[] args) {
+    Integer age = 25;
+    System.out.println(age.floatValue()); // Output: 25.0
+  }
+}
+```
+
+### Q. When to Use ❓
+✅ We need to store primitive values in collections (e.g., `ArrayList`, `HashMap`).
+✅ We want to leverage utility methods like `parseInt` or `toString`.
+✅ Primitive types need to interact seamlessly with frameworks or APIs that expect objects.
+✅ Null handling is required for values (e.g., database operations).
+
