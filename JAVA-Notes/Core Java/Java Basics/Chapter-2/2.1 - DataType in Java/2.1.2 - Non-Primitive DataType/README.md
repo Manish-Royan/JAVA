@@ -108,6 +108,7 @@ public class ArrayExample {
 ### Q. When to Use Array❓
 
 ✅ When we need to store multiple values of the same type in a single variable.
+
 ✅ When we need fast access to elements using an index.
 
 
@@ -177,6 +178,7 @@ public class Main {
 
 ### Q. When to Use Class❓
 ✅ When we need to define complex objects (e.g., real-world entities like Cars, Students).
+
 ✅ When we want to group data and behaviors together.
 
 
@@ -235,6 +237,7 @@ public class InterfaceDemo {
 
 ### Q. When to Use Interface❓
 ✅ When we want to define a common structure that multiple classes should follow.
+
 ✅ When we need multiple inheritance (since Java doesn’t support multiple class inheritance).
 
 
@@ -288,6 +291,7 @@ public class EnumExample {
 
 ### Q. When to Use ❓
 ✅ When you need a fixed set of values (e.g., days of the week, directions, user roles).
+
 ✅ When you want to improve code readability and prevent invalid values.
 
 ## 6️⃣  Wrapper Classes:
@@ -336,7 +340,23 @@ public class WrapperDemo {
 
 ### Q. When to Use ❓
 ✅ We need to store primitive values in collections (e.g., `ArrayList`, `HashMap`).
+
 ✅ We want to leverage utility methods like `parseInt` or `toString`.
+
 ✅ Primitive types need to interact seamlessly with frameworks or APIs that expect objects.
+
 ✅ Null handling is required for values (e.g., database operations).
 
+## ▸ Key Differences from Primitive Types: 
+|  **Feature** |  **Non-Primitive Types** | **Primitive Types** 
+|:-----|:--------|:-----
+| Memory | Stored in heap. | Stored in stack.
+| Default Value | `null` | Fixed (e.g., 0, false).
+| Mutability | Mutable (except `String`). | Immutable.
+| Methods | Can have methods. | No methods.
+| Nullability | Can be `null`. | Cannot be null.
+
+## Q. Why Non-Primitive Types Matter❓
+* **Real-World Modeling**: Represent entities like users, products, etc.
+* **Object-Oriented Programming**: Enable classes, inheritance, and polymorphism.
+* **Complex Data Structures**: Used in collections (e.g., `ArrayList`, `HashMap`).
