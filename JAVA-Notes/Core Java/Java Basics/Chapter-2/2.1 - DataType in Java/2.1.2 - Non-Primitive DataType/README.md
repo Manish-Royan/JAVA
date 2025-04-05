@@ -64,11 +64,11 @@ An array is a collection of elements of the same data type, stored in contiguous
 
 It is an object in Java, and the array name (used for declaration) is a reference value that carries the base address of the continuous location of elements of an array.
 
-### 📌 Example:
+### 📌 [Example](https://www.shiksha.com/online-courses/articles/data-types-in-java-primitive-and-non-primitive-data-types/):
 ```Java
 int Array_Name = new int[7];
 ```
-[IMG]
+![IMG](https://github.com/user-attachments/assets/13229707-5b1c-4128-9b2c-931877b3b119)
 
 ### » Syntax:
 ```Java
@@ -121,8 +121,8 @@ A class is a user-defined data type from which objects are created. It describes
 There are two types of classes: a blueprint and a template. For instance, the architectural diagram of a building is a class, and the building itself is an object created using the architectural diagram.
 
 ### 📌 Demonstartion:
-[IMG 2]
-[IMG 3]
+![IMG 2](https://github.com/user-attachments/assets/89670d69-a604-430c-a1ab-88b7caed3528)
+![IMG 3](https://github.com/user-attachments/assets/017a4c0b-0290-4a19-8bea-b69642b2baa7)
 
 ### » Syntax:
 ```Java
