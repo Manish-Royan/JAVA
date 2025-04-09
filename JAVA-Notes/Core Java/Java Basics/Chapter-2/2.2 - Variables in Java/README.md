@@ -112,3 +112,113 @@ x = "hello";  // Valid: x is now a string (no error).
 * Performance: Compiler optimizations based on known types improve efficiency.
 * Maintainability: Reduces unexpected behaviors due to accidental type changes.
 
+## # **Key rules for variables in Java**   
+
+### 1. **Naming Rules**
+* Start with a **letter**, **underscore** (`_`), or **dollar sign** (`$`).
+    - ✅ Valid: `age`, `_value`, `$amount`.
+    - ❌ Invalid: `1stPlace`, `-count`.
+    #### 📌 Example:
+    ```Java
+    int age = 25;        // Valid
+    double $salary = 5000.0; // Valid but discouraged
+    ```
+* Subsequent characters can include **letters**, **digits**, `$`, or `_`.
+    - ✅ Valid: `user1`, `total_sum`, `index2`
+    - ❌ Invalid: `my-var`, `hello!`
+    #### 📌 Example:
+    ```Java
+    String user1 = "Alice"; // Valid
+    ```
+
+* Cannot use Java keywords. Keywords like `int`, `class`, `if`, `return`, etc., are reserved.
+    ❌ Invalid: `int class = 5;`
+    ✅ Valid alternative: `int grade = 5;`
+
+* **Case-sensitive**
+    - ***Counter*** and ***counter*** are distinct variables.
+    #### 📌 Example:
+    ```Java
+    int Counter = 0;
+    int counter = 10; // Different from Counter
+    ```
+
+* **No spaces allowed**: Use **camelCase (preferred)** or **underscores**.
+    - ✅ Valid: `studentName`, `student_name`
+    - ❌ Invalid: `student name`
+        #### 📌 Example:
+    ```Java
+    String studentName = "John"; // CamelCase
+    ```
+
+### 2. **Declaration Rules**
+* **Specify a data type**
+    - Every variable must have a declared type (e.g., `int`, `double`, `String`).
+    ```Java
+    int age;  // Declaration
+    age = 25; // Assignment
+    ```
+* **Declare before use**
+    - Attempting to use an undeclared variable causes a compile-time error.
+    ```Java
+    System.out.println(x); // ❌ Error: x not declared
+    int x = 10;
+    ```
+* **Multiple declarations (same type)**
+    - We can declare multiple variables in one line:
+    ```Java
+    int x = 1, y = 2, z = 3;
+    ```
+### 3. **Initialization Rules**
+* **Local variables must be initialized before use**.
+    * Local variables (inside methods) have no default value.
+        #### 📌 Example:
+        ```Java
+        int count;
+        System.out.println(count); // ❌ Compile error: variable not initialized
+        ```
+* **Instance/Static Variables**:
+    * Automatically assigned default values if not initialized:
+        * `0` (numeric), `false` (boolean), `null` (objects).
+        #### 📌 Example:
+        ```Java
+        class Test {
+        int a;       // Default: 0
+        String name; // Default: null
+        }  
+        ```
+
+### 4. **Final Variables (Constants)**
+* Must be initialized:
+    * At declaration or in the constructor (for instance variables).
+* Cannot be reassigned:
+    ```Java
+    final int MAX_VALUE = 100;
+    MAX_VALUE = 200; // Compile error
+    ```
+
+### 5. **var Keyword (Java 10+)**
+* **Local Variables Only**:
+    * Cannot be used for static/instance variables or method parameters.
+
+* **Requires Immediate Initialization**:
+    ```Java
+    var name = "Java"; // Inferred as String
+    var x;             // Error: Cannot infer type
+    ```
+
+### 6. **Other Key Rules**
+* **No Redeclaration in Same Scope**:
+    ```Java
+    {
+        int x = 10;
+        int x = 20; // Error: Duplicate variable
+    }
+    ```
+* **Method Parameters**: Treated as local variables (initialized by the caller).
+* **Interface Variables**: Implicitly public static final.
+    ```Java
+    interface MyInterface {
+        int MAX = 100; // Automatically public static final
+    }
+    ```
