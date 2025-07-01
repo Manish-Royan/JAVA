@@ -6,7 +6,7 @@
 
 ↳ Methods are a fundamental building block in Java programming, encapsulating reusable blocks of code that perform specific tasks. They promote **modularity**, **readability**, and **maintainability** by allowing us to break down complex programs into smaller, manageable pieces. In object-oriented programming (OOP), **methods define the behavior of objects**, **enabling encapsulation and abstraction**.
 
-## Definition and Purpose
+## 📖 Definition and Purpose
 ↳ A method is a named block of code that can be invoked (called) to execute a sequence of statements. It can:
 * Perform computations.
 * Manipulate data (e.g., ***modify object fields***).
@@ -19,7 +19,7 @@
 * **Modularity**: Organize code logically within classes.
 * **Debugging**: Isolate logic for easier testing and error handling.
 
-## Method Structure
+## 🧾 Method Structure 
 
 ### i. The general syntax for declaring a method (without return type) is:
 ```
@@ -86,3 +86,62 @@ public static synchronized int compute(int a, int b) throws IOException, Illegal
     return a + b;
 }
 ```
+
+
+## 🧩 Components Explained:
+| Component        | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| `accessModifier` | Controls visibility (`public`, `private`, `protected`, default)             |
+| `returnType`     | Type of value returned (`int`, `String`, `void`, etc.)                      |
+| `methodName`     | Follows camelCase naming convention                                         |
+| `parameters`     | Optional inputs (can be zero or more)                                       |
+| `method body`    | Code that runs when the method is called                                    |
+| `return`         | Sends back a value (if return type is not `void`)                           |
+
+## ⛓️‍💥 Breakdown of Components
+### ◻ Access Modifier (optional, defaults to package-private):
+* **public**: Accessible from any class.
+    #### 📌 Example:
+    ```java
+    // Accessible from any other class or package
+    public class PublicExample {
+        public void show() {
+            System.out.println("This is public");
+        }
+    }
+    ```
+* **protected**: Accessible within the same package or subclasses.
+    #### 📌 Example:
+    ```java
+    // Accessible within same package or subclasses
+    public class ProtectedExample {
+        protected void display() {
+            System.out.println("This is protected");
+        }
+    }
+    ```
+* **private**: Accessible only within the same class.
+    #### 📌 Example:
+    ```java
+    // Accessible only within this class
+    public class PrivateExample {
+        private void secret() {
+            System.out.println("This is private");
+        }
+
+        public void reveal() {
+            secret(); // OK: calling private method from within the same class
+        }
+    }
+    ```
+
+* **(No modifier)**: Package-private (**default**), accessible within the same package.
+    #### 📌 Example:
+    ```java
+    // Accessible only within the same package
+    class PackagePrivateExample {
+        void execute() {
+            System.out.println("This is package-private");
+        }
+    }
+    ```
