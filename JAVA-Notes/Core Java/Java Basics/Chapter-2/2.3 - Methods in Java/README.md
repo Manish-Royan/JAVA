@@ -145,3 +145,92 @@ public static synchronized int compute(int a, int b) throws IOException, Illegal
         }
     }
     ```
+
+### ◻ Other Modifiers (optional):
+* **static**: Belongs to the class, not instances (covered later).
+    #### 📌 Example:
+    ```java
+    public class Counter {
+        private static int count = 0;
+
+        public static void increment() {
+            count++;
+        }
+
+        public static int getCount() {
+            return count;
+        }
+    }
+    ```
+
+* **final**: Cannot be overridden (in subclasses).
+    #### 📌 Example:  
+    ```java
+    class Vehicle {
+        public final void startEngine() {    // cannot be overridden
+            System.out.println("Engine started");
+        }
+    }
+
+    class Car extends Vehicle {
+        // Compilation error if you try to override startEngine():
+        // public void startEngine() { … }
+    }
+    ```
+
+
+* **abstract**: Declaration only; no body (must be in abstract class/interface).
+    #### 📌 Example:  
+    ```java
+    public abstract class Animal {          // abstract class
+        public abstract void makeSound();   // no method body
+
+        public void sleep() {                // concrete method
+            System.out.println("Zzz");
+        }
+    }
+
+    class Dog extends Animal {
+        @Override
+        public void makeSound() {            // must provide implementation
+            System.out.println("Woof");
+        }
+    }
+    ```
+
+* **synchronized**: Thread-safe; acquires lock on object/class (covered later).
+    #### 📌 Example:  
+    ```java
+    public class BankAccount {
+        private int balance = 1000;
+
+        public synchronized void withdraw(int amount) {  // thread-safe
+            if (balance >= amount) {
+                balance -= amount;
+            }
+        }
+    }
+    ```
+
+* **native**: Implemented in native code (e.g., C/C++ via JNI).
+    #### 📌 Example:  
+    ```java
+    public class NativeDemo {
+        // implemented in C/C++ via JNI
+        public native int compute(int x, int y);
+
+        static {
+            System.loadLibrary("NativeLib");  // loads libNativeLib.so or .dll
+        }
+    }
+    ```
+
+* **strictfp**: Ensures floating-point consistency across platforms.
+    #### 📌 Example:  
+    ```java
+    public strictfp class Calculator {      // enforces consistent Floating-Point behavior
+        public double divide(double a, double b) {
+            return a / b;
+        }
+    }
+    ```
