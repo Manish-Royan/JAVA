@@ -93,7 +93,7 @@ public static synchronized int compute(int a, int b) throws IOException, Illegal
 |------------------|-----------------------------------------------------------------------------|
 | `accessModifier` | Controls visibility (`public`, `private`, `protected`, default)             |
 | `returnType`     | Type of value returned (`int`, `String`, `void`, etc.)                      |
-| `methodName`     | Follows camelCase naming convention                                         |
+| `methodName`     | Follows ***camelCase*** naming convention                                         |
 | `parameters`     | Optional inputs (can be zero or more)                                       |
 | `method body`    | Code that runs when the method is called                                    |
 | `return`         | Sends back a value (if return type is not `void`)                           |
@@ -231,6 +231,120 @@ public static synchronized int compute(int a, int b) throws IOException, Illegal
     public strictfp class Calculator {      // enforces consistent Floating-Point behavior
         public double divide(double a, double b) {
             return a / b;
+        }
+    }
+    ```
+
+### ◻ Return Type:
+* **void**: No return value.
+    #### 📌 Example:  
+    ```java
+    public class Logger {
+        public void log(String message) {
+            System.out.println(message);
+        }
+    }
+    ```
+* **Primitive types**: `int`, `double`, `boolean`, etc.
+    #### 📌 Example:  
+    ```java
+    public class MathUtils {
+        public int add(int a, int b) {
+            return a + b;
+        }
+
+        public double average(double x, double y) {
+            return (x + y) / 2;
+        }
+
+        public boolean isEven(int number) {
+            return number % 2 == 0;
+        }
+    }
+    ```
+
+* **Reference types**: `String`, **custom classes**, `arrays`, `generics` (e.g., `List<String>`).
+    #### 📌 Example:  
+    ```java
+    import java.util.List;
+    import java.util.Arrays;
+
+    public class ReferenceExamples {
+        // Returns a String
+        public String getGreeting() {
+            return "Hello, world!";
+        }
+
+        // Returns a custom reference type Person
+        public Person createPerson(String name, int age) {
+            return new Person(name, age);
+        }
+
+        // Returns an array of Strings
+        public String[] getColors() {
+            return new String[] { "Red", "Green", "Blue" };
+        }
+
+        // Returns a generic List of Strings
+        public List<String> getItems() {
+            return List.of("Apple", "Banana", "Cherry");
+        }
+
+        public static void main(String[] args) {
+            ReferenceExamples examples = new ReferenceExamples();
+
+            // String return
+            System.out.println("Greeting: " + examples.getGreeting());
+
+            // Custom Person return
+            Person person = examples.createPerson("Alice", 30);
+            System.out.println("Created Person: " + person);
+
+            // Array return
+            System.out.println("Colors: " + Arrays.toString(examples.getColors()));
+
+            // List return
+            System.out.println("Items: " + examples.getItems());
+        }
+    }
+
+    // Simple Person class with a toString override
+    class Person {
+        private String name;
+        private int age;
+
+        public Person(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        @Override
+        public String toString() {
+            return "Person{name='" + name + "', age=" + age + "}";
+        }
+    }
+    ```
+
+* **If non-void**, use return statement to exit and provide value.
+    #### 📌 Example:
+    ```java
+    public class ReturnExample {
+        public int absolute(int x) {
+            if (x < 0) 
+            /* If x is negative, we flip it to positive using -x. 
+              * Example: if x = -5, then -x = 5.*/
+            {
+                return -x; // exit early and provide value
+            }
+            return x; //If x is already positive or zero, we just return it as-is.
+        }
+
+        public static void main(String[] args) {
+            ReturnExample obj = new ReturnExample();
+
+            System.out.println(obj.absolute(5));   // Output: 5
+            System.out.println(obj.absolute(-8));  // Output: 8
+            System.out.println(obj.absolute(0));   // Output: 0
         }
     }
     ```
