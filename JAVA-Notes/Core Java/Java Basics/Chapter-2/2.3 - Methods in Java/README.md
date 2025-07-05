@@ -91,10 +91,11 @@ public static synchronized int compute(int a, int b) throws IOException, Illegal
 ## 🧩 Components Explained:
 | Component        | Description                                                                 |
 |------------------|-----------------------------------------------------------------------------|
-| `accessModifier` | Controls visibility (`public`, `private`, `protected`, default)             |
+| `accessModifier` | Controls visibility (`public`, `private`, `protected` default)             |
 | `returnType`     | Type of value returned (`int`, `String`, `void`, etc.)                      |
 | `methodName`     | Follows ***camelCase*** naming convention                                         |
 | `parameters`     | Optional inputs (can be zero or more)                                       |
+| `Throws clause`  | Optional, declares exceptions the method might throw |
 | `method body`    | Code that runs when the method is called                                    |
 | `return`         | Sends back a value (if return type is not `void`)                           |
 
@@ -348,3 +349,46 @@ public static synchronized int compute(int a, int b) throws IOException, Illegal
         }
     }
     ```
+### ◻ Method Name:
+* Must be a valid identifier (starts with ***letter***/***underscore***/***$***).
+* Convention: ***camelCase*** (e.g., *calculateSum*).
+* For constructors: Same as class name.
+    #### 📌 Example:
+```java
+public class MethodNameExamples {
+
+    // 1. Valid identifiers: start with a letter, underscore, or dollar sign
+    public void myMethod() {
+        System.out.println("Called myMethod()");
+    }
+
+    public void _underscoreMethod() {
+        System.out.println("Called _underscoreMethod()");
+    }
+
+    public void $dollarMethod() {
+        System.out.println("Called $dollarMethod()");
+    }
+
+    // 2. camelCase convention: multi-word names start lowercase then capitalize each subsequent word
+    public int calculateSum(int a, int b) {
+        return a + b;
+    }
+
+    // 3. Constructor: name must match the class exactly
+    public MethodNameExamples() {
+        System.out.println("Constructor MethodNameExamples() called");
+    }
+
+    public static void main(String[] args) {
+        MethodNameExamples example = new MethodNameExamples();
+
+        example.myMethod();
+        example._underscoreMethod();
+        example.$dollarMethod();
+
+        int sum = example.calculateSum(5, 7);
+        System.out.println("Sum: " + sum);
+    }
+}
+```  
