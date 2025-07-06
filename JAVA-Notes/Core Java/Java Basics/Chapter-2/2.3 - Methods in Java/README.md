@@ -354,41 +354,155 @@ public static synchronized int compute(int a, int b) throws IOException, Illegal
 * Convention: ***camelCase*** (e.g., *calculateSum*).
 * For constructors: Same as class name.
     #### 📌 Example:
-```java
-public class MethodNameExamples {
+    ```java
+    public class MethodNameExamples {
 
-    // 1. Valid identifiers: start with a letter, underscore, or dollar sign
-    public void myMethod() {
-        System.out.println("Called myMethod()");
+        // 1. Valid identifiers: start with a letter, underscore, or dollar sign
+        public void myMethod() {
+            System.out.println("Called myMethod()");
+        }
+
+        public void _underscoreMethod() {
+            System.out.println("Called _underscoreMethod()");
+        }
+
+        public void $dollarMethod() {
+            System.out.println("Called $dollarMethod()");
+        }
+
+        // 2. camelCase convention: multi-word names start lowercase then capitalize each   subsequent word
+        public int calculateSum(int a, int b) {
+            return a + b;
+        }
+
+        // 3. Constructor: name must match the class exactly
+        public MethodNameExamples() {
+            System.out.println("Constructor MethodNameExamples() called");
+        }
+
+        public static void main(String[] args) {
+            MethodNameExamples example = new MethodNameExamples();
+
+            example.myMethod();
+            example._underscoreMethod();
+            example.$dollarMethod();
+
+            int sum = example.calculateSum(5, 7);
+            System.out.println("Sum: " + sum);
+        }
+    }
+    ```  
+
+### ◻ Parameter List (optional):
+* **Comma-separated**: `type1` `param1`, `type2` `param2`.
+    #### 📌 Example:
+    ```java
+    public class CommaSeparatedExample {
+        // A method with multiple parameters separated by commas
+        public int compute(int a, int b, int c) // type1 param1, type2 param2, type3 param3
+        {
+            return a * b + c;
+        }
+    }
+    ```
+
+* Parameters are local variables passed by value (primitives) or reference (objects). 
+    #### 📌 Example:
+    ```java
+    public class PassByExample {
+    public void modify(int num, StringBuilder sb) {
+        num = num + 5;            // changes only local copy of num
+        sb.append(" world");      // mutates the same StringBuilder object
     }
 
-    public void _underscoreMethod() {
-        System.out.println("Called _underscoreMethod()");
+        public static void main(String[] args) {
+            int originalNum = 10;
+            StringBuilder originalSb = new StringBuilder("Hello");
+            
+            new PassByExample().modify(originalNum, originalSb);
+            
+            System.out.println(originalNum);   // prints 10
+            System.out.println(originalSb);    // prints "Hello world"
+        }
+    }
+    //NOTE: Primitives are passed by value (a copy), object references are passed by value too—so you can modify the object but not reassign the caller’s reference:
+    ```
+
+* Can include generics (e.g., <T> T genericMethod(T arg)).
+    #### 📌 Example:
+    ```java
+    public class GenericExample {
+    
+    //A method that works with any reference type via a type parameter <T>
+    public <T> T identity(T arg) // <T> declares a type parameter; T arg is the generic parameter
+    {
+        return arg;
     }
 
-    public void $dollarMethod() {
-        System.out.println("Called $dollarMethod()");
+        public static void main(String[] args) {
+            GenericExample ex = new GenericExample();
+            
+            String text = ex.identity("Hello");
+            Integer number = ex.identity(42);
+            
+            System.out.println(text);    // Hello
+            System.out.println(number);  // 42
+        }
     }
+    ```
 
-    // 2. camelCase convention: multi-word names start lowercase then capitalize each subsequent word
-    public int calculateSum(int a, int b) {
-        return a + b;
+### ◻ Throws Clause (optional):
+* `throws` `ExceptionType1`, `ExceptionType2`: Declares checked exceptions the method may throw.
+    #### 📌 Example:
+    ```java 
+    import java.io.BufferedReader;
+    import java.io.FileReader;
+    import java.io.IOException;
+
+    /*Method Declaration with `throws`*/
+    public class ThrowsExample {
+
+        // Declares that this method can throw IOException
+        public String readFirstLine(String filePath) throws IOException
+        //This method declares that it may throw an IOException. Any code that calls it must either handle that exception or declare it as well.
+        {
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            String line = br.readLine();
+            br.close();
+            return line;
+        }
     }
+    ```
 
-    // 3. Constructor: name must match the class exactly
-    public MethodNameExamples() {
-        System.out.println("Constructor MethodNameExamples() called");
+* Caller must handle via `try-catch` or `propagate`.
+    * **Handling the Exception with `try-catch`**
+     #### 📌 Example:
+    ```java 
+    public class MainWithTryCatch {
+        // Here the caller (main method) uses a try-catch block to catch and handle the checked exception
+        public static void main(String[] args) {
+            ThrowsExample example = new ThrowsExample();
+
+            try {
+                String firstLine = example.readFirstLine("input.txt");
+                System.out.println("First line: " + firstLine);
+            } catch (IOException e) {
+                System.err.println("Error reading file: " + e.getMessage());
+            }
+        }
     }
+    ```   
 
-    public static void main(String[] args) {
-        MethodNameExamples example = new MethodNameExamples();
-
-        example.myMethod();
-        example._underscoreMethod();
-        example.$dollarMethod();
-
-        int sum = example.calculateSum(5, 7);
-        System.out.println("Sum: " + sum);
+    * **Propagating the Exception to the Caller**: Instead of catching it, you can propagate the exception further up by declaring `throws` in `main`. In this case, the JVM will handle it if no other code catches it.
+    #### 📌 Example:
+    ```java 
+   public class MainWithThrows {
+        public static void main(String[] args) throws IOException {
+            String firstLine = new ThrowsExample().readFirstLine("input.txt");
+            System.out.println("First line: " + firstLine);
+        }
     }
-}
-```  
+    ```   
+    
+
+  
