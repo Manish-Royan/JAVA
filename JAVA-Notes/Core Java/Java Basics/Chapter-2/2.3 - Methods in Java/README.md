@@ -428,7 +428,7 @@ public static synchronized int compute(int a, int b) throws IOException, Illegal
     //NOTE: Primitives are passed by value (a copy), object references are passed by value too—so you can modify the object but not reassign the caller’s reference:
     ```
 
-* Can include generics (e.g., <T> T genericMethod(T arg)).
+* Can include generics (e.g., `<T>` T genericMethod(`T arg`)).
     #### 📌 Example:
     ```java
     public class GenericExample {
@@ -504,5 +504,75 @@ public static synchronized int compute(int a, int b) throws IOException, Illegal
     }
     ```   
     
+## 🔖 Types and Vocabulary of Java Methods
 
-  
+### 📚 Overview
+Java methods are more than syntax; they express intent. Classifying methods by role (**query**, **command**, **factory**, etc.) improves readability, testing, and design. Below are precise definitions, short example code, when to use each type, and practical notes for design and testing.
+
+### 1. Query Methods
+* **Definition**: Return information about object state without causing observable side effects.
+* **Characteristics**: Pure or nearly pure, should not modify object state, frequently used in expressions and assertions.
+    #### 📌 Example:
+    ```java
+    public class Account {
+        private final int balance;
+        public int getBalance() { return balance; }
+    }
+    ```
+* When to use: Expose state or computed values; implement equals/hashCode/getters.
+#### 👉 Notes: Prefer immutability and idempotence; name with get/is/has.
+
+### 2. Command Methods
+* **Definition**: Perform actions or mutate state; their value is the effect, not a return value.
+* **Characteristics**: May modify fields, trigger I/O, or send events.
+    #### 📌 Example:
+    ```java
+    public void withdraw(int amount) {
+        if (amount > 0) balance -= amount;
+    }
+    ```
+* **When to use**: Any operation that changes state or interacts with external systems.
+#### 👉 Notes: Name with verbs (set, add, delete, send); keep side effects documented and minimal.
+
+### 3. Factory Methods
+* **Definition**: Create and return instances, often hiding constructor complexity or implementing caching/singleton logic.
+* **Characteristics**: Static or instance methods that encapsulate object creation and configuration.
+
+    #### 📌 Example: Static Factory with Caching
+    ```java
+    import java.util.Map;
+    import java.util.concurrent.ConcurrentHashMap;
+    
+    public final class Color {
+        private final int red;
+        private final int green;
+        private final int blue;
+    
+        // Cache to reuse Color instances
+        private static final Map<String, Color> CACHE = new ConcurrentHashMap<>();
+    
+        // Private constructor hides instantiation details
+        private Color(int red, int green, int blue) {
+            this.red = red;
+            this.green = green;
+            this.blue = blue;
+        }
+    
+        // Static factory method
+        public static Color of(int red, int green, int blue) {
+            String key = red + "-" + green + "-" + blue;
+            // computeIfAbsent handles caching: returns existing or creates new
+            return CACHE.computeIfAbsent(key, k -> new Color(red, green, blue));
+        }
+    
+        @Override
+        public String toString() {
+            return "Color(" + red + ", " + green + ", " + blue + ")";
+        }
+    }
+    
+    // Usage:
+    // Color c1 = Color.of(255, 0, 0);
+    // Color c2 = Color.of(255, 0, 0);
+    // c1 == c2  // true, same cached instance
+    ```
