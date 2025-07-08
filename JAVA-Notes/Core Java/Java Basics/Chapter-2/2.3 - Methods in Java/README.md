@@ -521,6 +521,21 @@ Java methods are more than syntax; they express intent. Classifying methods by r
     ```
 * When to use: Expose state or computed values; implement equals/hashCode/getters.
 #### 👉 Notes: Prefer immutability and idempotence; name with get/is/has.
+#### # Naming Conventions: get-, is-, has-
+↳ Consistency in naming turns your methods into a self-documenting API:
+* `getXxx()`
+    * Standard for any non-boolean property.
+    * Example: `getBalance()`, `getItems()`
+
+* `isXxx()`
+    * Preferred for boolean flags.
+    * Example: `isActive()`, `isEmpty()`
+
+* `hasXxx()`
+    * Conveys possession or availability.
+    * Example: `hasChildren()`, `hasErrors()`
+
+#### 👉 Notes: Picking the right prefix helps automated tools (like JavaBeans introspectors) and colleagues immediately grasp purpose.
 
 ### 2. Command Methods
 * **Definition**: Perform actions or mutate state; their value is the effect, not a return value.
@@ -576,3 +591,69 @@ Java methods are more than syntax; they express intent. Classifying methods by r
     // Color c2 = Color.of(255, 0, 0);
     // c1 == c2  // true, same cached instance
     ```
+
+    #### 📌 Example: Instance-Based Factory
+    ```java
+    public class ShapeFactory {
+        private final String theme;
+
+        // Constructor configures the factory
+        public ShapeFactory(String theme) {
+            this.theme = theme;
+        }
+
+        // Factory method for Circle
+        public Shape createCircle(double radius) {
+            // Hides the complexity of choosing a Circle subclass or setting defaults
+            return new Circle(theme, radius);
+        }
+
+        // Factory method for Rectangle
+        public Shape createRectangle(double width, double height) {
+            return new Rectangle(theme, width, height);
+        }
+    }
+
+    // Supporting classes
+    interface Shape {
+        void draw();
+    }
+
+    class Circle implements Shape {
+        private final String theme;
+        private final double radius;
+
+        Circle(String theme, double radius) {
+            this.theme = theme;
+            this.radius = radius;
+        }
+
+        @Override
+        public void draw() {
+            System.out.println("Drawing " + theme + " circle of radius " + radius);
+        }
+    }
+
+    class Rectangle implements Shape {
+        private final String theme;
+        private final double width;
+        private final double height;
+
+        Rectangle(String theme, double width, double height) {
+            this.theme = theme;
+            this.width = width;
+            this.height = height;
+        }
+
+        @Override
+        public void draw() {
+            System.out.println("Drawing " + theme + " rectangle " + width + "x" + height);
+        }
+    }
+
+    // Usage:
+    // ShapeFactory factory = new ShapeFactory("Cartoon");
+    // Shape circle = factory.createCircle(5.0);
+    // circle.draw();
+    ```
+
