@@ -519,9 +519,20 @@ Java methods are more than syntax; they express intent. Classifying methods by r
         public int getBalance() { return balance; }
     }
     ```
-* When to use: Expose state or computed values; implement equals/hashCode/getters.
+#### ◻ When to use: Expose state or computed values; implement equals/hashCode/getters.
+↳ Query methods are your go-to tools whenever you need to ask an object for information without changing it. Use them to:
+
+* **Expose internal state**
+    - Return field values via getters (`getName()`, `getBalance()`).
+* **Compute derived values**
+    - Calculate on the fly (e.g., `getFullName()` concatenates first and last name; `getAge()` computes years since birth).
+
+* **Support equality and hashing**
+    - `equals(Object)` returns a boolean comparing significant fields
+    - `hashCode()` returns an int based on those same fields to keep containers happy
+
 #### 👉 Notes: Prefer immutability and idempotence; name with get/is/has.
-#### # Naming Conventions: get-, is-, has-
+#### ◻ Naming Conventions: get-, is-, has-
 ↳ Consistency in naming turns your methods into a self-documenting API:
 * `getXxx()`
     * Standard for any non-boolean property.
@@ -656,4 +667,3 @@ Java methods are more than syntax; they express intent. Classifying methods by r
     // Shape circle = factory.createCircle(5.0);
     // circle.draw();
     ```
-
