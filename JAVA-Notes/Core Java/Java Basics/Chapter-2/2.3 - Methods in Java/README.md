@@ -667,3 +667,40 @@ Java methods are more than syntax; they express intent. Classifying methods by r
     // Shape circle = factory.createCircle(5.0);
     // circle.draw();
     ```
+
+* **When to use**: Replace multiple constructors, implement dependency injection, control lifecycle.
+
+#### 👉 Notes: Use descriptive names (of, from, create, newInstance); document ownership and mutability of returned objects.
+
+
+### 4. Convenience and Helper Methods
+* **Definition**: Small methods that simplify common tasks or combine multiple calls into one readable operation.
+
+    #### ◻ What They Are
+    ↳ Convenience and helper methods are lightweight, focused routines designed to make frequent tasks more readable and concise. Rather than forcing callers to orchestrate multiple low-level calls or repeat boilerplate logic, a single helper packs that sequence into a named method that clearly conveys the intent.
+
+* **Characteristics**: Reduce duplication, improve expressiveness, often delegated to underlying methods.
+    - They reduce code duplication by centralizing recurring sequences of operations.
+    -They improve expressiveness: method names describe what you’re doing instead of how.
+    - They rarely hold their own business logic; instead they delegate to core, authoritative methods.
+    - They live in utility classes or alongside the classes they help, keeping related functionality together.
+* **When to use**: Avoid repeating logic; provide clearer API surface.
+```java
+public class StringUtils {
+    // Core method doing the stripping
+    public static String stripPrefix(String input, String prefix) {
+        if (input.startsWith(prefix)) {
+            return input.substring(prefix.length());
+        }
+        return input;
+    }
+
+    // Convenience method combining strip and lowercase
+    public static String stripAndLower(String input, String prefix) {
+        // Delegate to the core stripPrefix method
+        String stripped = stripPrefix(input, prefix);
+        return stripped.toLowerCase();
+    }
+} //Here, stripAndLower saves callers from writing two lines each time and clearly states the intent.
+```
+#### 👉 Notes: Keep them thin; they should call other core methods rather than duplicate logic.
