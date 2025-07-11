@@ -707,7 +707,7 @@ public class StringUtils {
 
 ### 5. Assertion Methods
 * **Definition**: Validate invariants, preconditions, postconditions, and throw exceptions when validations fail.
-    #### ◻What They Are
+    #### ◻ What They Are
     ↳ Assertion methods validate that certain conditions are met before or after an operation. They form the backbone of defensive programming by making your code’s expectations explicit and fail-fast.
 * **Characteristics**: Used for defensive programming and explicit contract checks.
     - They check inputs, outputs, or internal state and throw exceptions if a check fails.
@@ -750,3 +750,62 @@ public class StringUtils {
     ```
 
 #### 👉 Notes: Distinguish from Java assert keyword; prefer explicit exceptions for argument validation.
+
+### . Primitive and Composed Methods
+#### ◻ Primitive Methods (Atomic Methods): 
+↳ Primitive (atomic) methods: Fundamental, small, directly implement behavior.
+* **Definition**: These are the smallest building blocks in your code. Each one performs a single, well-defined task.
+* **Purpose**: They directly implement behavior without relying on other methods.
+    #### 📌 Example: A method that checks if a string is null or empty.
+    ```java
+    public boolean isEmpty(String input) {
+    return input == null || input.isBlank();
+    }
+    ```
+
+#### ◻ Composed Methods: 
+↳ Composed methods: Built by calling primitives; coordinate multiple primitives to implement high-level behavior.
+* **Definition**: These are higher-level methods that combine multiple primitive methods to perform a more complex task.
+* **Purpose**: They orchestrate behavior by delegating work to primitives.
+    #### 📌 Example: A method that validates a user’s input by calling several primitive checks.
+    ```java
+    public boolean isValidUser(String name, String email) {
+    return isEmpty(name) && isValidEmail(email);
+    }
+    ```
+
+#### ◻ Bonus Analogy: Cooking
+* Primitive Methods = chopping vegetables, boiling water, measuring spices.
+* Composed Methods = cooking a full dish by combining those steps.
+
+#### ◻ Characteristics: Primitives are simple and tested individually; composed methods orchestrate them.
+| Feature              | Primitive Methods                          | Composed Methods                              |
+|----------------------|--------------------------------------------|-----------------------------------------------|
+| Scope                | Very narrow, focused                       | Broader, coordinates multiple primitives      |
+| Testability          | Easy to test in isolation                  | Tested via integration or workflow scenarios  |
+| Reusability          | High—used in many places                   | Medium—specific to a feature or flow          |
+| Complexity           | Low                                         | Moderate to high                              |
+| Maintenance          | Easy—minimal logic                         | Easier if primitives are well-defined         |
+
+#### ✅ When to Use Them: Decompose complex logic into testable units.
+* **Primitive Methods**:
+    * When implementing basic logic (e.g., string checks, math operations, null checks).
+    * When you want reusable, testable units.
+    * When documenting core behaviors.
+
+* **Composed Methods**:
+    * When building workflows or feature logic.
+    * When you want readable, high-level operations.
+    * When coordinating multiple steps (e.g., validation, transformation, persistence).
+
+#### ◻ Best Practices
+* **For Primitive Methods**:
+    * Keep them minimal—one job, no side effects.
+    * Name them clearly: `isEmpty`, `isValidEmail`, `calculateTax`.
+    * Document them well—describe what they check or compute.
+#### ◻ For Composed Methods:
+    * Use them to express intent: `registerUser`, `processOrder`, `validateForm`.
+    * Avoid duplicating logic—always delegate to primitives.
+    * Keep them readable—don’t bury logic in nested calls.
+
+#### 👉 Notes: Keep primitives minimal and well-documented; use composition to build features
