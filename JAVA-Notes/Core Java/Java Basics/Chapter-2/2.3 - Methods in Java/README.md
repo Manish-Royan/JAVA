@@ -704,3 +704,49 @@ public class StringUtils {
 } //Here, stripAndLower saves callers from writing two lines each time and clearly states the intent.
 ```
 #### 👉 Notes: Keep them thin; they should call other core methods rather than duplicate logic.
+
+### 5. Assertion Methods
+* **Definition**: Validate invariants, preconditions, postconditions, and throw exceptions when validations fail.
+    #### ◻What They Are
+    ↳ Assertion methods validate that certain conditions are met before or after an operation. They form the backbone of defensive programming by making your code’s expectations explicit and fail-fast.
+* **Characteristics**: Used for defensive programming and explicit contract checks.
+    - They check inputs, outputs, or internal state and throw exceptions if a check fails.
+    - They live alongside your business logic, often as small private or utility methods.
+    - They improve debug-ability by pinpointing the exact contract that was violated.
+    - They are more reliable than the Java `assert` keyword because they stay active in all runtime environments (unless someone explicitly catches them).
+
+* **When to use**: At public API boundaries, inside constructors, before critical operations.
+
+    ### ✓ Java assert Keyword vs. Explicit Exceptions 
+    - The `assert` keyword can be disabled at runtime (with `-ea`/`-da` flags), making it unsuitable for enforcing essential validation.
+    - Explicit exceptions like `IllegalArgumentException`, `NullPointerException`, or custom exceptions always run, ensuring that invalid conditions are never silently ignored.
+    - Reserve `assert` for internal sanity checks during development; use exceptions for public-facing contracts and critical validations.
+    #### 📌 Example:
+    ```java
+    public class User {
+        private final String email;
+    
+        public User(String email) {
+            // Precondition: email must not be null or empty
+            requireNonEmpty(email, "email");
+            // Postcondition: email contains '@'
+            requireCondition(email.contains("@"), "email must contain @");
+    
+            this.email = email;
+        }
+    
+        private void requireNonEmpty(String value, String name) {
+            if (value == null || value.isBlank()) {
+                throw new IllegalArgumentException(name + " must not be null or empty");
+            }
+        }
+    
+        private void requireCondition(boolean condition, String message) {
+            if (!condition) {
+                throw new IllegalStateException("Assertion failed: " + message);
+            }
+        }
+    }
+    ```
+
+#### 👉 Notes: Distinguish from Java assert keyword; prefer explicit exceptions for argument validation.
