@@ -44,3 +44,17 @@ Java methods are more than syntax; they express intent. Classifying methods by r
 
 ----
 
+### 2. Command Methods
+* **Definition**: Perform actions or mutate state; their value is the effect, not a return value.
+* **Characteristics**: May modify fields, trigger I/O, or send events.
+    #### 📌 Example:
+    ```java
+    public void withdraw(int amount) {
+        if (amount > 0) balance -= amount;
+    }
+    ```
+* **When to use**: Any operation that changes state or interacts with external systems.
+#### 👉 Notes: Name with verbs (set, add, delete, send); keep side effects documented and minimal.
+
+----
+
