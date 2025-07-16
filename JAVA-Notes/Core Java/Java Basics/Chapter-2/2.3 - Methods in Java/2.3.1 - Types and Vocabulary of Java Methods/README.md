@@ -58,3 +58,117 @@ Java methods are more than syntax; they express intent. Classifying methods by r
 
 ----
 
+### 3. Factory Methods
+* **Definition**: Create and return instances, often hiding constructor complexity or implementing caching/singleton logic.
+* **Characteristics**: Static or instance methods that encapsulate object creation and configuration.
+
+    #### 📌 Example: Static Factory with Caching
+    ```java
+    import java.util.Map;
+    import java.util.concurrent.ConcurrentHashMap;
+    
+    public final class Color {
+        private final int red;
+        private final int green;
+        private final int blue;
+    
+        // Cache to reuse Color instances
+        private static final Map<String, Color> CACHE = new ConcurrentHashMap<>();
+    
+        // Private constructor hides instantiation details
+        private Color(int red, int green, int blue) {
+            this.red = red;
+            this.green = green;
+            this.blue = blue;
+        }
+    
+        // Static factory method
+        public static Color of(int red, int green, int blue) {
+            String key = red + "-" + green + "-" + blue;
+            // computeIfAbsent handles caching: returns existing or creates new
+            return CACHE.computeIfAbsent(key, k -> new Color(red, green, blue));
+        }
+    
+        @Override
+        public String toString() {
+            return "Color(" + red + ", " + green + ", " + blue + ")";
+        }
+    }
+    
+    // Usage:
+    // Color c1 = Color.of(255, 0, 0);
+    // Color c2 = Color.of(255, 0, 0);
+    // c1 == c2  // true, same cached instance
+    ```
+
+    #### 📌 Example: Instance-Based Factory
+    ```java
+    public class ShapeFactory {
+        private final String theme;
+
+        // Constructor configures the factory
+        public ShapeFactory(String theme) {
+            this.theme = theme;
+        }
+
+        // Factory method for Circle
+        public Shape createCircle(double radius) {
+            // Hides the complexity of choosing a Circle subclass or setting defaults
+            return new Circle(theme, radius);
+        }
+
+        // Factory method for Rectangle
+        public Shape createRectangle(double width, double height) {
+            return new Rectangle(theme, width, height);
+        }
+    }
+
+    // Supporting classes
+    interface Shape {
+        void draw();
+    }
+
+    class Circle implements Shape {
+        private final String theme;
+        private final double radius;
+
+        Circle(String theme, double radius) {
+            this.theme = theme;
+            this.radius = radius;
+        }
+
+        @Override
+        public void draw() {
+            System.out.println("Drawing " + theme + " circle of radius " + radius);
+        }
+    }
+
+    class Rectangle implements Shape {
+        private final String theme;
+        private final double width;
+        private final double height;
+
+        Rectangle(String theme, double width, double height) {
+            this.theme = theme;
+            this.width = width;
+            this.height = height;
+        }
+
+        @Override
+        public void draw() {
+            System.out.println("Drawing " + theme + " rectangle " + width + "x" + height);
+        }
+    }
+
+    // Usage:
+    // ShapeFactory factory = new ShapeFactory("Cartoon");
+    // Shape circle = factory.createCircle(5.0);
+    // circle.draw();
+    ```
+
+* **When to use**: Replace multiple constructors, implement dependency injection, control lifecycle.
+
+#### 👉 Notes: Use descriptive names (of, from, create, newInstance); document ownership and mutability of returned objects.
+
+----
+
