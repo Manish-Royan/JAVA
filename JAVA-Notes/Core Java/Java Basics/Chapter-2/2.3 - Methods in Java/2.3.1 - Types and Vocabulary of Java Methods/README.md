@@ -254,3 +254,15 @@ public class StringUtils {
 
 ----
 
+### 6. Primitive and Composed Methods
+#### ◻ Primitive Methods (Atomic Methods): 
+↳ Primitive (atomic) methods: Fundamental, small, directly implement behavior.
+* **Definition**: These are the smallest building blocks in your code. Each one performs a single, well-defined task.
+* **Purpose**: They directly implement behavior without relying on other methods.
+    #### 📌 Example: A method that checks if a string is null or empty.
+    ```java
+    public boolean isEmpty(String input) {
+    return input == null || input.isBlank();
+    }
+    ```
+
