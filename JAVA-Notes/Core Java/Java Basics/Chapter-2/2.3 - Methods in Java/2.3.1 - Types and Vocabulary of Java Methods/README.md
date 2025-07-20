@@ -266,3 +266,14 @@ public class StringUtils {
     }
     ```
 
+#### ◻ Composed Methods: 
+↳ Composed methods: Built by calling primitives; coordinate multiple primitives to implement high-level behavior.
+* **Definition**: These are higher-level methods that combine multiple primitive methods to perform a more complex task.
+* **Purpose**: They orchestrate behavior by delegating work to primitives.
+    #### 📌 Example: A method that validates a user’s input by calling several primitive checks.
+    ```java
+    public boolean isValidUser(String name, String email) {
+    return isEmpty(name) && isValidEmail(email);
+    }
+    ```
+
