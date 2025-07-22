@@ -315,3 +315,6 @@ public class StringUtils {
 
 ----
 
+### 7. Template Methods
+↳ Template Method is a behavioral pattern that defines the skeleton of an algorithm in a base class, deferring some steps to subclasses so they can vary parts of the algorithm without changing its overall structure.
+
