@@ -318,3 +318,6 @@ public class StringUtils {
 ### 7. Template Methods
 ↳ Template Method is a behavioral pattern that defines the skeleton of an algorithm in a base class, deferring some steps to subclasses so they can vary parts of the algorithm without changing its overall structure.
 
+#### ◻ Core Idea
+↳ You capture the invariant part of an algorithm in a single ***“template”*** method. That method calls a sequence of primitive operations—some fully implemented in the base class, others left abstract or with default hooks. Subclasses override only the variable steps.
+
