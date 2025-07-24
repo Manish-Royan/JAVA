@@ -321,3 +321,8 @@ public class StringUtils {
 #### ◻ Core Idea
 ↳ You capture the invariant part of an algorithm in a single ***“template”*** method. That method calls a sequence of primitive operations—some fully implemented in the base class, others left abstract or with default hooks. Subclasses override only the variable steps.
 
+#### ◻ Key Characteristics
+* Lives in an abstract superclass.
+* Contains one concrete “`templateMethod()`” that outlines the algorithm’s sequence.
+* Defines abstract methods (or protected hooks) for the customizable pieces.
+* Ensures the overall workflow never changes, only individual steps.
