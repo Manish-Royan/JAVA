@@ -326,3 +326,17 @@ public class StringUtils {
 * Contains one concrete “`templateMethod()`” that outlines the algorithm’s sequence.
 * Defines abstract methods (or protected hooks) for the customizable pieces.
 * Ensures the overall workflow never changes, only individual steps.
+
+#### ◻ Typical Structure
+```bash
+AbstractProcessor
+ ├─ templateMethod()       // final, fixed sequence
+ ├─ concreteStepA()        // implemented here
+ ├─ abstractStepB()        // must be overridden
+ └─ hookStepC()            // optional override
+     
+ConcreteProcessor extends AbstractProcessor
+ ├─ implementation of abstractStepB()
+ └─ (optionally) override hookStepC()
+```
+
