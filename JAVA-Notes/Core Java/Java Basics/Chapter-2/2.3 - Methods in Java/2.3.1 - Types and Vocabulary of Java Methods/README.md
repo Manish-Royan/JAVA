@@ -340,3 +340,51 @@ ConcreteProcessor extends AbstractProcessor
  └─ (optionally) override hookStepC()
 ```
 
+#### ◻ When to Use: When algorithm structure is fixed but certain steps vary.
+* You have an algorithm with a stable, invariant sequence of steps.
+* Some of those steps need different implementations in different contexts.
+* You want to avoid duplicating the core workflow in multiple subclasses.
+    #### 📌 Example
+    ```java
+    public abstract class DataExporter {
+        // The template method: fixed workflow
+        public final void export() {
+            readSource();
+            formatData();
+            writeDestination();
+            cleanup();
+        }
+
+        protected abstract void readSource();
+        protected abstract void formatData();
+        protected abstract void writeDestination();
+
+        // Hook with default behavior
+        protected void cleanup() {
+            System.out.println("Default cleanup");
+        }
+    }
+
+    public class CsvExporter extends DataExporter {
+        @Override
+        protected void readSource() {
+            System.out.println("Reading data from DB for CSV");
+        }
+
+        @Override
+        protected void formatData() {
+            System.out.println("Formatting data as CSV");
+        }
+
+        @Override
+        protected void writeDestination() {
+            System.out.println("Writing CSV file");
+        }// Inherits default cleanup or override if needed
+
+    } //👉 Here, `export()` is the template. `CsvExporter` customizes only the abstract steps.
+    ```
+
+#### 👉 Notes: Avoid deep inheritance; favor composition or strategy if variability is large.
+
+----
+
