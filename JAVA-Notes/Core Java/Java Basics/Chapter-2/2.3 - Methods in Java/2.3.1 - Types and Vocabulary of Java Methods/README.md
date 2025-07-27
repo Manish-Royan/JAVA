@@ -388,3 +388,13 @@ ConcreteProcessor extends AbstractProcessor
 
 ----
 
+### 📃 Cross-Cutting Vocabulary and Best Practices
+- **Idempotent:** Repeated calls have same effect as one (important for queries and some commands).
+- **Pure functions:** No side effects and deterministic (ideal for queries and helpers).
+- **Side effects:** Document them explicitly (I/O, mutations, static state).
+- **Naming:** Verb for commands, noun/phrase for factories, get/is/has for queries, validate/require for assertions.
+- **Visibility:** Restrict (private/protected) to reduce API surface; expose only necessary methods.
+- **Single Responsibility:** Each method should do one thing and do it well.
+- **Testing:** Unit-test primitives thoroughly; test composed methods with integration-style tests that verify orchestration.
+- **Threading:** Mark carefully (synchronized, immutable returns, thread-safe collections) when commands run in concurrent contexts.
+- **Documentation:** Javadoc should state purpose, side effects, thread-safety, exceptions, and ownership of returned objects.
