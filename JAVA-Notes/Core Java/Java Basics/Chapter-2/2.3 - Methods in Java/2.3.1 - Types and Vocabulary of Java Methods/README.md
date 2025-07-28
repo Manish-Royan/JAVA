@@ -398,3 +398,9 @@ ConcreteProcessor extends AbstractProcessor
 - **Testing:** Unit-test primitives thoroughly; test composed methods with integration-style tests that verify orchestration.
 - **Threading:** Mark carefully (synchronized, immutable returns, thread-safe collections) when commands run in concurrent contexts.
 - **Documentation:** Javadoc should state purpose, side effects, thread-safety, exceptions, and ownership of returned objects.
+
+---
+
+### 🤝 Relation to Design Patterns and APIs
+- Factory methods map to Factory and Builder patterns.
+- Template methods implement the Template Method pattern.
