@@ -404,3 +404,8 @@ ConcreteProcessor extends AbstractProcessor
 ### 🤝 Relation to Design Patterns and APIs
 - Factory methods map to Factory and Builder patterns.
 - Template methods implement the Template Method pattern.
+- Convenience methods often appear in facade and utility classes.
+- Primitive/composed decomposition supports Command, Strategy, and Chain of Responsibility patterns.
+
+---
+
