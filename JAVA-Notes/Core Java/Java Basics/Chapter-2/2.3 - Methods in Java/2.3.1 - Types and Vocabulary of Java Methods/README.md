@@ -409,3 +409,11 @@ ConcreteProcessor extends AbstractProcessor
 
 ---
 
+### ✅ Practical Guidelines for API Design
+1. Expose high-level composed methods for common workflows and primitives for advanced control.
+2. Make factories explicit about caching and mutability.
+3. Keep assertions at boundaries; do not use them to replace business logic.
+4. Prefer composition over inheritance when extending behavior to avoid fragile template chains.
+5. Use method roles in tests and code reviews: label tests as unit (primitive) or integration (composed/template).
+
+---
