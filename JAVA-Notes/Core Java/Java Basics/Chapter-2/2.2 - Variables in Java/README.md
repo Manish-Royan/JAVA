@@ -2,7 +2,8 @@
 
 Variable is the name of memeory location where we stored different type of values.
 
-[IMG]
+![IMG](https://github.com/user-attachments/assets/b48b141f-4c60-4ade-a47f-321d129f1971)
+
 
 ### ▸ Varaible declaration & Initialization:
 * Syntax: 
@@ -10,7 +11,7 @@ Variable is the name of memeory location where we stored different type of value
     DataType variableName [= value];
 ```
 
-[IMG1]
+<img width="244" height="170" alt="IMG1" src="https://github.com/user-attachments/assets/f1984a7d-6cbc-4e1a-aef4-5ae0464945d9" />
 
 #### 📌 Example:
 ```Java
