@@ -14,7 +14,8 @@
 ```Java
 static datatype variableName = Value;
 ```
-[SM1]
+
+![SM1](https://github.com/user-attachments/assets/6be4abab-a4cd-460b-a285-45ad5367f4ce)
 
 ## 🧾 Declaration
 
@@ -489,7 +490,8 @@ System.out.println(ob.VariableName);
 * **Classname**: Name of the class containing the static variable.
 * **(.) dot operator**: Operator used to access static variables.
 * **Variablename**: Name of static variable that needs to be called.
-[SM2]
+
+![SM2](https://github.com/user-attachments/assets/6a27907f-0fd6-42c1-a334-ac95743f5a25)
 
 
 #### 📌 Example:
