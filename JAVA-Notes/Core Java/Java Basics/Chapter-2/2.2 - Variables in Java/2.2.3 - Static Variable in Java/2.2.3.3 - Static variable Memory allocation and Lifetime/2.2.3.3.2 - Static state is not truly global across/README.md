@@ -88,7 +88,7 @@ public class SharedResource {
 }
 ```
 
-Compile it:
+➡️ **Compile it**:
 ```bash
 javac -d /tmp/classes SharedResource.java
 ```
