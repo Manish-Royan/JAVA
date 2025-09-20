@@ -1,0 +1,42 @@
+package p2p.network;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+public class PeerClient {
+    private String peerAddress;
+    private int peerPort;
+    private Socket socket;
+    private PrintWriter writer;
+
+    public PeerClient(String peerAddress, int peerPort) {
+        this.peerAddress = peerAddress;
+        this.peerPort = peerPort;
+    }
+
+    public void connect() throws IOException {
+        socket = new Socket(peerAddress, peerPort);
+        writer = new PrintWriter(socket.getOutputStream(), true);
+    }
+
+    public void sendMessage(String message) throws IOException {
+        if (writer == null) {
+            throw new IOException("Not connected to peer");
+        }
+        writer.println(message);
+    }
+
+    public void disconnect() {
+        try {
+            if (writer != null) {
+                writer.close();
+            }
+            if (socket != null && !socket.isClosed()) {
+                socket.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

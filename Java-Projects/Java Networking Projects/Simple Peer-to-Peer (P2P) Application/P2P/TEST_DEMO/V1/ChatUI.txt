@@ -1,0 +1,112 @@
+package p2p.ui;
+
+import p2p.network.PeerServer;
+import p2p.network.PeerClient;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.io.IOException;
+
+public class ChatUI extends JFrame {
+    private JTextField messageField;
+    private JTextArea chatArea;
+    private JTextField peerAddressField;
+    private JTextField portField;
+    private JButton connectButton;
+    private JButton startServerButton;
+    private PeerServer server;
+    private PeerClient client;
+
+    public ChatUI() {
+        setTitle("P2P Chat Application");
+        setSize(600, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        initComponents();
+    }
+
+    private void initComponents() {
+        // Create panels
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        JPanel connectionPanel = new JPanel(new GridLayout(1, 5, 5, 5));
+        JPanel messagePanel = new JPanel(new BorderLayout());
+
+        // Connection components
+        peerAddressField = new JTextField("localhost");
+        portField = new JTextField("8000");
+        connectButton = new JButton("Connect to Peer");
+        startServerButton = new JButton("Start Server");
+
+        connectionPanel.add(new JLabel("Peer Address:"));
+        connectionPanel.add(peerAddressField);
+        connectionPanel.add(new JLabel("Port:"));
+        connectionPanel.add(portField);
+        connectionPanel.add(connectButton);
+        connectionPanel.add(startServerButton);
+
+        // Chat components
+        chatArea = new JTextArea();
+        chatArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(chatArea);
+
+        messageField = new JTextField();
+        JButton sendButton = new JButton("Send");
+
+        messagePanel.add(messageField, BorderLayout.CENTER);
+        messagePanel.add(sendButton, BorderLayout.EAST);
+
+        // Add components to main panel
+        mainPanel.add(connectionPanel, BorderLayout.NORTH);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+        mainPanel.add(messagePanel, BorderLayout.SOUTH);
+
+        // Add main panel to frame
+        add(mainPanel);
+
+        // Add action listeners
+        startServerButton.addActionListener(this::startServer);
+        connectButton.addActionListener(this::connectToPeer);
+        sendButton.addActionListener(this::sendMessage);
+        messageField.addActionListener(this::sendMessage);
+    }
+
+    private void startServer(ActionEvent e) {
+        try {
+            int port = Integer.parseInt(portField.getText());
+            server = new PeerServer(port, message -> {
+                SwingUtilities.invokeLater(() -> chatArea.append("Peer: " + message + "\n"));
+            });
+            new Thread(server).start();
+            chatArea.append("Server started on port " + port + "\n");
+            startServerButton.setEnabled(false);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error starting server: " + ex.getMessage());
+        }
+    }
+
+    private void connectToPeer(ActionEvent e) {
+        try {
+            String address = peerAddressField.getText();
+            int port = Integer.parseInt(portField.getText());
+            client = new PeerClient(address, port);
+            client.connect();
+            chatArea.append("Connected to peer at " + address + ":" + port + "\n");
+            connectButton.setEnabled(false);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error connecting to peer: " + ex.getMessage());
+        }
+    }
+
+    private void sendMessage(ActionEvent e) {
+        String message = messageField.getText();
+        if (message.isEmpty() || client == null) return;
+
+        try {
+            client.sendMessage(message);
+            chatArea.append("You: " + message + "\n");
+            messageField.setText("");
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Error sending message: " + ex.getMessage());
+        }
+    }
+}
