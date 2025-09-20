@@ -1,7 +1,7 @@
 # Creating a Simple P2P Swing Application in Java 🖥️↔️🖥️
 ↳ A simple peer-to-peer chat application built with Java Swing that allows direct communication between two users without a central server.
 
-[IMG]
+<img width="1869" height="919" alt="IMG" src="https://github.com/user-attachments/assets/689ab4fd-609a-48e8-9945-35f0576cec65" />
 
 ## ▹ Features
 - **True Peer-to-Peer**: Direct communication between two users
@@ -147,9 +147,6 @@ Remember to add the correct package declarations at the top of each Java file:
     </build>
 </project>
 ```
-
-
-
 
 ## STEP-2: IMPLEMENT THE BELOW GIVEN CODE ON THE CREATED JAVA FILES 📃
 
@@ -424,10 +421,6 @@ Remember to add the correct package declarations at the top of each Java file:
    javac -d out src/main/java/p2p/P2PApplication.java src/main/java/p2p/ui/ChatUI.java src/main/java/p2p/network/PeerServer.java src/main/java/p2p/network/PeerClient.java
    ```
 
-
-
-
-
 2. Run the application:
    ```
    # run the application from terminal
@@ -442,7 +435,7 @@ Remember to add the correct package declarations at the top of each Java file:
 1. Launch the application
 2. To set up a chat session:
 
-   [IMG-CONNECT]
+   ![Client](https://github.com/user-attachments/assets/a90dbf4b-2e53-4744-b876-ff9a959237ef)
 
    **As a host**:
    - Enter a port number (default: 8000)
