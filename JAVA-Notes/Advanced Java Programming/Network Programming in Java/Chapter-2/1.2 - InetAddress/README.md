@@ -68,4 +68,48 @@ InetAddress yahoo = InetAddress.getByName("yahoo.com");
 
 
 ## Creation of InetAddress Instances
-➡️ Since `InetAddress` doesn't have any **public constructor**, `InetAddress` objects are created via  (constructors are protected) [**static factory methods**](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.1%20-%20What%20are%20Static%20Factory%20Methods#what-are-the-static-factory-methods-in-java)
+➡️ Since `InetAddress` doesn't have any **public constructor**, `InetAddress` objects are created via  (constructors are protected) [**static factory methods**](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.1%20-%20What%20are%20Static%20Factory%20Methods#what-are-the-static-factory-methods-in-java). These methods can throw `UnknownHostException` if resolution fails or `NullPointerException` for null inputs.
+
+### 1. `getByName(String host)`
+* This is the most common method. It determines the **IP address of a host**, given the host's name. 
+* `InetAddress.getByName(String host)` resolves the given host string into a single InetAddress instance. The host parameter may be:
+    * A hostname (for example "**www.google.com**") — A DNS lookup is attempted and one IP address is returned.
+    #### 📌Example:
+    ```java
+    import java.net.InetAddress; // Import the InetAddress class from java.net package
+    import java.net.UnknownHostException; //for handling unknown host exceptions
+    public class DEMO {
+        public static void main(String[] args) {
+            try {
+                // Case 1: Hostname (DNS lookup is performed)
+                String hostname = "www.google.com";
+                InetAddress addressFromHostname = InetAddress.getByName(hostname);
+                System.out.println("Hostname: " + hostname);
+                System.out.println("Resolved IP: " + addressFromHostname.getHostAddress());
+            } catch (UnknownHostException e) {
+                System.err.println("Host resolution failed: " + e.getMessage());
+            }
+        }
+    }
+    ```
+
+    * A textual IP literal (for example "**192.168.0.10**" or an IPv6 literal) — no DNS lookup is required, the address format is validated and an InetAddress representing that literal is returned.
+    #### 📌Example:
+    ```java
+    import java.net.InetAddress;
+    import java.net.UnknownHostException;
+    public class DEMO {
+        public static void main(String[] args) {
+            try {
+                // Case 2: IP literal (no DNS lookup, just format validation)
+                String ipLiteral = "192.168.0.10";
+                InetAddress addressFromIP = InetAddress.getByName(ipLiteral);
+                System.out.println("IP Literal: " + ipLiteral);
+                System.out.println("Resolved IP: " + addressFromIP.getHostAddress());
+            } catch (UnknownHostException e) {
+                System.err.println("Host resolution failed: " + e.getMessage());
+            }
+        }
+    }
+    ```
+* **Process**: If you provide a hostname, it performs a DNS lookup. This is a blocking network operation. If the host cannot be found, it throws an `UnknownHostException`.
