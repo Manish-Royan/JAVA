@@ -67,7 +67,7 @@ InetAddress yahoo = InetAddress.getByName("yahoo.com");
 ➡️ Creating an InetAddress object is often dependent on your network connection. When you call `getByName()`, Java performs a DNS (Domain Name System) lookup to find the corresponding IP address. If the hostname cannot be found or your device is offline, this method will fail by throwing an `UnknownHostException`. This characteristic highlights that **InetAddress is not just a data container but an active participant in network communication**.
 
 
-## Creation of InetAddress Instances
+## 🚦Creation of InetAddress Instances
 ➡️ Since `InetAddress` doesn't have any **public constructor**, `InetAddress` objects are created via  (constructors are protected) [**static factory methods**](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.1%20-%20What%20are%20Static%20Factory%20Methods#what-are-the-static-factory-methods-in-java). These methods can throw `UnknownHostException` if resolution fails or `NullPointerException` for null inputs.
 
 ### 1. `getByName(String host)`
