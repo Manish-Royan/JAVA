@@ -68,5 +68,4 @@ InetAddress yahoo = InetAddress.getByName("yahoo.com");
 
 
 ## Creation of InetAddress Instances
-➡️ Since `InetAddress` doesn't have any **public constructor**, `InetAddress` objects are created via **static factory methods** (constructors are protected)
-
+➡️ Since `InetAddress` doesn't have any **public constructor**, `InetAddress` objects are created via  (constructors are protected) [**static factory methods**](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.1%20-%20What%20are%20Static%20Factory%20Methods#what-are-the-static-factory-methods-in-java)
