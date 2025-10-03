@@ -179,14 +179,22 @@ InetAddress yahoo = InetAddress.getByName("yahoo.com");
 
 ### 🗝️ Key behaviors
 - [The returned value is an array `InetAddress[]`;](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.4%20-%20Returning%20Array%20of%20Multiple%20IP%20Address) each element is an immutable `InetAddress` representing one specific IP address.  
+    ```java
+    try {
+        InetAddress[] addresses = InetAddress.getAllByName("www.google.com");
+        for (InetAddress addr : addresses) {
+            System.out.println("Found address: " + addr.getHostAddress());
+        }
+    } catch (UnknownHostException e) {
+        System.err.println("Could not find host.");
+    }
+    ```
 - If the host cannot be resolved to at least one address, the method throws `UnknownHostException`.  
 - DNS and OS resolver behavior affect which addresses are returned and their order; the first element is typically the address `getByName()` would return, but `getAllByName()` exposes all available records.  
 - Use `getAllByName()` when your application must consider multiple IPs; use `getByName()` when a single address suffices and you prefer simpler code.
 
----
 
-### Simple example program
-
+### 📌 Demonstrating a Simple Program
 ```java
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -214,12 +222,102 @@ public class GetAllByNameDemo {
 }
 ```
 
----
-
 ### Q. When to re-resolve and when to reuse❓
 - Re-resolve (call `getAllByName` again) when you need the latest DNS set (DNS can change over time).  
 - Resolve once and reuse the returned array when you need a stable snapshot for a short period and want to avoid repeated lookups.
 
 
+## 3. Reverse lookup by IP address
+➡️ A reverse DNS lookup resolves an IP address back to a hostname. In Java you perform this by creating an InetAddress for the IP and asking it for its host name. The JVM will ask the configured name service (DNS) for a PTR record that maps the IP to a domain name. If a PTR exists you get a hostname, otherwise the lookup often returns the IP itself or a best-effort name the resolver knows.
 
-## 3.
+### 🗝️ Key points and differences
+- Use `InetAddress.getByName(ip)` to produce an `InetAddress` from an IP literal.  
+- Use `getCanonicalHostName()` to request the fully qualified name returned by the resolver.  
+- Use `getHostName()` which may return the name provided when the InetAddress was created or perform a reverse lookup if needed.  
+- If no reverse (PTR) record exists, the result may be the textual IP or a provider-specific name.  
+- Reverse lookups can be slow, unreliable, or blocked by firewalls and many IPs do not have PTR records.  
+- Always handle `UnknownHostException` and consider caching or doing lookups asynchronously for bulk operations.
+### 📌 Demonstrating a Simple Program
+```java
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+public class ReverseLookupDemo {
+    public static void main(String[] args) {
+        String ip = "8.8.8.8";
+        try {
+            InetAddress addr = InetAddress.getByName(ip);
+
+            // getHostName may return the hostname or the IP depending on resolver behavior
+            String hostFromGetHostName = addr.getHostName();
+
+            // getCanonicalHostName asks the name service for the canonical (full) name
+            String canonical = addr.getCanonicalHostName();
+
+            System.out.println("IP: " + ip);
+            System.out.println("getHostName(): " + hostFromGetHostName);
+            System.out.println("getCanonicalHostName(): " + canonical);
+        } catch (UnknownHostException e) {
+            System.err.println("Reverse lookup failed for " + ip + ": " + e.getMessage());
+        }
+    } // Test with known IPs (public DNS servers, your local machines) to see different behaviors.
+}
+```
+
+
+## 4. `getLocalHost()`
+➡️ `InetAddress.getLocalHost` returns an InetAddress that represents the local host as known to the JVM and operating system. The method asks the system for the local host name and then resolves that name into one or more IP addresses, returning a single InetAddress instance derived from that resolution.
+
+### 🔁 Process:
+* It attempts to determine the hostname of the machine and then resolves that name to an IP. This can sometimes involve a network lookup and may fail, throwing an `UnknownHostException`.
+```java
+    try {
+        InetAddress localAddress = InetAddress.getLocalHost();
+        System.out.println("Local Host: " + localAddress.getHostName());
+        System.out.println("Local IP: " + localAddress.getHostAddress());
+    } catch (UnknownHostException e) {
+        System.err.println("Could not determine local address.");
+    }
+```
+
+### 🗝️ Key behaviors
+- The returned `InetAddress` normally contains the machine’s primary hostname and an IP address that the OS/configuration reports for the host.  
+- If the OS hostname cannot be resolved by the JVM’s name service, `getLocalHost` can throw `UnknownHostException`.  
+- JVM resolver logic and local configuration (hosts file, DNS, network interfaces) determine the exact **hostname/IP** returned, and JVM caching may affect subsequent lookups.
+
+### ☑️ Common uses
+- Displaying or logging the local machine’s hostname and IP address.  
+- Using the local address for binding sockets or choosing which local identity to present to peers.  
+- Health checks and diagnostics that need the machine identity.
+
+### 📌 Demonstrating a Simple example program
+```java
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+public class LocalHostDemo {
+    public static void main(String[] args) {
+        try {
+            InetAddress local = InetAddress.getLocalHost();
+
+            System.out.println("Host name: " + local.getHostName());
+            System.out.println("Canonical name: " + local.getCanonicalHostName());
+            System.out.println("Host address: " + local.getHostAddress());
+            System.out.println("ToString: " + local.toString());
+        } catch (UnknownHostException e) {
+            System.err.println("Failed to determine local host: " + e.getMessage());
+        }
+    }
+}
+/*
+Example output (typical)
+Host name: DESKTOP-EXAMPLE  
+Canonical name: DESKTOP-EXAMPLE.example.com  
+Host address: 192.168.1.12  
+ToString: DESKTOP-EXAMPLE/192.168.1.12
+*/
+```
+
+### Practical tips
+- For multi‑NIC servers choose addresses explicitly using `NetworkInterface.getNetworkInterfaces()` when you need a specific interface address.  
+- Use `getCanonicalHostName` when you want the fully qualified domain name resolved by the name service.
