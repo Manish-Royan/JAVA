@@ -178,7 +178,7 @@ InetAddress yahoo = InetAddress.getByName("yahoo.com");
 - To compare or iterate addresses when one address may be unreachable or undesired (for example prefer IPv6 when available).
 
 ### 🗝️ Key behaviors
-- The returned value is an array `InetAddress[]`; each element is an immutable `InetAddress` representing one specific IP address.  
+- [The returned value is an array `InetAddress[]`;](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.4%20-%20Returning%20Array%20of%20Multiple%20IP%20Address) each element is an immutable `InetAddress` representing one specific IP address.  
 - If the host cannot be resolved to at least one address, the method throws `UnknownHostException`.  
 - DNS and OS resolver behavior affect which addresses are returned and their order; the first element is typically the address `getByName()` would return, but `getAllByName()` exposes all available records.  
 - Use `getAllByName()` when your application must consider multiple IPs; use `getByName()` when a single address suffices and you prefer simpler code.
@@ -219,3 +219,7 @@ public class GetAllByNameDemo {
 ### Q. When to re-resolve and when to reuse❓
 - Re-resolve (call `getAllByName` again) when you need the latest DNS set (DNS can change over time).  
 - Resolve once and reuse the returned array when you need a stable snapshot for a short period and want to avoid repeated lookups.
+
+
+
+## 3.
