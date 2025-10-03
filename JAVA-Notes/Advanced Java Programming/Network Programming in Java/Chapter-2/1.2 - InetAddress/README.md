@@ -65,15 +65,15 @@ InetAddress yahoo = InetAddress.getByName("yahoo.com");
 
 ### 4. Network-Dependent Creation
 ➡️ Creating an InetAddress object is often dependent on your network connection. When you call `getByName()`, Java performs a DNS (Domain Name System) lookup to find the corresponding IP address. If the hostname cannot be found or your device is offline, this method will fail by throwing an `UnknownHostException`. This characteristic highlights that **InetAddress is not just a data container but an active participant in network communication**.
+***
 
+# 🚦Creation of InetAddress Instances
+➡️ Since `InetAddress` doesn't have any **public constructor**, `InetAddress` objects are created via  (constructors are protected) [**static factory methods**](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.1%20-%20What%20are%20Static%20Factory%20Methods#what-are-the-static-factory-methods-in-java). These methods can throw `UnknownHostException`, a subclass of `IOException`; if resolution fails or `NullPointerException` for null inputs.
 
-## 🚦Creation of InetAddress Instances
-➡️ Since `InetAddress` doesn't have any **public constructor**, `InetAddress` objects are created via  (constructors are protected) [**static factory methods**](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.1%20-%20What%20are%20Static%20Factory%20Methods#what-are-the-static-factory-methods-in-java). These methods can throw `UnknownHostException` if resolution fails or `NullPointerException` for null inputs.
-
-### 1. `getByName(String host)`
+## 1. `getByName(String host)`
 * This is the most common method. It determines the **IP address of a host**, given the host's name. 
 * `InetAddress.getByName(String host)` resolves the given host string into a single InetAddress instance. The host parameter may be:
-    * A hostname (for example "**www.google.com**") — A DNS lookup is attempted and one IP address is returned.
+    ### 1. A hostname (for example "**www.google.com**") — A DNS lookup is attempted and one IP address is returned.
     #### 📌Example:
     ```java
     import java.net.InetAddress; // Import the InetAddress class from java.net package
@@ -93,7 +93,7 @@ InetAddress yahoo = InetAddress.getByName("yahoo.com");
     }
     ```
 
-    * A textual IP literal (for example "**192.168.0.10**" or an IPv6 literal) — no DNS lookup is required, the address format is validated and an InetAddress representing that literal is returned.
+    ### 2. A textual IP literal (for example "**192.168.0.10**" or an IPv6 literal) — no DNS lookup is required, the address format is validated and an InetAddress representing that literal is returned.
     #### 📌Example:
     ```java
     import java.net.InetAddress;
@@ -114,6 +114,108 @@ InetAddress yahoo = InetAddress.getByName("yahoo.com");
     ```
 * **Process**: If you provide a hostname, it performs a DNS lookup. This is a [**blocking network operation**](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.2%20-%20What%20is%20Blocking%20Network%20Operation). If the host cannot be found, it throws an `UnknownHostException`.
 
-* **Return**: [`InetAddress.getByName()` returns a single InetAddress object](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.3%20-%20%20Why%20One%20Name%20Can%20Have%20Many%20Addresses). When you call this method, it returns one and only one  instance — even if the hostname you're resolving has multiple IP addresses.
+* **Return**: [`InetAddress.getByName()` returns a single InetAddress object](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.3%20-%20%20Why%20One%20Name%20Can%20Have%20Many%20Addresses). 
+
+### 🗝️ Key behaviors and consequences
+* **Single-address result**: `getByName` returns one InetAddress. A host that has multiple A/AAAA records may return any one of them; use `getAllByName` to obtain all addresses.
+* **Time of resolution**: the call resolves at the moment you invoke it. Later DNS changes do not affect the existing InetAddress instance. To pick up DNS changes you must call `getByName` (or `getAllByName`) again.
+* **Literal IPs accepted**: when you pass an IP string, Java checks format and returns the corresponding InetAddress without performing DNS resolution.
+* **Exceptions**: `UnknownHostException` signals the host name could not be resolved or the literal was invalid. Catch and handle it.
+* **Caching**: JVM and platform DNS **caching/policies** may affect how often lookups actually go to the network; code should not rely on automatic re-resolution unless you explicitly re-query.
+* **IPv4 and IPv6**: `getByName` supports both address families. The concrete returned object may be an Inet4Address or Inet6Address.
 
 
+## 2. `getAllByName(String host)`
+* A single hostname can be associated with multiple IP addresses for load balancing or redundancy. This method retrieves all of them.
+* `InetAddress.getAllByName(String host)` returns an array of InetAddress objects containing every IP address that the platform name service associates with the supplied host name or literal IP string. The host parameter may be:
+    ### 1. A machine name (for example ***www.google.com***)
+    ```java
+        import java.net.InetAddress;
+        import java.net.UnknownHostException;
+
+        public class InetAddressAllByNameDemo {
+            public static void main(String[] args) {
+                try {
+                    // Case 1: Hostname (DNS lookup is performed)
+                    String hostname = "www.google.com";
+                    InetAddress[] addressesFromHostname = InetAddress.getAllByName(hostname);
+                    System.out.println("Hostname: " + hostname);
+                    for (InetAddress addr : addressesFromHostname) {
+                        System.out.println("Resolved IP: " + addr.getHostAddress());
+                    }
+                    System.out.println();
+                } catch (UnknownHostException e) {
+                    System.err.println("Host resolution failed: " + e.getMessage());
+                }
+            }
+        }
+    ```
+
+    ### 2. A textual IP literal (for example ***8.8.8.8*** or an ***IPv6 literal***); if a literal is supplied, the method validates the format and returns the corresponding address(es) without performing DNS lookups.
+    ```java
+        import java.net.InetAddress;
+        import java.net.UnknownHostException;
+
+        public class InetAddressAllByNameDemo {
+            public static void main(String[] args) {
+                try {
+                   // Case 2: IP literal (no DNS lookup, just format validation)
+                    String ipLiteral = "8.8.8.8"; // Google's public DNS server
+                    InetAddress[] addressesFromIP = InetAddress.getAllByName(ipLiteral);
+                    System.out.println("IP Literal: " + ipLiteral);
+                    for (InetAddress addr : addressesFromIP) {
+                        System.out.println("Resolved IP: " + addr.getHostAddress());
+                    }
+                } catch (UnknownHostException e) {
+                    System.err.println("Host resolution failed: " + e.getMessage());
+                }
+            }
+        }
+    ```
+### Q. Why to use `getAllByName`❓
+- To discover all A and AAAA records for a hostname so your client can try multiple endpoints for load‑balancing or failover.  
+- To obtain every IP a host might respond from (useful when a service is published on several machines or interfaces).  
+- To compare or iterate addresses when one address may be unreachable or undesired (for example prefer IPv6 when available).
+
+### 🗝️ Key behaviors
+- The returned value is an array `InetAddress[]`; each element is an immutable `InetAddress` representing one specific IP address.  
+- If the host cannot be resolved to at least one address, the method throws `UnknownHostException`.  
+- DNS and OS resolver behavior affect which addresses are returned and their order; the first element is typically the address `getByName()` would return, but `getAllByName()` exposes all available records.  
+- Use `getAllByName()` when your application must consider multiple IPs; use `getByName()` when a single address suffices and you prefer simpler code.
+
+---
+
+### Simple example program
+
+```java
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+public class GetAllByNameDemo {
+    public static void main(String[] args) {
+        String host = "www.google.com";
+
+        try {
+            InetAddress[] addresses = InetAddress.getAllByName(host);
+
+            System.out.println("Resolved addresses for: " + host);
+            for (int i = 0; i < addresses.length; i++) {
+                InetAddress addr = addresses[i];
+                System.out.printf("  [%d] hostName=%s  hostAddress=%s  isLoopback=%b%n",
+                        i,
+                        addr.getHostName(),
+                        addr.getHostAddress(),
+                        addr.isLoopbackAddress());
+            }
+        } catch (UnknownHostException e) {
+            System.err.println("Could not resolve host: " + host + " -> " + e.getMessage());
+        }
+    }
+}
+```
+
+---
+
+### Q. When to re-resolve and when to reuse❓
+- Re-resolve (call `getAllByName` again) when you need the latest DNS set (DNS can change over time).  
+- Resolve once and reuse the returned array when you need a stable snapshot for a short period and want to avoid repeated lookups.
