@@ -70,6 +70,8 @@ InetAddress yahoo = InetAddress.getByName("yahoo.com");
 # 🚦Creation of InetAddress Instances
 ➡️ Since `InetAddress` doesn't have any **public constructor**, `InetAddress` objects are created via  (constructors are protected) [**static factory methods**](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.1%20-%20What%20are%20Static%20Factory%20Methods#what-are-the-static-factory-methods-in-java). These methods can throw `UnknownHostException`, a subclass of `IOException`; if resolution fails or `NullPointerException` for null inputs.
 
+### 
+
 ## 1. `getByName(String host)`
 * This is the most common method. It determines the **IP address of a host**, given the host's name. 
 * `InetAddress.getByName(String host)` resolves the given host string into a single InetAddress instance. The host parameter may be:
@@ -321,3 +323,150 @@ ToString: DESKTOP-EXAMPLE/192.168.1.12
 ### Practical tips
 - For multi‑NIC servers choose addresses explicitly using `NetworkInterface.getNetworkInterfaces()` when you need a specific interface address.  
 - Use `getCanonicalHostName` when you want the fully qualified domain name resolved by the name service.
+
+
+## 5. NetworkInterface 
+➡️ A `NetworkInterface` represents a local network interface (physical or virtual) and the addresses bound to it. Use this API when you need to inspect NICs, choose a specific local address to bind sockets, discover MAC, MTU, multicast support, or enumerate subinterfaces on a multi‑NIC machine.
+
+### 🗝️ Key concepts and properties
+- **Name and display name**: system name (e.g., "eth0", "en0") and a human display name.  
+- **InetAddresses**: the IPv4/IPv6 addresses assigned to that interface.  
+- **InterfaceAddresses**: includes address, network prefix length and broadcast (if applicable).  
+- **Hardware address (MAC)**: returned as `a byte[]` when available.  
+- **MTU**: maximum transmission unit for the interface.  
+- **Status flags**: `isUp()`, `isLoopback()`, `isPointToPoint()`, `isVirtual()`, `supportsMulticast()`.  
+- **Hierarchy**: subinterfaces (virtual) and parent relationship for virtual interfaces.  
+- **Lookup helpers**: `getByName(name)`, `getByInetAddress(addr)`, `getByIndex(index)`, and `getNetworkInterfaces()`.
+
+### ☑️ Typical uses (brief)
+- Pick a local address on a specific NIC before creating or binding a socket.  
+- List all local IPs to select a non‑loopback, site‑local address.  
+- Obtain broadcast addresses for UDP discovery.  
+- Read MAC address for identification or logging.  
+- Check whether an interface supports multicast before joining a group.
+
+### 📌 Example 1 — List all interfaces and addresses
+```java
+import java.net.*;
+import java.util.*;
+
+public class ListInterfaces {
+    public static void main(String[] args) throws SocketException {
+        Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+        while (interfaces.hasMoreElements()) {
+            NetworkInterface nif = interfaces.nextElement();
+            System.out.println("Name: " + nif.getName() + " | Display: " + nif.getDisplayName());
+            System.out.println("  Up: " + nif.isUp() + " Loopback: " + nif.isLoopback() + " Multicast: " + nif.supportsMulticast());
+            System.out.println("  MTU: " + nif.getMTU() + " Virtual: " + nif.isVirtual());
+            Enumeration<InetAddress> addrs = nif.getInetAddresses();
+            while (addrs.hasMoreElements()) {
+                InetAddress a = addrs.nextElement();
+                System.out.println("    Address: " + a.getHostAddress());
+            }
+            System.out.println();
+        }
+    }
+}
+```
+
+### 📌 Example 2 — Get a specific interface by name and read MAC
+```java
+import java.net.*;
+import java.util.*;
+
+public class InterfaceByName {
+    public static void main(String[] args) throws Exception {
+        String name = "eth0"; // adjust for your platform, e.g., "en0", "lo", "wlan0"
+        NetworkInterface nif = NetworkInterface.getByName(name);
+        if (nif == null) {
+            System.out.println("Interface not found: " + name);
+            return;
+        }
+        System.out.println("Found: " + nif.getDisplayName());
+        byte[] mac = nif.getHardwareAddress();
+        if (mac != null) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < mac.length; i++) {
+                sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1) ? ":" : ""));
+            }
+            System.out.println("MAC: " + sb);
+        } else {
+            System.out.println("No hardware address available");
+        }
+    }
+}
+```
+
+### 📌 Example 3 — Find a non-loopback IPv4 address (common pattern)
+```java
+import java.net.*;
+import java.util.*;
+
+public class NonLoopbackIPv4 {
+    public static void main(String[] args) throws SocketException {
+        Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+        while (interfaces.hasMoreElements()) {
+            NetworkInterface nif = interfaces.nextElement();
+            if (!nif.isUp() || nif.isLoopback()) continue;
+            Enumeration<InetAddress> addrs = nif.getInetAddresses();
+            while (addrs.hasMoreElements()) {
+                InetAddress addr = addrs.nextElement();
+                if (addr instanceof Inet4Address && !addr.isLoopbackAddress() && addr.isSiteLocalAddress()) {
+                    System.out.println("Interface: " + nif.getName() + " Address: " + addr.getHostAddress());
+                    return;
+                }
+            }
+        }
+        System.out.println("No suitable non-loopback IPv4 found");
+    }
+}
+```
+
+
+### 📎Practical tips 
+- Methods throw `SocketException`; handle or declare it.  
+- `getNetworkInterfaces()` returns platform-dependent ordering; don’t assume a specific first interface.  
+- `getHardwareAddress()` may require permissions and can return null for virtual interfaces.  
+- For precise control on multi‑NIC servers, pick a specific interface/address rather than relying on system default binding.  
+- When using broadcast or multicast, ensure the interface supports it (`supportsMulticast()`) and `isUp()`.  
+- Virtual interfaces and container networks may appear; check `isVirtual()` and subinterfaces if relevant.
+
+
+## 6. getLoopbackAddress()
+➡️ The `InetAddress.getLoopbackAddress()` method provides a direct way to get your computer's special "self-address." This address is used whenever the computer needs to talk to itself over the network.
+
+➡️ InetAddress.getLoopbackAddress() returns a single InetAddress that represents the loopback interface of the local host. The loopback address is a special address that routes network traffic back to the same machine without leaving the host. Typical loopback addresses are 127.0.0.1 for IPv4 and ::1 for IPv6. The returned InetAddress is immutable and always represents the loopback endpoint.
+
+### 📌 Demonstrating a Simple example program
+```java
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+public class LoopbackAddressDemo {
+
+    public static void main(String[] args) {
+        getLoopbackAddress();
+    }
+
+    /**
+     * Prints the loopback address using InetAddress.getLoopbackAddress().
+     */
+    public static void getLoopbackAddress() {
+        try {
+            // Retrieve the loopback address
+            InetAddress loopback = InetAddress.getLoopbackAddress();
+            
+            // Print the address
+            System.out.println("Loopback Address: " + loopback.getHostAddress());
+            
+            // Expected Output: Loopback Address: 127.0.0.1 (or ::1 for IPv6 on some systems, 
+            // but 127.0.0.1 is the common IPv4 representation)
+
+        } catch (Exception e) {
+            // While getLoopbackAddress() itself doesn't typically throw UnknownHostException,
+            // it's good practice to wrap network-related calls in a try-catch.
+            System.err.println("An error occurred while getting the loopback address: " + e.getMessage());
+        }
+    }
+}
+```
