@@ -266,8 +266,94 @@ public class ReverseLookupDemo {
 }
 ```
 
+## 4. `getByAddress()`
+➡️ `InetAddress.getByAddress(byte[] addr)` creates an InetAddress from the raw IP bytes you supply. It does not perform DNS lookups. The returned InetAddress directly represents the binary address you gave it and is immutable.
 
-## 4. `getLocalHost()`
+### ✒️ Signatures and variants
+1. `InetAddress.getByAddress(byte[] addr)`
+    * This method lets you create an `InetAddress` object directly from raw IP bytes, without doing any DNS lookup or attaching a hostname.
+    * This is what an "**unresolved InetAddress**" means. It's an address without a name because no lookup was ever performed to find the name associated with that IP. If you ask for its hostname, you'll just get the IP address back as a string.
+
+    ```java
+    import java.net.InetAddress;
+    import java.net.UnknownHostException;
+    import java.util.Arrays;
+
+    public class GetByAddressDemo {
+        public static void main(String[] args) {
+            // IP: 8.8.8.8 → Google's public DNS
+            byte[] ipBytes = {(byte)8, (byte)8, (byte)8, (byte)8};
+
+            try {
+                InetAddress address = InetAddress.getByAddress(ipBytes);
+                System.out.println("Raw IP bytes: " + Arrays.toString(ipBytes));
+                System.out.println("InetAddress: " + address);
+                System.out.println("Host Address: " + address.getHostAddress());
+                System.out.println("Host Name: " + address.getHostName()); // Will just return IP
+            } catch (UnknownHostException e) {
+                System.err.println("Invalid IP format: " + e.getMessage());
+            }
+        }
+    }
+    /* Expected Output:
+        InetAddress: /8.8.8.8 → The / means no hostname is attached.
+        getHostAddress() → Returns "8.8.8.8"
+        getHostName() → Also returns "8.8.8.8" because there's no name to resolve
+    */
+    ````
+
+2. `InetAddress.getByAddress(String host, byte[] addr)`
+    * This version is an optimization where you provide both the **raw IP bytes** and the **hostname** that you already know belongs to that IP.
+    * ✅ Creates an InetAddress object from raw IP bytes (just like `getByAddress(byte[])`)
+    * ✅ Associates a hostname string with that IP — but does NOT verify if the hostname matches the IP via DNS
+    * ❌ No DNS lookup is performed
+    * ⚠️ The hostname is just a label — Java won’t check if it’s real or accurate.
+    ```java
+    import java.net.InetAddress;
+    import java.net.UnknownHostException;
+    import java.util.Arrays;
+    
+    public class GetByAddressWithHostDemo {
+        public static void main(String[] args) {
+            // IP: 8.8.8.8 → Google's public DNS
+            byte[] ipBytes = {(byte)8, (byte)8, (byte)8, (byte)8};
+            String fakeHost = "dns.google"; // manually provided label. You can use any label here
+    
+            try {
+                InetAddress address = InetAddress.getByAddress(fakeHost, ipBytes);
+                System.out.println("Raw IP bytes: " + Arrays.toString(ipBytes));
+                System.out.println("InetAddress: " + address);
+                System.out.println("Host Name: " + address.getHostName());     // Returns "dns. google"
+                System.out.println("Host Address: " + address.getHostAddress()); // Returns "8.8.8. 8"
+            } catch (UnknownHostException e) {
+                System.err.println("Invalid IP format: " + e.getMessage());
+            }
+        }
+    }
+    /* Expected Output:
+        getHostName() → Returns "dns.google" (your manually provided label)
+        getHostAddress() → Returns "8.8.8.8" (from the byte array)
+    * No DNS lookup is done — even if "dns.google" doesn’t match "8.8.8.8" in reality
+    */
+    ````
+* These methods are a specialized way to create an `InetAddress` object when you already know the IP address in its raw numerical form. They are designed for speed and reliability by completely bypassing the network lookup process.
+
+### 💭 The Analogy: A Phone Book vs. A Known Number 📞
+* Think of it like getting a friend's phone number.
+
+    * `InetAddress.getByName`("John Smith") is like looking up "John Smith" in a phone book (DNS) to find his number. This takes time, and you might not find him. This is a lookup.
+
+    * `InetAddress.getByAddress(...)` is like when a friend tells you, "My number is 555-1234." You already have the raw number. You don't need a phone book; you just write it down directly. This is a direct creation.
+
+### What Are "Raw IP Bytes"? 🔢
+➡️ Computers don't see an IP address as the text string "192.168.1.1". They see it as a sequence of four numbers (bytes). For an IPv6 address, it's a sequence of 16 bytes.
+* **IPv4**: "192.168.1.1" becomes a 4-element byte array: { (byte)192, (byte)168, (byte)1, (byte)1 }.
+* **IPv6**: A 16-element byte array.
+
+#### 👉 The `getByAddress` methods work with the IP address in this raw, computer-friendly format.
+
+
+## 5. `getLocalHost()`
 ➡️ `InetAddress.getLocalHost` returns an InetAddress that represents the local host as known to the JVM and operating system. The method asks the system for the local host name and then resolves that name into one or more IP addresses, returning a single InetAddress instance derived from that resolution.
 
 ### [🔁 Process:](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.4%20MDE%20-%20getLocalHost%20Process)
@@ -325,7 +411,7 @@ ToString: DESKTOP-EXAMPLE/192.168.1.12
 - Use `getCanonicalHostName` when you want the fully qualified domain name resolved by the name service.
 
 
-## 5. NetworkInterface 
+## 6. NetworkInterface 
 ➡️ A `NetworkInterface` represents a local network interface (physical or virtual) and the addresses bound to it. Use this API when you need to inspect NICs, choose a specific local address to bind sockets, discover MAC, MTU, multicast support, or enumerate subinterfaces on a multi‑NIC machine.
 
 ### 🗝️ Key concepts and properties
@@ -421,7 +507,7 @@ public class NonLoopbackIPv4 {
     }
 }
 ```
-
+    * **Use Case**: This is useful when you have the complete information from another source (like a configuration file) and want to create an `InetAddress` object without the performance cost of a DNS lookup. You are essentially telling Java, "Trust me, this is the name for this IP."
 
 ### 📎Practical tips 
 - Methods throw `SocketException`; handle or declare it.  
@@ -432,11 +518,11 @@ public class NonLoopbackIPv4 {
 - Virtual interfaces and container networks may appear; check `isVirtual()` and subinterfaces if relevant.
 
 
-## 6. [`getLoopbackAddress()`](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.5%20MDE%20-%20Loopback%20Interface)
+## 7. [`getLoopbackAddress()`](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.5%20MDE%20-%20Loopback%20Interface)
 
 ➡️ The `InetAddress.getLoopbackAddress()` method provides a direct way to get your computer's special "self-address." This address is used whenever the computer needs to talk to itself over the network.
 
-➡️ InetAddress.getLoopbackAddress() returns a single InetAddress that represents the loopback interface of the local host. The loopback address is a special address that routes network traffic back to the same machine without leaving the host. Typical loopback addresses are 127.0.0.1 for IPv4 and ::1 for IPv6. The returned InetAddress is immutable and always represents the loopback endpoint.
+➡️ `InetAddress.getLoopbackAddress()` returns a single InetAddress that represents the loopback interface of the local host. The loopback address is a special address that routes network traffic back to the same machine without leaving the host. Typical loopback addresses are 127.0.0.1 for IPv4 and ::1 for IPv6. The returned InetAddress is immutable and always represents the loopback endpoint.
 
 ### 📌 Demonstrating a Simple example program
 ```java
