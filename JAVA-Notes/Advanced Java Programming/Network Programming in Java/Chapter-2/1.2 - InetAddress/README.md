@@ -180,7 +180,7 @@ InetAddress yahoo = InetAddress.getByName("yahoo.com");
 - To compare or iterate addresses when one address may be unreachable or undesired (for example prefer IPv6 when available).
 
 ### 🗝️ Key behaviors
-- [The returned value is an array `InetAddress[]`;](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.4%20-%20Returning%20Array%20of%20Multiple%20IP%20Address) each element is an immutable `InetAddress` representing one specific IP address.  
+- [The returned value is an array `InetAddress[]`;](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.3%20MDE%20-%20Returning%20Array%20of%20Multiple%20IP%20Address) each element is an immutable `InetAddress` representing one specific IP address.  
     ```java
     try {
         InetAddress[] addresses = InetAddress.getAllByName("www.google.com");
