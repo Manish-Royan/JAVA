@@ -116,7 +116,7 @@ InetAddress yahoo = InetAddress.getByName("yahoo.com");
     ```
 * **Process**: If you provide a hostname, it performs a DNS lookup. This is a [**blocking network operation**](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.1%20MDE%20-%20What%20is%20Blocking%20Network%20Operation). If the host cannot be found, it throws an `UnknownHostException`.
 
-* **Return**: [`InetAddress.getByName()` returns a single InetAddress object](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.3%20-%20%20Why%20One%20Name%20Can%20Have%20Many%20Addresses). 
+* **Return**: [`InetAddress.getByName()` returns a single InetAddress object](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.2%20MDE%20-%20%20Why%20One%20Name%20Can%20Have%20Many%20Addresses). 
 
 ### 🗝️ Key behaviors and consequences
 * **Single-address result**: `getByName` returns one InetAddress. A host that has multiple A/AAAA records may return any one of them; use `getAllByName` to obtain all addresses.
