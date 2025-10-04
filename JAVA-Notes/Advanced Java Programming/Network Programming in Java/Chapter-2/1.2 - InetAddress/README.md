@@ -345,7 +345,7 @@ public class ReverseLookupDemo {
 
     * `InetAddress.getByAddress(...)` is like when a friend tells you, "My number is 555-1234." You already have the raw number. You don't need a phone book; you just write it down directly. This is a direct creation.
 
-### What Are "Raw IP Bytes"? 🔢
+### Q. What Are "Raw IP Bytes"? 🔢
 ➡️ Computers don't see an IP address as the text string "192.168.1.1". They see it as a sequence of four numbers (bytes). For an IPv6 address, it's a sequence of 16 bytes.
 * **IPv4**: "192.168.1.1" becomes a 4-element byte array: { (byte)192, (byte)168, (byte)1, (byte)1 }.
 * **IPv6**: A 16-element byte array.
