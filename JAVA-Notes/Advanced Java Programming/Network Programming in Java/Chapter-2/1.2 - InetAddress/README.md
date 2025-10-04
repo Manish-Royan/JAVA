@@ -432,7 +432,7 @@ public class NonLoopbackIPv4 {
 - Virtual interfaces and container networks may appear; check `isVirtual()` and subinterfaces if relevant.
 
 
-## 6. getLoopbackAddress()
+## 6. `getLoopbackAddress()`
 ➡️ The `InetAddress.getLoopbackAddress()` method provides a direct way to get your computer's special "self-address." This address is used whenever the computer needs to talk to itself over the network.
 
 ➡️ InetAddress.getLoopbackAddress() returns a single InetAddress that represents the loopback interface of the local host. The loopback address is a special address that routes network traffic back to the same machine without leaving the host. Typical loopback addresses are 127.0.0.1 for IPv4 and ::1 for IPv6. The returned InetAddress is immutable and always represents the loopback endpoint.
