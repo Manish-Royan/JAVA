@@ -270,7 +270,7 @@ public class ReverseLookupDemo {
 ## 4. `getLocalHost()`
 ➡️ `InetAddress.getLocalHost` returns an InetAddress that represents the local host as known to the JVM and operating system. The method asks the system for the local host name and then resolves that name into one or more IP addresses, returning a single InetAddress instance derived from that resolution.
 
-### [🔁 Process:](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/1.2.5%20-%20getLocalHost%20Process)
+### [🔁 Process:](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.4%20MDE%20-%20getLocalHost%20Process)
 * It attempts to determine the hostname of the machine and then resolves that name to an IP. This can sometimes involve a network lookup and may fail, throwing an `UnknownHostException`.
 ```java
     try {
