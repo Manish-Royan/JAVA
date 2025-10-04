@@ -115,5 +115,86 @@ public class LocalServer {
 * Imagine you're building a client-server application. You can run both the **server** part and the **client** part on your single development machine.
     1.  You configure your **server** to listen for connections on `localhost` (or `127.0.0.1`).
     2.  You then configure your **client** to connect to the server at `localhost`.
+
+* Binding to the loopback address prevents remote machines from connecting to that socket. Use a non-loopback local address to accept remote connections.
 #### 👉 This setup allows you to fully test the communication between your client and server without needing a second computer and without worrying about external network issues. If something doesn't work, you know the problem is in your code, not the network connection.
 ***
+
+### 📌 Calling several methods on the loopback address
+
+```java
+import java.net.InetAddress;
+
+public class LoopbackMethodsDemo {
+    public static void main(String[] args) throws Exception {
+        InetAddress loopback = InetAddress.getLoopbackAddress();
+
+        System.out.println("toString(): " + loopback.toString());
+        System.out.println("getHostAddress(): " + loopback.getHostAddress());
+        System.out.println("getHostName(): " + loopback.getHostName());
+        System.out.println("getCanonicalHostName(): " + loopback.getCanonicalHostName());
+        byte[] raw = loopback.getAddress();
+        System.out.print("getAddress(): ");
+        for (int i = 0; i < raw.length; i++) {
+            System.out.print((raw[i] & 0xFF) + (i < raw.length - 1 ? "." : ""));
+        }
+        System.out.println();
+        System.out.println("isLoopbackAddress(): " + loopback.isLoopbackAddress());
+        System.out.println("isAnyLocalAddress(): " + loopback.isAnyLocalAddress());
+        System.out.println("isMulticastAddress(): " + loopback.isMulticastAddress());
+        System.out.println("hashCode(): " + loopback.hashCode());
+    }
+}
+```
+
+----
+
+### 📌 Demonstrates basic Java client/server socket communication using the loopback address and an ephemeral port (port 0) for local-only connections.
+```java
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class LocalServer {
+    public static void main(String[] args) throws Exception {
+        // Obtain the loopback InetAddress
+        InetAddress loopback = InetAddress.getLoopbackAddress();
+
+        System.out.println("Loopback address: " + loopback.getHostAddress());
+        System.out.println("Is loopback: " + loopback.isLoopbackAddress());
+
+        // Start a server bound to loopback only (local connections only)
+        try (ServerSocket server = new ServerSocket()) {
+            server.bind(new InetSocketAddress(loopback, 0));
+            /*
+                * Binding to port `0` lets the OS pick an available port.
+                * O -> ephemeral port (temporary port assigned by OS)
+                * This is useful for testing or when you don't care which port to use.
+                * You can retrieve the assigned port using server.getLocalPort().
+                * Binding to the loopback address ensures the server only accepts local connections.
+             */
+
+            int port = server.getLocalPort();
+            System.out.println("Server bound to " + server.getInetAddress().getHostAddress() + ":" + port);
+
+            // In real code use separate threads; here we demonstrate a local client connecting
+            Thread client = new Thread(() -> {
+                try (Socket s = new Socket(loopback, port)) {
+                    System.out.println("Client connected from " + s.getLocalAddress().getHostAddress());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            client.start(); // Start client thread
+
+            // Accept a single connection (blocks until client connects)
+            try (Socket accepted = server.accept()) {
+                System.out.println("Server accepted connection from " + accepted.getRemoteSocketAddress());
+            }
+            client.join(); // Wait for client thread to finish
+        }
+    }
+} 
+```
+----
