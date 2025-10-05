@@ -352,8 +352,37 @@ public class ReverseLookupDemo {
 
 #### 👉 The `getByAddress` methods work with the IP address in this raw, computer-friendly format.
 
+## 5. [`ofLiteral(String literal)`](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.7%20MDE%20-%20ofLiteral%20Method) - Added in JDK 21
 
-## 5. `getLocalHost()`
+➡️ `InetAddress.ofLiteral(String literal)` is a specialized, safe, and efficient tool for when you have an IP address in a string format and want to turn it into an InetAddress object.
+
+➡️ Parses a literal IP string without DNS lookup or validation beyond syntax. Faster for known IPs.
+
+```java
+import java.net.InetAddress;
+
+public class ConfigReader {
+    public static void main(String[] args) {
+        // 1. Read the IP address as a string from a config file.
+        String serverIpString = "10.0.0.55";
+
+        try {
+            // 2. Safely and instantly convert the string to an InetAddress object.
+            // No network lookup is performed.
+            InetAddress serverAddress = InetAddress.ofLiteral(serverIpString);
+
+            System.out.println("Successfully created InetAddress for: " + serverAddress.getHostAddress());
+            // Now you can use this 'serverAddress' object to connect a socket.
+
+        } catch (IllegalArgumentException e) {
+            // This will be thrown if the string is not a valid IP literal.
+            System.err.println("The IP address '" + serverIpString + "' is not valid.");
+        }
+    }
+}
+```
+
+## 6. `getLocalHost()`
 ➡️ `InetAddress.getLocalHost` returns an InetAddress that represents the local host as known to the JVM and operating system. The method asks the system for the local host name and then resolves that name into one or more IP addresses, returning a single InetAddress instance derived from that resolution.
 
 ### [🔁 Process:](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.4%20MDE%20-%20getLocalHost%20Process)
@@ -411,7 +440,7 @@ ToString: DESKTOP-EXAMPLE/192.168.1.12
 - Use `getCanonicalHostName` when you want the fully qualified domain name resolved by the name service.
 
 
-## 6. NetworkInterface 
+## 7. NetworkInterface 
 ➡️ A `NetworkInterface` represents a local network interface (physical or virtual) and the addresses bound to it. Use this API when you need to inspect NICs, choose a specific local address to bind sockets, discover MAC, MTU, multicast support, or enumerate subinterfaces on a multi‑NIC machine.
 
 ### 🗝️ Key concepts and properties
@@ -518,7 +547,7 @@ public class NonLoopbackIPv4 {
 - Virtual interfaces and container networks may appear; check `isVirtual()` and subinterfaces if relevant.
 
 
-## 7. [`getLoopbackAddress()`](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.5%20MDE%20-%20Loopback%20Interface)
+## 8. [`getLoopbackAddress()`](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.5%20MDE%20-%20Loopback%20Interface)
 
 ➡️ The `InetAddress.getLoopbackAddress()` method provides a direct way to get your computer's special "self-address." This address is used whenever the computer needs to talk to itself over the network.
 
@@ -558,8 +587,4 @@ public class LoopbackAddressDemo {
 }
 ```
 
-## 8. `ofLiteral(String literal)` - Added in JDK 21
-
-➡️ `InetAddress.ofLiteral(String literal)` is a specialized, safe, and efficient tool for when you have an IP address in a string format and want to turn it into an InetAddress object.
-
-➡️ Parses a literal IP string without DNS lookup or validation beyond syntax. Faster for known IPs.
+----
