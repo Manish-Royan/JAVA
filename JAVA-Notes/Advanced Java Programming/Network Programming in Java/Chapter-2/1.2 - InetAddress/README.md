@@ -557,3 +557,9 @@ public class LoopbackAddressDemo {
     }
 }
 ```
+
+## 8. `ofLiteral(String literal)` - Added in JDK 21
+
+➡️ `InetAddress.ofLiteral(String literal)` is a specialized, safe, and efficient tool for when you have an IP address in a string format and want to turn it into an InetAddress object.
+
+➡️ Parses a literal IP string without DNS lookup or validation beyond syntax. Faster for known IPs.
