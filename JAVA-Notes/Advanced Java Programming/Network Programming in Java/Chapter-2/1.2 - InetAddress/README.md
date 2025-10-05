@@ -536,7 +536,7 @@ public class NonLoopbackIPv4 {
     }
 }
 ```
-    * **Use Case**: This is useful when you have the complete information from another source (like a configuration file) and want to create an `InetAddress` object without the performance cost of a DNS lookup. You are essentially telling Java, "Trust me, this is the name for this IP."
+* **Use Case**: This is useful when you have the complete information from another source (like a configuration file) and want to create an `InetAddress` object without the performance cost of a DNS lookup. You are essentially telling Java, "Trust me, this is the name for this IP."
 
 ### 📎Practical tips 
 - Methods throw `SocketException`; handle or declare it.  
@@ -586,5 +586,4 @@ public class LoopbackAddressDemo {
     }
 }
 ```
-
 ----
