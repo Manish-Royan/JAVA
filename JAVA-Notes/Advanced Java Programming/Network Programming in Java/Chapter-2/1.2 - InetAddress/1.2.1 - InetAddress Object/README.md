@@ -13,6 +13,9 @@
 * **Order**: Network byte order (big-endian), so index 0 is the highest-order byte.
 * **Purpose**: use it when you need the binary form (packing into network packets, comparing bytes, calculating checksums).
 * **Safety**: the returned array is a copy; modifying it does not change the InetAddress instance. Always mask bytes to unsigned values when printing: (b & 0xFF).
+
+### 📌 Demonstrating getAddress demo
+
 ```java
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -51,6 +54,81 @@ public class GetAddressDemo {
     }
 }
 ```
+
+### 📌 Determining whether an IP address is v4 or v6
+
+```java
+// File: AddressTestsDemo.java
+import java.net.InetAddress;
+import java.net.Inet6Address;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+
+public class AddressTestsDemo {
+
+    /**
+     * Basic version detection by raw byte length:
+     *  - 4  -> IPv4
+     *  - 16 -> IPv6
+     *  - -1 -> unknown/invalid
+     */
+    public static int getVersion(InetAddress ia) {
+        if (ia == null) return -1;
+        byte[] address = ia.getAddress();
+        if (address == null) return -1;
+        if (address.length == 4) return 4;
+        else if (address.length == 16) return 6;
+        else return -1;
+    }
+
+    /**
+     * Enhanced detection: treat IPv4-mapped IPv6 addresses ( ::ffff:a.b.c.d ) as IPv4.
+     * Returns 4 or 6, or -1 if unknown.
+     */
+    public static int getLogicalVersion(InetAddress ia) {
+        int ver = getVersion(ia);
+        if (ver == 4) return 4;
+        if (ver == 6) {
+            // check for IPv4-mapped IPv6: first 10 bytes = 0, next 2 bytes = 0xFF 0xFF
+            byte[] b = ia.getAddress();
+            boolean mapped = true;
+            for (int i = 0; i < 10; i++) {
+                if (b[i] != 0) { mapped = false; break; }
+            }
+            if (mapped && (b[10] == (byte)0xFF) && (b[11] == (byte)0xFF)) return 4;
+            return 6;
+        }
+        return -1;
+    }
+
+    private static void show(String label, String input) {
+        try {
+            InetAddress ia = InetAddress.getByName(input);
+            System.out.printf("%-30s -> %s%n", label, ia.toString());
+            System.out.printf("  getAddress() bytes: %s%n", Arrays.toString(ia.getAddress()));
+            System.out.printf("  getVersion(): %d%n", getVersion(ia));
+            System.out.printf("  getLogicalVersion(): %d%n", getLogicalVersion(ia));
+            System.out.println();
+        } catch (UnknownHostException e) {
+            System.err.printf("%-30s -> resolution failed: %s%n%n", label, e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        // Examples to demonstrate behavior
+        show("IPv4 literal", "192.168.1.100");
+        show("Public IPv4 (Google DNS)", "8.8.8.8");
+        show("IPv6 literal", "2001:4860:4860::8888");
+        show("IPv4-mapped IPv6 literal", "::ffff:192.168.1.100");
+        show("Loopback literal IPv4", "127.0.0.1");
+        show("Loopback literal IPv6", "::1");
+        // Hostname example (may resolve to IPv4 or IPv6 depending on environment)
+        show("Hostname (www.google.com)", "www.google.com");
+    }
+}
+
+```
+
 
 ## 2. `getHostAddress()`
 - **Type and content**: A String with the textual IP literal, e.g., "192.168.1.1" or "2001:db8::1".  
@@ -152,7 +230,7 @@ public class GetHostNameDemo {
 } //NOTE: For GUIs or servers, never call getHostName() on the main thread. Prefer getHostAddress() when you only need the numeric IP string.
 ```
 
-## 4. What `getCanonicalHostName()` does
+## 4. What [`getCanonicalHostName()`](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/1.9%20MDE%20-%20getCanonicalHostName) does
 - **Purpose**: obtain the fully qualified domain name (FQDN) for the address as determined by the name service.  
 - **Always uses name resolution**: if no canonical name is known, it will attempt a reverse lookup (PTR) and possibly forward lookup to verify the canonical form; this can block and be slower than getHostName().  
 - **Return value**: the FQDN if one is found; otherwise often the textual IP or the original hostname.  
@@ -275,3 +353,142 @@ public class InetAddressRetrievalDemo {
 }
 ```
 ---
+
+# Equality and hashing
+➡️ Equality (equals) and hashing (hashCode) are instance methods used to define object identity and enable efficient lookup in hash-based collections. Their purposes:
+* `equals(Object)`: decide whether two objects are logically equivalent according to the class’s equality semantics.
+* `hashCode()`: produce an `int` fingerprint consistent with equals so objects can be partitioned into buckets in hash tables (`HashMap`, `HashSet`). They are not accessors or mutators; they are behavioral contracts that affect correctness and performance of collections, caching, and any code that compares objects by value rather than by reference.
+
+### ☑️ The `equals` / `hashCode` contract (precise rules)
+*   **Reflexive**: `a.equals(a)` must be `true`.
+*   **Symmetric**: `a.equals(b) == b.equals(a)`.
+*   **Transitive**: if `a.equals(b)` and `b.equals(c)` then `a.equals(c)`.
+*   **Consistent**: repeated calls return the same result while objects are unchanged.
+*   **Non-nullity**: `a.equals(null)` must return `false`.
+*   **Hash consistency**: if `a.equals(b)` is true then `a.hashCode() == b.hashCode()`.
+*   **Hash non-uniqueness allowed**: if `a.equals(b)` is `false`, hash codes may still collide but should be distributed well for performance.
+### ⚠️ Violating these breaks collections (lost entries, incorrect contains/lookup behavior) and makes caching unreliable.
+
+### \# Equality and hashing for InetAddress (special notes)
+➡️ InetAddress overrides equals/hashCode to compare the actual IP address bytes, not instance identity; two InetAddress objects representing the same IP will be equal and share the same hashCode. Because InetAddress is immutable, it is safe to use as a `HashMap`/`HashSet` key.
+### ⚠️ Beware: InetAddress equality is byte-based and not necessarily name-based; InetAddress.`getHostName()` differences do not affect equals/hashCode.
+
+### 📌 Comparing InetAddress objects (shows equals/hashCode semantics)
+```java
+import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.Map;
+
+public class InetAddressEqualityDemo {
+    public static void main(String[] args) throws Exception {
+        InetAddress a = InetAddress.getByName("8.8.8.8");
+        InetAddress b = InetAddress.getByAddress(new byte[] {(byte)8, (byte)8, (byte)8, (byte)8});
+
+        System.out.println("a: " + a + "  hash=" + a.hashCode());
+        System.out.println("b: " + b + "  hash=" + b.hashCode());
+        System.out.println("a.equals(b): " + a.equals(b));
+
+        Map<InetAddress, String> map = new HashMap<>();
+        map.put(a, "Google DNS");
+
+        System.out.println("map.get(b): " + map.get(b)); // works because a.equals(b) and hashCodes match
+    }
+}
+```
+
+### Overriding equals/hashCode for a value class
+```java
+import java.util.Objects;
+
+public final class Endpoint {
+    private final String host;
+    private final int port;
+
+    public Endpoint(String host, int port) {
+        this.host = host;
+        this.port = port;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Endpoint)) return false;
+        Endpoint other = (Endpoint) o;
+        return port == other.port && Objects.equals(host, other.host);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(host, port);
+    }
+
+    @Override
+    public String toString() {
+        return host + ":" + port;
+    }
+}
+```
+
+## 1. equals(Object obj)
+➡️ Equals is an instance equality method that defines logical equivalence for objects. For InetAddress, equals compares the raw IP bytes (4 bytes for IPv4, 16 for IPv6) and ignores any hostname string. Use equals when you need to test whether two address objects represent the same network endpoint.
+
+### 📌 Example: Compare two InetAddress objects that represent the same IP but were created differently.
+```java
+import java.net.InetAddress;
+
+public class EqualsDemo {
+    public static void main(String[] args) throws Exception {
+        InetAddress a = InetAddress.getByName("8.8.8.8"); // resolved from literal
+        InetAddress b = InetAddress.getByAddress(new byte[] { (byte)8, (byte)8, (byte)8, (byte)8 }); // raw bytes
+
+        System.out.println("a.getHostAddress(): " + a.getHostAddress());
+        System.out.println("b.getHostAddress(): " + b.getHostAddress());
+
+        // equals checks raw bytes; hostnames are ignored
+        System.out.println("a.equals(b): " + a.equals(b)); // expected true
+    }
+}
+```
+
+## 2. hashCode()
+➡️ hashCode is an instance method that returns an int used by hash-based collections. For InetAddress the hashCode is derived from the address bytes so that two InetAddress objects that are equal (same IP bytes) produce the same hash. Use hashCode when you need stable keys for HashMap, HashSet, or caching keyed by addresses.
+
+### 📌 Example: Put an InetAddress into a `HashMap` and retrieve it with an equivalent InetAddress created from bytes.
+```java
+import java.net.InetAddress;
+import java.util.HashMap;
+import java.util.Map;
+
+public class HashCodeDemo {
+    public static void main(String[] args) throws Exception {
+        InetAddress keyA = InetAddress.getByName("8.8.8.8");
+        InetAddress keyB = InetAddress.getByAddress(new byte[] { (byte)8, (byte)8, (byte)8, (byte)8 });
+
+        Map<InetAddress, String> map = new HashMap<>();
+        map.put(keyA, "Google DNS");
+
+        System.out.println("keyA.hashCode(): " + keyA.hashCode());
+        System.out.println("keyB.hashCode(): " + keyB.hashCode());
+        System.out.println("map.get(keyB): " + map.get(keyB)); // retrieves "Google DNS"
+    }
+}
+```
+
+## 3. toString()
+➡️ toString is an instance formatting method that returns a human-friendly representation. For InetAddress the typical format is "hostname / literal-address" or "address" when no hostname is attached. Use toString for logging and debugging where you want both name and address information in one string.
+
+### 📌 Example: Show toString output for addresses created from a hostname and from raw bytes.
+```java
+import java.net.InetAddress;
+
+public class ToStringDemo {
+    public static void main(String[] args) throws Exception {
+        InetAddress fromName = InetAddress.getByName("www.google.com");      // has hostname
+        InetAddress fromLiteral = InetAddress.getByName("8.8.8.8");         // literal, hostname may be IP
+
+        System.out.println("fromName.toString():    " + fromName.toString());    // usually "hostname/1.2.3.4"
+        System.out.println("fromLiteral.toString(): " + fromLiteral.toString()); // often "8.8.8.8"
+    }
+}
+```
+
