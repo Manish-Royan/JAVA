@@ -61,7 +61,49 @@ To check a customer, you don't look up their name. Instead, you use a secret cod
 - Firewalls, DNS outages, or changes to DNSBL policies can affect results; never treat a DNSBL result as an absolute security decision without policy checks.  
 - Respect query volume limits and use caching for production systems to avoid overloading blacklist servers.
 
-### 📌 Simple runnable Java example
+### 📌Example-1: 
+
+```java
+import java.net.*;
+
+public class SpamCheck {
+    public static final String BLACKHOLE = "sbl.spamhaus.org";
+
+    public static void main(String[] args) throws UnknownHostException {
+        for (String arg: args) {
+            if (isSpammer(arg)) {
+                System.out.println(arg + " is a known spammer.");
+            } else {
+                System.out.println(arg + " appears legitimate.");
+            }
+        }
+    }
+
+    private static boolean isSpammer(String arg) {
+        try {
+            InetAddress address = InetAddress.getByName(arg);
+            byte[] quad = address.getAddress();
+            String query = BLACKHOLE;
+            for (byte octet : quad) {
+                int unsignedByte = octet < 0 ? octet + 256 : octet;
+                query = unsignedByte + "." + query;
+            }
+            InetAddress.getByName(query);
+            return true;
+        } catch (UnknownHostException e) {
+            return false;
+        }
+    }
+}
+/* Excepted Output:
+java SpamCheck 207.34.56.23 125.12.32.4 130.130.130.130
+207.34.56.23 appears legitimate.
+125.12.32.4 appears legitimate.
+130.130.130.130 appears legitimate.
+*/
+```
+
+### 📌Example-2: 
 - Behavior: reverse IPv4 octets, append BLACKHOLE zone, try to resolve that name. If resolution succeeds, treat as listed; otherwise not listed.
 ```java
 import java.net.InetAddress;
