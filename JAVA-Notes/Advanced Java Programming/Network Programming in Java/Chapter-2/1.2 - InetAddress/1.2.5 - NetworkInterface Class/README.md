@@ -235,3 +235,48 @@ MAC: null
 Addresses: [127.0.0.1, ::1]
 ```
 ----
+
+### 📌 Sample 2 — Lookup interface by name and by InetAddress
+➡️ This example shows getByName and getByInetAddress usage and safely handles null results.
+
+```java
+import java.net.*;
+
+public class FindInterfaceExamples {
+    public static void main(String[] args) throws Exception {
+        // 1) By name (change "eth0" or "en0" to match your platform)
+        String name = args.length > 0 ? args[0] : "eth0";
+        try {
+            NetworkInterface ni = NetworkInterface.getByName(name);
+            if (ni == null) {
+                System.out.println("No such interface: " + name);
+            } else {
+                System.out.println("Found by name: " + ni.getName() + " display=" + ni.getDisplayName());
+            }
+        } catch (SocketException e) {
+            System.err.println("Error getting interface by name: " + e.getMessage());
+        }
+
+        // 2) By local InetAddress
+        InetAddress local = InetAddress.getByName("127.0.0.1");
+        try {
+            NetworkInterface ni2 = NetworkInterface.getByInetAddress(local);
+            if (ni2 == null) {
+                System.out.println("No interface bound to " + local.getHostAddress());
+            } else {
+                System.out.println("Interface for " + local.getHostAddress() + " is " + ni2.getName());
+            }
+        } catch (SocketException e) {
+            System.err.println("Error getting interface by address: " + e.getMessage());
+        }
+    }
+}
+```
+
+### 💡 Expected Example output:
+
+```
+No such interface: eth0
+Interface for 127.0.0.1 is lo
+```
+---
