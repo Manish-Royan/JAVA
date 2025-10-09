@@ -280,3 +280,126 @@ No such interface: eth0
 Interface for 127.0.0.1 is lo
 ```
 ---
+
+### 📌 Sample 3- List every List every interface with full metadata (addresses, flags, MAC, MTU, interface addresses):
+```java
+import java.net.*;
+import java.util.*;
+import java.util.stream.*;
+
+public class NI_FullList {
+    public static void main(String[] args) throws Exception {
+        Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
+        if (en == null) {
+            System.out.println("No network interfaces found.");
+            return;
+        }
+        while (en.hasMoreElements()) {
+            NetworkInterface ni = en.nextElement();
+            System.out.println("----");
+            System.out.println("Name: " + ni.getName());
+            System.out.println("DisplayName: " + ni.getDisplayName());
+            System.out.println("Index: " + ni.getIndex());
+            System.out.println("Up: " + safeBool(() -> ni.isUp()) +
+                               ", Loopback: " + safeBool(() -> ni.isLoopback()) +
+                               ", Virtual: " + safeBool(() -> ni.isVirtual()) +
+                               ", P2P: " + safeBool(() -> ni.isPointToPoint()) +
+                               ", Multicast: " + safeBool(() -> ni.supportsMulticast()));
+            System.out.println("MTU: " + safeInt(() -> ni.getMTU()));
+            byte[] mac = safeBytes(() -> ni.getHardwareAddress());
+            System.out.println("MAC: " + (mac == null ? "null" : macToString(mac)));
+            List<String> addrs = Collections.list(ni.getInetAddresses())
+                                            .stream()
+                                            .map(InetAddress::getHostAddress)
+                                            .collect(Collectors.toList());
+            System.out.println("InetAddresses: " + addrs);
+
+            List<String> ias = ni.getInterfaceAddresses()
+                                 .stream()
+                                 .map(ia -> ia.getAddress().getHostAddress() + "/" + ia.getNetworkPrefixLength())
+                                 .collect(Collectors.toList());
+            System.out.println("InterfaceAddresses: " + ias);
+        }
+    }
+
+    private static String macToString(byte[] mac) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < mac.length; i++) {
+            sb.append(String.format("%02X%s", mac[i], (i < mac.length - 1 ? ":" : "")));
+        }
+        return sb.toString();
+    }
+
+    private static String safeBool(CallableBoolean c) {
+        try { return Boolean.toString(c.call()); } catch (Exception e) { return "error"; }
+    }
+    private static String safeInt(CallableInt c) {
+        try { return Integer.toString(c.call()); } catch (Exception e) { return "error"; }
+    }
+    private static byte[] safeBytes(CallableBytes c) {
+        try { return c.call(); } catch (Exception e) { return null; }
+    }
+
+    interface CallableBoolean { boolean call() throws Exception; }
+    interface CallableInt { int call() throws Exception; }
+    interface CallableBytes { byte[] call() throws Exception; }
+}
+```
+### 💡 Expected output: a block per interface listing name, display name, index, flags, MTU, MAC (or null), IP addresses including IPv6 link-local with scope suffix on some systems. Exact values depend on your machine and OS.
+
+----
+
+### 📌 Choose a preferred non-loopback IPv4 address (common utility):
+```java
+import java.net.*;
+import java.util.*;
+
+public class PreferredAddress {
+    public static Optional<InetAddress> choosePreferred() throws SocketException {
+        Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces();
+        while (en.hasMoreElements()) {
+            NetworkInterface ni = en.nextElement();
+            if (!ni.isUp() || ni.isLoopback()) continue;
+            Enumeration<InetAddress> addrs = ni.getInetAddresses();
+            while (addrs.hasMoreElements()) {
+                InetAddress a = addrs.nextElement();
+                if (a instanceof java.net.Inet4Address && !a.isLoopbackAddress()) {
+                    return Optional.of(a);
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    public static void main(String[] args) throws Exception {
+        Optional<InetAddress> addr = choosePreferred();
+        System.out.println(addr.map(InetAddress::getHostAddress).orElse("No suitable address"));
+    }
+}
+```
+### 💡 Expected output: your preferred IPv4 address or “No suitable address”.
+
+----
+
+### 📌 Sample 3 - Bind a MulticastSocket to a specific NetworkInterface (IPv4 example):
+```java
+import java.net.*;
+
+public class MulticastBindExample {
+    public static void main(String[] args) throws Exception {
+        NetworkInterface ni = NetworkInterface.getByName("eth0"); // adapt name
+        if (ni == null) { System.out.println("Interface not found"); return; }
+
+        InetAddress group = InetAddress.getByName("230.0.0.1");
+        try (MulticastSocket socket = new MulticastSocket(5000)) {
+            socket.setNetworkInterface(ni);
+            socket.joinGroup(new InetSocketAddress(group, 5000), ni);
+            System.out.println("Joined group on " + ni.getName());
+            // receive or send...
+            socket.leaveGroup(new InetSocketAddress(group, 5000), ni);
+        }
+    }
+}
+```
+### 💡 Expected behavior: joins the multicast group on the chosen interface; errors occur if interface doesn’t support multicast or name is wrong.
+----
