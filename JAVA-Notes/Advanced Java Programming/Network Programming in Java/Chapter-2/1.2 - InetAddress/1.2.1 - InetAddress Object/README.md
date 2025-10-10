@@ -708,7 +708,7 @@ public class MulticastDemo {
 * Use `isSiteLocalAddress()` to restrict services to private networks if desired.
 * Use `isMulticastAddress()` before attempting to join/subscribe to a multicast group; verify scope with the MC* methods to avoid joining global groups when only link-local is appropriate.
 
-### 📌 Simple example demonstrating the checks
+### 📌 Simple example of Testing the characteristics of an IP address
 ```java
 import java.net.InetAddress;
 import java.util.Arrays;
