@@ -1,6 +1,6 @@
-# Subclasses Inet4Address and Inet6Address
+# Subclasses: Inet4Address and Inet6Address
 
-[IMG]
+<img width="1165" height="665" alt="Screenshot 2025-10-11 025318" src="https://github.com/user-attachments/assets/dad7566b-82c8-45f1-9ffa-939b6702fb83" />
 
 Inet4Address and Inet6Address are the concrete subclasses of `java.net.InetAddress` that represent addresses from the two IP protocol families. Java exposes the common, family‑neutral API via InetAddress so most code can be protocol‑agnostic; the subclasses exist so code that needs address‑family specific information or behavior can access it safely.
 
