@@ -1,6 +1,8 @@
 # Caching and Resolution Mechanics
 
-- InetAddress performs DNS lookups when you call methods like `InetAddress.getByName("host")`. Because DNS lookups can be slow, Java caches the results inside the JVM so repeated lookups for the same hostname don’t repeatedly hit the network.  
+### ➡️ InetAddress performs DNS lookups when you call methods like `InetAddress.getByName("host")`. Because DNS lookups can be slow, Java caches the results inside the JVM so repeated lookups for the same hostname don’t repeatedly hit the network.  
+
+***
 
 ### 💭 Simple Explanation: The "Phonebook" Analogy
 ➡️ Imagine you need to find the address of a friend. The first time, you have to look it up in a giant, city-wide phonebook (this is the **DNS lookup**). This process can be slow, especially if the phonebook is far away.
@@ -22,41 +24,123 @@
     *   **Java's Behavior:** The failure could be temporary (maybe the network was slow). So, Java makes a "sticky note" that says "NOT FOUND," but it **only keeps it for 10 seconds** by default. After 10 seconds, it throws the note away and will try the main phonebook again if you ask.
     *   **Controlling it:** The `networkaddress.cache.negative.ttl` setting tells Java how many seconds to remember a failed lookup.
 
-- The lifetimes of these caches are controlled by security properties:
+- [The lifetimes of these caches are controlled by security properties](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/2.1%20MDE%20-%20Lifetimes%20of%20Positive%20TTL%20and%20Negative%20TTL):
   - `networkaddress.cache.ttl` — seconds to keep successful lookups (positive TTL). -1 means cache forever.  
   - `networkaddress.cache.negative.ttl` — seconds to keep failed lookups (negative TTL). -1 means cache failed lookups forever.  
 - Where to set them:
   - Typically configured in the JDK security configuration (the java.security file) or via Security.setProperty at runtime if your code has permission. They can also be passed as system properties for some older JVM internals, but the supported, documented mechanism is the security property.  
 - Why care:
   - Caching speeds up your application and reduces DNS traffic.  
-  - It can also make your application “stale” if DNS records change while the JVM is running. Because other DNS caches (OS resolver, upstream DNS servers) add further caching, changes to DNS may take time to propagate anyway.  
+  - It can also make your application “[stale](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-2/1.2%20-%20InetAddress/%23%20More%20Depth%20Explorations/2.2%20MDE%20-%20Caching%20made%20application%20stale)” if DNS records change while the JVM is running. Because other DNS caches (OS resolver, upstream DNS servers) add further caching, changes to DNS may take time to propagate anyway.  
   - Negative caching is intentionally short by default because a transient DNS failure should not be treated as permanent.
 
+
+## 📌 Simple code demonstrating caching by performing two lookups for the smae hostname.
+➡️ This code will demonstrate caching by performing two lookups for the same hostname. The first one will be a "real" lookup, and the second one will be read from the cache, which should be almost instantaneous. We will measure the time for each to see the difference.
+
+```java name=DnsCacheDemo.java
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+/**
+ * This program demonstrates how Java's InetAddress class caches DNS lookups.
+ * It measures the time taken for the first lookup and the second lookup to the same host.
+ */
+public class DnsCacheDemo {
+
+    public static void main(String[] args) throws InterruptedException {
+        // We can control the cache policy using system properties.
+        // Let's set the positive cache to last for only 5 seconds for this demo.
+        // A value of "0" would mean no caching. "-1" means cache forever.
+        System.setProperty("networkaddress.cache.ttl", "5");
+
+        String hostname = "google.com";
+        System.out.println("--- DNS Caching Demonstration ---");
+        System.out.println("Positive cache TTL is set to 5 seconds for this run.\n");
+
+        // --- 1. First Lookup (Should be slower) ---
+        System.out.println("1. Performing the FIRST lookup for: " + hostname);
+        long startTime1 = System.nanoTime();
+        try {
+            InetAddress address1 = InetAddress.getByName(hostname);
+            long endTime1 = System.nanoTime();
+            System.out.println("   -> Success! Found address: " + address1.getHostAddress());
+            System.out.printf("   -> Time taken: %,d nanoseconds%n", (endTime1 - startTime1));
+        } catch (UnknownHostException e) {
+            System.err.println("   -> Could not resolve host.");
+        }
+
+        System.out.println("\n--------------------------------------------\n");
+
+        // --- 2. Second Lookup (Should be much faster, from cache) ---
+        System.out.println("2. Performing the SECOND lookup for the same host (should be from cache):");
+        long startTime2 = System.nanoTime();
+        try {
+            InetAddress address2 = InetAddress.getByName(hostname);
+            long endTime2 = System.nanoTime();
+            System.out.println("   -> Success! Found address: " + address2.getHostAddress());
+            System.out.printf("   -> Time taken: %,d nanoseconds (MUCH FASTER!)%n", (endTime2 - startTime2));
+        } catch (UnknownHostException e) {
+            System.err.println("   -> Could not resolve host.");
+        }
+        
+        System.out.println("\n--------------------------------------------\n");
+
+        // --- 3. Third Lookup after Cache Expires ---
+        System.out.println("3. Waiting for 6 seconds for the cache to expire...");
+        Thread.sleep(6000); // Wait for 6 seconds, which is > 5-second TTL
+        
+        System.out.println("\n   Performing a THIRD lookup (cache has expired, should be slow again):");
+        long startTime3 = System.nanoTime();
+        try {
+            InetAddress address3 = InetAddress.getByName(hostname);
+            long endTime3 = System.nanoTime();
+            System.out.println("   -> Success! Found address: " + address3.getHostAddress());
+            System.out.printf("   -> Time taken: %,d nanoseconds (slow again)%n", (endTime3 - startTime3));
+        } catch (UnknownHostException e) {
+            System.err.println("   -> Could not resolve host.");
+        }
+    }
+}
+```
+### 💡 Expected Example Output: (Your times will vary, but the pattern should be the same)
+
+```
+--- DNS Caching Demonstration ---
+Positive cache TTL is set to 5 seconds for this run.
+
+1. Performing the FIRST lookup for: google.com
+   -> Success! Found address: 142.250.200.78
+   -> Time taken: 25,431,800 nanoseconds
+
+--------------------------------------------
+
+2. Performing the SECOND lookup for the same host (should be from cache):
+   -> Success! Found address: 142.250.200.78
+   -> Time taken: 28,100 nanoseconds (MUCH FASTER!)
+
+--------------------------------------------
+
+3. Waiting for 6 seconds for the cache to expire...
+
+   Performing a THIRD lookup (cache has expired, should be slow again):
+   -> Success! Found address: 142.250.200.78
+   -> Time taken: 21,987,500 nanoseconds (slow again)
+```
+### 👉 As you can see, the second lookup is thousands of times faster because it reads from the cache. After waiting for the cache's "Time To Live" (TTL) to expire, the third lookup is slow again because Java has to go back to the network.
 ---
 
-### Practical rules and cautions
+### Q. How to configure at runtime (programmatic)❓
 
-- Don’t rely on Java’s DNS cache for short-term load-balancing DNS changes; choose a small positive TTL if you must react quickly to DNS updates.  
-- Setting positive TTL to -1 (never expire) is useful when you absolutely expect addresses never to change, but it’s risky for environments where services move.  
-- Setting negative TTL too long hides transient DNS recovery; keep negative TTL short (default is small, e.g., 10s).  
-- DNS changes propagate slowly beyond the JVM (OS caches, ISP caches). Even if you set JVM TTL = 0, upstream caches may still return old answers.  
-- If you need deterministic, up-to-date name resolution in production, implement your own resolution strategy: perform explicit lookups with a dedicated resolver, cache with your own policy, or use service discovery mechanisms (consul, etcd, cloud DNS APIs).
-
----
-
-### How to configure at runtime (programmatic)
-
-- You can set the caching properties at runtime using java.security.Security.setProperty if your environment allows it (code must have permission to change security properties). Changing the property affects subsequent lookups; it does not necessarily flush any existing cached entries.
+- You can set the caching properties at runtime using `java.security.Security.setProperty` if your environment allows it (code must have permission to change security properties). Changing the property affects subsequent lookups; it does not necessarily flush any existing cached entries.
 
 Properties names:
-- "networkaddress.cache.ttl" — positive TTL in seconds (String value).
-- "networkaddress.cache.negative.ttl" — negative TTL in seconds (String value).
+-   `networkaddress.cache.ttl` — positive TTL in seconds (String value).
+-   `networkaddress.cache.negative.ttl` — negative TTL in seconds (String value).
 
-Important: some JVMs/platforms may also respect the OS resolver behavior and additional caches; behavior can vary across JDK versions.
+#### ‼️Important: some JVMs/platforms may also respect the OS resolver behavior and additional caches; behavior can vary across JDK versions.
 
----
-
-### Sample code
+## 📌 Sample code to read and set the cache properties programmatically:
 
 The sample shows:
 - How to read and set the cache properties programmatically.  
@@ -137,9 +221,7 @@ public class DnsCacheDemo {
 }
 ```
 
----
-
-### Expected output (example run)
+### 💡 Expected output (example run)
 
 Note: The exact times and whether a DNS query actually goes to the network depend on the JVM, OS resolver caches, and permissions. This example assumes Security.setProperty succeeded and the JVM honors the TTL. Times shown are illustrative.
 
@@ -175,127 +257,13 @@ Interpretation:
 
 ---
 
-### Final notes and production advice
 
-- If your application must respect external DNS TTLs (for geo-DNS or load balancing), consider implementing your own resolver/cache and set the JVM TTLs appropriately or use Security.setProperty early at startup.  
-- Avoid changing these properties in the middle of program execution if parts of your application already made cache decisions; behavior may be surprising.  
-- For strict control or more advanced features (per-host TTL, forced refresh), use a dedicated DNS client library (example: dnsjava) and your own caching layer.  
-- Remember that even with JVM caching disabled, upstream DNS caches (OS, ISP) will still influence observed results.
+### 🖼️ The Bigger Picture
+➡️ Your computer and the internet itself have many layers of caching (like your local post office having its own list of addresses). Java's cache is just the one inside your program. This is why when a website's IP address changes, it can take hours for the change to be seen everywhere—all the old "sticky notes" across the internet need to expire first.
 
 
-
-***
-
-Of course, Manish. Let's break down the concept of DNS caching in Java in a much simpler way, and then I'll provide a code example to demonstrate it.
-
-
-
-
-
-#### The Bigger Picture
-
-Your computer and the internet itself have many layers of caching (like your local post office having its own list of addresses). Java's cache is just the one inside your program. This is why when a website's IP address changes, it can take hours for the change to be seen everywhere—all the old "sticky notes" across the internet need to expire first.
-
-### Simple Code Example
-
-This code will demonstrate caching by performing two lookups for the same hostname. The first one will be a "real" lookup, and the second one will be read from the cache, which should be almost instantaneous. We will measure the time for each to see the difference.
-
-```java name=DnsCacheDemo.java
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
-/**
- * This program demonstrates how Java's InetAddress class caches DNS lookups.
- * It measures the time taken for the first lookup and the second lookup to the same host.
- */
-public class DnsCacheDemo {
-
-    public static void main(String[] args) throws InterruptedException {
-        // We can control the cache policy using system properties.
-        // Let's set the positive cache to last for only 5 seconds for this demo.
-        // A value of "0" would mean no caching. "-1" means cache forever.
-        System.setProperty("networkaddress.cache.ttl", "5");
-
-        String hostname = "google.com";
-        System.out.println("--- DNS Caching Demonstration ---");
-        System.out.println("Positive cache TTL is set to 5 seconds for this run.\n");
-
-        // --- 1. First Lookup (Should be slower) ---
-        System.out.println("1. Performing the FIRST lookup for: " + hostname);
-        long startTime1 = System.nanoTime();
-        try {
-            InetAddress address1 = InetAddress.getByName(hostname);
-            long endTime1 = System.nanoTime();
-            System.out.println("   -> Success! Found address: " + address1.getHostAddress());
-            System.out.printf("   -> Time taken: %,d nanoseconds%n", (endTime1 - startTime1));
-        } catch (UnknownHostException e) {
-            System.err.println("   -> Could not resolve host.");
-        }
-
-        System.out.println("\n--------------------------------------------\n");
-
-        // --- 2. Second Lookup (Should be much faster, from cache) ---
-        System.out.println("2. Performing the SECOND lookup for the same host (should be from cache):");
-        long startTime2 = System.nanoTime();
-        try {
-            InetAddress address2 = InetAddress.getByName(hostname);
-            long endTime2 = System.nanoTime();
-            System.out.println("   -> Success! Found address: " + address2.getHostAddress());
-            System.out.printf("   -> Time taken: %,d nanoseconds (MUCH FASTER!)%n", (endTime2 - startTime2));
-        } catch (UnknownHostException e) {
-            System.err.println("   -> Could not resolve host.");
-        }
-        
-        System.out.println("\n--------------------------------------------\n");
-
-        // --- 3. Third Lookup after Cache Expires ---
-        System.out.println("3. Waiting for 6 seconds for the cache to expire...");
-        Thread.sleep(6000); // Wait for 6 seconds, which is > 5-second TTL
-        
-        System.out.println("\n   Performing a THIRD lookup (cache has expired, should be slow again):");
-        long startTime3 = System.nanoTime();
-        try {
-            InetAddress address3 = InetAddress.getByName(hostname);
-            long endTime3 = System.nanoTime();
-            System.out.println("   -> Success! Found address: " + address3.getHostAddress());
-            System.out.printf("   -> Time taken: %,d nanoseconds (slow again)%n", (endTime3 - startTime3));
-        } catch (UnknownHostException e) {
-            System.err.println("   -> Could not resolve host.");
-        }
-    }
-}
-```
-
-#### How to Run and What to Expect
-
-1.  Save the code as `DnsCacheDemo.java`.
-2.  Compile it: `javac DnsCacheDemo.java`
-3.  Run it: `java DnsCacheDemo`
-
-**Example Output:**
-(Your times will vary, but the pattern should be the same)
-
-```
---- DNS Caching Demonstration ---
-Positive cache TTL is set to 5 seconds for this run.
-
-1. Performing the FIRST lookup for: google.com
-   -> Success! Found address: 142.250.200.78
-   -> Time taken: 25,431,800 nanoseconds
-
---------------------------------------------
-
-2. Performing the SECOND lookup for the same host (should be from cache):
-   -> Success! Found address: 142.250.200.78
-   -> Time taken: 28,100 nanoseconds (MUCH FASTER!)
-
---------------------------------------------
-
-3. Waiting for 6 seconds for the cache to expire...
-
-   Performing a THIRD lookup (cache has expired, should be slow again):
-   -> Success! Found address: 142.250.200.78
-   -> Time taken: 21,987,500 nanoseconds (slow again)
-```
-
-As you can see, the second lookup is thousands of times faster because it reads from the cache. After waiting for the cache's "Time To Live" (TTL) to expire, the third lookup is slow again because Java has to go back to the network.
+### ☑️ Practical rules and cautions
+- Don’t rely on Java’s DNS cache for short-term load-balancing DNS changes; choose a small **positive TTL** if you must react quickly to DNS updates.  
+- Setting positive TTL to `-1` (never expire) is useful when you absolutely expect addresses never to change, but it’s risky for environments where services move.  
+- Setting negative TTL too long hides transient DNS recovery; keep negative TTL short (default is small, e.g., 10s).  
+----
