@@ -151,7 +151,6 @@ Found Interface:
 -------------------------------------------------
 ```
 ***
----
 
 ### 4. Common useful instance methods
 
@@ -381,7 +380,7 @@ public class PreferredAddress {
 
 ----
 
-### 📌 Sample 3 - Bind a MulticastSocket to a specific NetworkInterface (IPv4 example):
+### 📌 Sample 4 - Bind a MulticastSocket to a specific NetworkInterface (IPv4 example):
 ```java
 import java.net.*;
 
