@@ -1,0 +1,12 @@
+## Explanation of the Program (CASE-2)
+* **Purpose**: Like [CASE-1](https://github.com/Manish-Royan/JAVA/tree/main/Java-Projects/Java%20Networking%20Projects/Reading%20the%20raw%20content%20(HTML)%20from%20a%20URL%20using%20URLConnection%20Class/%5BCASE-1%5D%20Prints%20the%20entire%20HTML%20content%20%20of%20given%20URL%20to%20the%20console), this program connects to a URL (*https://www.facebook.com*) and retrieves its HTML content. However, it emphasizes low-level, efficient byte-stream handling using Java's NIO package for reading data in chunks. This is useful for scenarios where you need direct control over byte buffers (e.g., for performance, binary data, or avoiding character encoding issues in text streams).
+
+## 🔑 Key Concepts Demonstrated:
+* **URLConnection**: Same as CASE-1—used to open and connect to the URL, then get an `InputStream` for reading the response.
+* `InputStream`: Obtained from `urlConnection.getInputStream()` to read the raw bytes from the server.
+* `ReadableByteChannel`: Created from the **InputStream** using `Channels.newChannel(inputStream)`. This channel allows non-blocking or efficient reading of bytes into a buffer. It's part of Java NIO, designed for scalable I/O operations.
+* `ByteBuffer`: Allocated with `ByteBuffer.allocate(64)` to hold 64 bytes at a time. The buffer acts as a temporary storage for bytes read from the channel. After reading, `byteBuffer.array()` converts the bytes to a string for printing, and `byteBuffer.clear()` resets it for the next chunk.
+* **Reading Process**: The while loop reads chunks of **64 bytes** into the buffer until no more data is available (`readableByteChannel.read(byteBuffer) > 0`). Each chunk is printed as a string, showing the HTML in raw byte form (which may include encoding artifacts if not handled properly).
+* **Resource Management**: Channels and streams are closed after use to prevent resource leaks.
+* **Error Handling**: Catches `IOException` for network-related issues.
+* **Output**: Prints the HTML content in 64-byte chunks as strings, followed by a success message. Unlike CASE-1's line-by-line reading, this outputs data in fixed-size blocks, which can be more efficient for large files but requires manual string conversion.
