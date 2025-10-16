@@ -1,7 +1,7 @@
 ## \# Explanation of the Program (TIME_SERVER)
 - **Purpose**: The server listens on **port 8080** for incoming TCP connections from clients. When a client connects, it sends the current date and time as a string message, then immediately closes the connection. This is a basic example of a server that provides time synchronization or timestamp services.
 
-## Key Concepts Demonstrated:
+## 🔑 Key Concepts Demonstrated:
   - **ServerSocketChannel**: The NIO equivalent of `ServerSocket` for TCP servers. It's opened, bound to port 8080 using `InetSocketAddress`, and used to accept client connections.
   - **SocketChannel**: Represents the connection to each client. Obtained via `serverSocketChannel.accept()`, which blocks until a client connects.
   - **ByteBuffer**: Used for efficient byte handling. Allocates 64 bytes, puts the date/time string into it, flips to read mode, and writes to the channel.
