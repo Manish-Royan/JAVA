@@ -9,7 +9,7 @@
 * **Resource Management**: The `BufferedReader` is closed after use to free up resources.
 * **Output**: When run, it prints the entire HTML content of the Facebook homepage to the console. Note that modern websites often block or limit such scraping due to terms of service or anti-bot measures, so this is more of an educational example than a production-ready tool.
 
-[IMG]
+<img width="1812" height="858" alt="Screenshot 2025-10-17 003555" src="https://github.com/user-attachments/assets/16d39314-c229-41f1-95aa-cfc84a96726a" />
 
 ## ⚠️ Limitations and Notes:
 * This is a basic, synchronous example. For real-world use, consider asynchronous requests (e.g., using **HttpURLConnection** or libraries like OkHttp) and handling headers, timeouts, or HTTPS properly.
