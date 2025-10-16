@@ -1,5 +1,3 @@
-package UDP;
-
 // UDP SERVER
 
 import java.io.IOException;
