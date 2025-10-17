@@ -1,0 +1,5 @@
+# Ignore IntelliJ and Maven build files
+.idea/
+target/
+*.log
+*.class
