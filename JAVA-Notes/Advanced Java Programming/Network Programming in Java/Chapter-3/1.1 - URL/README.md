@@ -3,9 +3,9 @@
 ## 📚 Overview of URL 
 * A URL is a specific type of Uniform Resource Identifier (URI) that provides a way to locate a resource on the internet by describing its primary access mechanism (e.g., its network location).
 
-Of course, Manish. That's a fantastic paragraph that uses a very effective analogy to capture the essence of the URL vs. URI distinction. Let's break it down and explore each part in more detail.
-
-The statement is making a crucial 
+## \# A URL has two main components:
+* **Protocol identifier**: For the URL *http://example.com*, the protocol identifier is **http**.
+* **Resource name**: For the URL *http://example.com*, the resource name is example.com.
 
 ## \# URL Statements distinction between **identifying** a resource and **locating** a resource
 
@@ -31,21 +31,8 @@ The statement is making a crucial
         *   **Which Page:** Find the resource at the path `/dp/0747591059`.
     *   A client (like your browser) has enough information to retrieve a representation of that resource (the Amazon product page).
 
+## \# [The Anatomy of a URL](https://github.com/Manish-Royan/JAVA/tree/main/JAVA-Notes/Advanced%20Java%20Programming/Network%20Programming%20in%20Java/Chapter-3/%23%20More%20Depth%20Explorations/1.1%20MDE%20-%20Anatomy%20of%20URL) (The Concept)
 
----
-
-## 💡 The Core Idea: A Set of Instructions
-
-➡️ "The network location in a URL usually includes the protocol..., the hostname..., and the path... This specifies that there is a file called ***javatutorial.html*** in a directory called javafaq on the server ***www.ibiblio.org***, and that this file can be accessed via the HTTP protocol."
-
-➡️ This is the high-level summary. Think of a URL not as a single name, but as a sequence of instructions for a client:
-
-1.  **How to communicate?** Use the `HTTP` protocol.
-2.  **Who to talk to?** Find the computer on the internet named `www.ibiblio.org`.
-3.  **What to ask for?** Once connected, request the resource located at the path `/javafaq/javatutorial.html`.
-
-
-## \# The Anatomy of a URL (The Concept)
 👉 Before we touch the Java class, it's crucial to understand that a URL is a structured string with distinct parts. It's not just an opaque blob of text.
 
 ### ```protocol://host:port/path?query#fragment```
@@ -66,3 +53,4 @@ The statement is making a crucial
 4. **Path:** `/Manish-Bishwakarma/Network-Programming-in-Java` - The resource path
 5. **Query:** `?tab=code` - Additional parameters
 6. **Fragment:** `#readme` - A specific section within the resource
+
