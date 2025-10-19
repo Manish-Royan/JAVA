@@ -54,3 +54,75 @@
 5. **Query:** `?tab=code` - Additional parameters
 6. **Fragment:** `#readme` - A specific section within the resource
 
+## Basic URL Creation
+```java
+import java.net.MalformedURLException;
+import java.net.URL;
+
+public class UrlExamples {
+    public static void main(String[] args) {
+        try {
+            // 1) Full URL string
+            URL githubURL = new URL("https://github.com/Manish-Royan/JAVA");
+            System.out.println("githubURL: " + githubURL);
+
+            // 2) By components: protocol, host, file (path + optional query)
+            URL repoURL = new URL("https", "github.com", "/Manish-Royan/JAVA");
+            System.out.println("repoURL: " + repoURL);
+
+            // 3) With explicit port (use -1 to indicate unspecified/default)
+            URL portSpecificURL = new URL("https", "github.com", 443, "/Manish-Royan/JAVA");
+            System.out.println("portSpecificURL: " + portSpecificURL);
+            System.out.println("portSpecificURL.getPort(): " + portSpecificURL.getPort()); // 443
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+### Modern Approach: Safe creation using URI builder and conversion
+```java
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+public class UrlFromUri {
+    public static void main(String[] args) {
+        try {
+
+            //using the 7-argument constructor of the URI class: URI(String scheme, String userInfo, String host, int port, String path, String query, String fragment)
+            URI uri = new URI("https", null, "github.com", 443, "/Manish-Royan/JAVA", null, null);
+            /*This constructor build: https://github.com:443/Manish-Royan/JAVA */
+            
+
+
+            URL url = uri.toURL();
+            System.out.println("url from URI: " + url);
+        } catch (URISyntaxException | java.net.MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+/*Why Use `null`?
+- `null` for `userInfo`: You’re not embedding credentials in the URL (which is discouraged in modern web apps).
+- `null` for `query`: You’re not passing any query parameters like `?sort=asc`.
+- 
+```
+### 🔍 Breakdown of the Arguments
+
+| Argument        | Value       | Meaning                                                                 |
+|----------------|-------------|-------------------------------------------------------------------------|
+| `scheme`        | `"https"`   | The protocol used (e.g., HTTP, HTTPS, FTP)                             |
+| `userInfo`      | `null`      | No username/password in the URL (e.g., `user:pass@`)                   |
+| `host`          | `"github.com"` | The domain name or IP address of the server                          |
+| `port`          | `443`       | Explicit port number (443 is default for HTTPS)                        |
+| `path`          | `"/Manish-Royan/JAVA"` | The resource path on the server                          |
+| `query`         | `null`      | No query string (e.g., `?key=value`)                                   |
+| `fragment`      | `null`      | No fragment identifier (e.g., `#section1`)                             |
+
+---
+
+***
