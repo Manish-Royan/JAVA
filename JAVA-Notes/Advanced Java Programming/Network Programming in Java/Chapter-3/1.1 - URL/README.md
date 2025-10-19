@@ -54,7 +54,7 @@
 5. **Query:** `?tab=code` - Additional parameters
 6. **Fragment:** `#readme` - A specific section within the resource
 
-## Basic URL Creation
+## 📌 Basic URL Creation
 ```java
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -82,7 +82,7 @@ public class UrlExamples {
 }
 ```
 
-### Modern Approach: Safe creation using URI builder and conversion
+### 🔹Modern Approach: Safe creation using URI builder and conversion
 ```java
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -123,6 +123,54 @@ public class UrlFromUri {
 | `query`         | `null`      | No query string (e.g., `?key=value`)                                   |
 | `fragment`      | `null`      | No fragment identifier (e.g., `#section1`)                             |
 
----
 
-***
+## The `java.net.URL` Class - Your Gateway to the Web
+
+The `java.net.URL` class is a high-level representation of a URL. Its primary purpose is to make it incredibly simple to locate and retrieve data from a network resource.
+
+**Why is it so important?** It's an **abstraction**. It hides the complex, low-level details of network programming (sockets, protocol handshakes, HTTP requests) behind a clean and simple API.
+
+#### Creating a `URL` Object (Constructors)
+
+The first step is to create a `URL` instance. This process can fail if the string isn't a valid, well-formed URL, so you must handle the checked `MalformedURLException`.
+
+**1. Absolute URL Constructor:** The most common way.
+
+```java
+import java.net.URL;
+import java.net.MalformedURLException;
+
+try {
+    URL myWebsite = new URL("https://github.com/Manish-Royan");
+    System.out.println("URL is valid: " + myWebsite.toString());
+} catch (MalformedURLException e) {
+    System.err.println("Invalid URL: " + e.getMessage());
+}
+```
+
+**2. Relative URL Constructor:** Creates a URL relative to a base (or context) URL.
+
+```java
+try {
+    URL base = new URL("https://www.example.com/docs/");
+    URL relative = new URL(base, "../images/logo.png"); // Go up one level, then to images
+    
+    // The resulting URL will be: https://www.example.com/images/logo.png
+    System.out.println("Resolved URL: " + relative.toString()); 
+} catch (MalformedURLException e) {
+    System.err.println("Error creating URL: " + e.getMessage());
+}
+```
+
+**3. Multi-part Constructor:** Less common, but allows you to build a URL from its components.
+
+```java
+try {
+    // URL(protocol, host, port, file)
+    URL apiEndpoint = new URL("https", "api.myservice.com", 443, "/v1/users");
+    System.out.println("API URL: " + apiEndpoint);
+} catch (MalformedURLException e) {
+    System.err.println("Error: " + e.getMessage());
+}
+```
+---
