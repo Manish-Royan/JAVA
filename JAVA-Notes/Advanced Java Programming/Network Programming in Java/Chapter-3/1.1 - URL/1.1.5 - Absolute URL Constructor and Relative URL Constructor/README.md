@@ -201,7 +201,7 @@ Fragment:      section3
 ### 🛠️ Work: 
 ➡️ The constructor parses the given textual **spec** or **component arguments** into **scheme**, **authority** (**host** and optional **userinfo/port**), **path**, **query**, and **fragment**; it validates syntax and stores those parts in the `URL` object without performing network I/O. Important concepts: explicit vs unspecified port (getPort returns -1 when omitted), IPv6 literal handling (brackets appear in textual form but the stored host excludes brackets), and that constructors historically accept slightly lenient encodings—so building from a validated URI is recommended for strict correctness.
 
-#### ⛓️‍💥Breakdown of above statement:
+### ⛓️‍💥Breakdown of above statement:
 > When you create a `URL` object in Java using a constructor like `new URL(...)`, here’s what happens:
 
 #### 1. **Parsing the URL**
@@ -423,3 +423,185 @@ public class CustomHandlerDemo {
 |--------|---------|---------|
 | `URI → URL` | Build strict, valid URLs | Safer for user input and dynamic construction |
 | `URL(..., URLStreamHandler)` | Customize parsing and connection logic | Useful for testing, mocking, or custom protocols |
+
+
+# \# Relative URL (resolution constructors)
+
+### 🧾Definition:
+➡️ A relative constructor takes a base URL (context) plus a relative spec string and produces a new URL whose components are the result of resolving the spec against the base. 
+
+## 📝 Statment: 1
+### What Is a Relative URL Constructor❓
+➡️ Java provides these constructors to resolve a **relative URL spec** against a **base URL (context)**:
+
+### 🛠 Overloads (now deprecated in JDK 20):
+```java
+URL(URL context, String spec)
+URL(URL context, String spec, URLStreamHandler handler)
+```
+- `context`: the **base URL**
+- `spec`: the **relative or absolute string**
+- `handler`: optional custom protocol handler
+
+### 🎯 Purpose of these constructor
+➡️ These constructors follow **standard URL resolution rules**:
+
+#### ✅ If `spec` is **absolute** (starts with a scheme like `http://`):
+- It **overrides** the context.
+- The result is just the absolute URL.
+
+#### ✅ If `spec` is **relative**:
+- It’s **merged** with the context’s components:
+  - Path
+  - Query
+  - Fragment
+- It behaves like a browser resolving links on a webpage.
+
+
+### 📌Simple Example: Relative URL Constructor
+
+```java
+import java.net.URL;
+
+public class RelativeURLConstructorDemo {
+    public static void main(String[] args) throws Exception {
+        // Base URL (context)
+        URL context = new URL("https://www.example.com/docs/index.html");
+
+        // Relative spec
+        URL resolved1 = new URL(context, "page.html");             // → https://www.example.com/docs/page.html
+        URL resolved2 = new URL(context, "../images/logo.png");    // → https://www.example.com/images/logo.png
+        URL resolved3 = new URL(context, "https://other.com/new"); // → absolute spec wins → https://other.com/new
+
+        // Display results
+        System.out.println("Base URL:       " + context);
+        System.out.println("Resolved 1:     " + resolved1);
+        System.out.println("Resolved 2:     " + resolved2);
+        System.out.println("Resolved 3:     " + resolved3);
+    }
+}
+```
+### Why Was It Deprecated❓
+- Java encourages using **URI-based resolution** for stricter parsing and encoding.
+- The `URL` constructor is **lenient** and may accept malformed input.
+- `URI.resolve()` is safer and more standards-compliant.
+
+
+## 📝 Statment: 2
+### 🤔What Is the Relative URL Constructor❓
+➡️ A **relative URL** is a partial path (like `"page.html"` or `"../images/logo.png"`) that needs a **base URL** to become complete.
+
+### 📌Example: Constructing Relative URLs
+
+```java
+import java.net.URL;
+
+public class RelativeURLDemo {
+    public static void main(String[] args) throws Exception {
+        // Base URL (absolute)
+        URL base = new URL("https://www.example.com/docs/");
+
+        // Relative path
+        URL relative1 = new URL(base, "page.html");           // → https://www.example.com/docs/page.html
+        URL relative2 = new URL(base, "../images/logo.png");  // → https://www.example.com/images/logo.png
+        URL relative3 = new URL(base, "?x=1&y=2");            // → https://www.example.com/docs/?x=1&y=2
+        URL relative4 = new URL(base, "#section3");           // → https://www.example.com/docs/#section3
+
+        // Display results
+        System.out.println("Base URL:      " + base);
+        System.out.println("Relative URL 1: " + relative1);
+        System.out.println("Relative URL 2: " + relative2);
+        System.out.println("Relative URL 3: " + relative3);
+        System.out.println("Relative URL 4: " + relative4);
+    }
+}
+```
+
+### 🛠️ How It Works
+
+- Java uses **standard URL resolution rules** (similar to web browsers).
+- It merges the **base URL** with the **relative path**.
+- You can resolve:
+  - Files (`page.html`)
+  - Parent directories (`../`)
+  - Query strings (`?x=1`)
+  - Fragments (`#top`)
+
+## ✅ Summary of above code
+
+| Component | Result |
+|-----------|--------|
+| Base URL | `https://www.example.com/docs/` |
+| Relative `"page.html"` | `https://www.example.com/docs/page.html` |
+| Relative `"../images/logo.png"` | `https://www.example.com/images/logo.png` |
+| Relative `"?x=1&y=2"` | `https://www.example.com/docs/?x=1&y=2` |
+| Relative `"#section3"` | `https://www.example.com/docs/#section3` |
+
+***
+
+### 🛠️ Work: 
+➡️ Resolution follows the standard algorithm that either treats the spec as absolute (if it contains a scheme) or merges it into the base’s path/authority when it’s relative; it preserves or replaces query and fragment according to the relative form and never contacts the network during construction. Use cases: resolving links on a webpage, turning relative resource paths into full addresses for fetching, or implementing simple client-side link resolution logic.
+Absolutely, Manish! This statement explains how **Java resolves relative URLs** using a **base URL** and a **relative spec**. Let’s break it down into **simple terms**, then walk through a **Java code example** that shows how it works in practice.
+
+### ⛓️‍💥Breakdown of above statement:
+
+#### ✅ What happens during resolution:
+- If the **spec** (second argument) contains a **scheme** like `http`, `https`, or `ftp`, Java treats it as an **absolute URL** and ignores the base.
+- If the spec is **relative** (like `"page.html"` or `"../images/logo.png"`), Java **merges it with the base URL** using standard rules.
+- It handles **query strings** (`?x=1`) and **fragments** (`#top`) correctly:
+  - If the relative spec includes a query or fragment, it **replaces** the base’s query/fragment.
+  - If not, it **preserves** the base’s query/fragment.
+- ✅ No network activity happens — it’s just string parsing and resolution.
+
+#### 🚥 Real-World Use Cases
+- Resolving links on a webpage (like clicking `"about.html"` from `"https://example.com/home/"`)
+- Building full URLs from relative paths in a sitemap or crawler
+- Client-side logic for previewing or validating links
+
+### 📌Example: URL Resolution
+
+```java
+import java.net.URL;
+
+public class URLResolutionDemo {
+    public static void main(String[] args) throws Exception {
+        // Base URL
+        URL base = new URL("https://www.example.com/docs/index.html?lang=en#intro");
+
+        // Relative specs
+        URL resolved1 = new URL(base, "page.html");             // → replaces path, keeps host
+        URL resolved2 = new URL(base, "../images/logo.png");    // → navigates up one folder
+        URL resolved3 = new URL(base, "?lang=fr");              // → replaces query
+        URL resolved4 = new URL(base, "#section3");             // → replaces fragment
+        URL resolved5 = new URL(base, "https://other.com/new"); // → absolute URL, ignores base
+
+        // Display results
+        System.out.println("Base URL:       " + base);
+        System.out.println("Resolved 1:     " + resolved1);
+        System.out.println("Resolved 2:     " + resolved2);
+        System.out.println("Resolved 3:     " + resolved3);
+        System.out.println("Resolved 4:     " + resolved4);
+        System.out.println("Resolved 5:     " + resolved5);
+    }
+}
+```
+
+### 💡 Output Summary
+
+| Spec | Result |
+|------|--------|
+| `"page.html"` | `https://www.example.com/docs/page.html?lang=en#intro` |
+| `"../images/logo.png"` | `https://www.example.com/images/logo.png?lang=en#intro` |
+| `"?lang=fr"` | `https://www.example.com/docs/index.html?lang=fr` |
+| `"#section3"` | `https://www.example.com/docs/index.html?lang=en#section3` |
+| `"https://other.com/new"` | `https://other.com/new` |
+
+### 🗝️ Key Takeaways
+- Java uses **standard resolution rules** — just like a browser.
+- It’s safe, fast, and **doesn’t touch the network**.
+- Perfect for building tools like:
+  - Link validators
+  - Crawlers
+  - Static site generators
+  - Cloud resource mappers
+***
