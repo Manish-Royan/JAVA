@@ -54,6 +54,19 @@
 5. **Query:** `?tab=code` - Additional parameters
 6. **Fragment:** `#readme` - A specific section within the resource
 
+### 🔍 Breakdown of the Arguments
+
+| Argument        | Value       | Meaning                                                                 |
+|----------------|-------------|-------------------------------------------------------------------------|
+| `scheme`        | `"https"`   | The protocol used (e.g., HTTP, HTTPS, FTP)                             |
+| `userInfo`      | `null`      | No username/password in the URL (e.g., `user:pass@`)                   |
+| `host`          | `"github.com"` | The domain name or IP address of the server                          |
+| `port`          | `443`       | Explicit port number (443 is default for HTTPS)                        |
+| `path`          | `"/Manish-Royan/JAVA"` | The resource path on the server                          |
+| `query`         | `null`      | No query string (e.g., `?key=value`)                                   |
+| `fragment`      | `null`      | No fragment identifier (e.g., `#section1`)  
+
+
 ## 📌 Basic URL Creation
 ```java
 import java.net.MalformedURLException;
@@ -111,28 +124,14 @@ public class UrlFromUri {
 - `null` for `query`: You’re not passing any query parameters like `?sort=asc`.
 - 
 ```
-### 🔍 Breakdown of the Arguments
 
-| Argument        | Value       | Meaning                                                                 |
-|----------------|-------------|-------------------------------------------------------------------------|
-| `scheme`        | `"https"`   | The protocol used (e.g., HTTP, HTTPS, FTP)                             |
-| `userInfo`      | `null`      | No username/password in the URL (e.g., `user:pass@`)                   |
-| `host`          | `"github.com"` | The domain name or IP address of the server                          |
-| `port`          | `443`       | Explicit port number (443 is default for HTTPS)                        |
-| `path`          | `"/Manish-Royan/JAVA"` | The resource path on the server                          |
-| `query`         | `null`      | No query string (e.g., `?key=value`)                                   |
-| `fragment`      | `null`      | No fragment identifier (e.g., `#section1`)                             |
-
-
-## The `java.net.URL` Class - Your Gateway to the Web
-
-The `java.net.URL` class is a high-level representation of a URL. Its primary purpose is to make it incredibly simple to locate and retrieve data from a network resource.
+## 🔹The `java.net.URL` Class - Your Gateway to the Web
+➡️ The `java.net.URL` class is a high-level representation of a URL. Its primary purpose is to make it incredibly simple to locate and retrieve data from a network resource.
 
 **Why is it so important?** It's an **abstraction**. It hides the complex, low-level details of network programming (sockets, protocol handshakes, HTTP requests) behind a clean and simple API.
 
-#### Creating a `URL` Object (Constructors)
-
-The first step is to create a `URL` instance. This process can fail if the string isn't a valid, well-formed URL, so you must handle the checked `MalformedURLException`.
+#### 🔸Creating a `URL` Object (Constructors)
+➡️ The first step is to create a `URL` instance. This process can fail if the string isn't a valid, well-formed URL, so you must handle the checked `MalformedURLException`.
 
 **1. Absolute URL Constructor:** The most common way.
 
