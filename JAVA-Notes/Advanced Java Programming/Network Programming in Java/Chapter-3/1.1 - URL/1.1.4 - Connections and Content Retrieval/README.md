@@ -459,3 +459,15 @@ public class ModernHttpClientExample {
     }
 }
 ```
+
+## ⚠️ Practical cautions 
+- Blocking: all methods that fetch data (openStream, getContent, any method that calls getInputStream) can block on DNS/TCP/TLS and should be used with timeouts and in background threads for UI or server workloads.
+- These methods can block on network, DNS, or handler operations; always assume blocking and set timeouts.  
+- Return types: openStream() → InputStream; openConnection() → URLConnection (configurable); getContent() / getContent(Class[]) → handler-decoded objects (varies).  
+- Control: openConnection() gives the most control (timeouts, headers, request method for HTTP), openStream() is the quickest for simple reads, getContent* are highest-level and least predictable.  
+- Prefer openConnection() + configuration when you need headers, timeouts, or to send a request body.  
+- getContent/getContent(Class[]) depend on registered content handlers and are less predictable than manually reading an InputStream.  
+- Always close streams returned by `openStream` or `getInputStream` to free sockets and file descriptors. 
+- Error handling: all these methods throw IOException (network, I/O errors) and caller must close streams and handle partial reads.  
+- Best practice: for production HTTP use `java.net.http.HttpClient` or a mature HTTP library; for simple binary/text downloads `openConnection()`, set **connect/read timeouts**, then use `getInputStream()` and stream the data.
+***
