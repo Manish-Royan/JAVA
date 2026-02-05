@@ -6,7 +6,7 @@
 ➡️ Java 2 Enterprise Edition (J2EE), later renamed Jakarta EE, was the standard for enterprise Java development in the late 1990s and early 2000s. It relied on Enterprise JavaBeans (EJBs) for business logic, which required:
 * **Complex XML deployment descriptors.**
 * **Heavy reliance on application servers.**
-*** Tight coupling between components and the container.**
+* **Tight coupling between components and the container.**
 * **Difficult unit testing (mocking EJBs was painful).**
 * **Developers often complained about boilerplate code and lack of flexibility.**
 
@@ -38,7 +38,7 @@
 * **Dependency Injection (DI)** → Objects should declare dependencies, and the framework should inject them.
 * **Inversion of Control (IoC)** → The framework, not the developer, should manage object lifecycles.
 
-> 👉 These ideas became the foundation of the Spring Framework, officially released in Pre-2003.**
+> 👉 These ideas became the foundation of the Spring Framework, officially released in Pre-2003.
 
 ## **4. The Launch of Spring**
 ➡️ The Spring Framework was first released in October 2002 as part of the source code accompanying Rod Johnson's book, ***Expert One-on-One J2EE Design and Development***.Spring Framework, **officially released in Pre-2003**. Originally released under the **Apache License, Version 1.1**. However, the first official production-ready version, **Spring 1.0, was released on March 24, 2004**.
