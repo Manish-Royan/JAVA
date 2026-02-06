@@ -27,15 +27,15 @@
 * It symbolized a fresh start or “springtime” after the long winter of complexity caused by J2EE/EJBs.
 * Developers were frustrated with heavyweight, rigid enterprise Java. Spring promised lightweight, flexible, and developer-friendly solutions.
 
-> 👉 So, “Spring” is both a philosophical statement and a technical framework.
+### 👉 So, “Spring” is both a philosophical statement and a technical framework.
 
 
 ## **4. Understanding Terminology about: "Spring is an umbrella"**
 ➡️ When someone says “**Spring is an umbrella**”, they’re pointing to the fact that **Spring is not just one framework—it’s a whole ecosystem of projects** under a single umbrella.  It is a **family of many related projects** (modules/frameworks/tools) that work well together.
 
-[IMG]
+<img width="1808" height="592" alt="Gemini_Generated_Image_d62hudd62hudd62h" src="https://github.com/user-attachments/assets/3e3aefee-8b5c-49e8-9179-45b91e3fbd6d" />
 
-> 👉 So “Spring” is a brand/ecosystem name, not a single jar. 
+### 👉 So “Spring” is a brand/ecosystem name, not a single jar. 
 
 ## 1️⃣ The 3 common meanings of “Spring”
 ➡️ The word “Spring” is used in 3 different scopes. Mixing these is a common beginner confusion.
@@ -75,20 +75,10 @@ This entire set is what people call “the Spring umbrella”.
 * Later you add data patterns (Spring Data project)
 * Each part is modular, but integrated.
 
-> 👉 So: one umbrella, many tools inside it.
+### 👉 So: one umbrella, many tools inside it.
 
 ## 3️⃣ Analogy to make it stick
 💭 Think:
 * **Spring Framework** = the “operating system” / foundation layer for your app’s wiring and infrastructure.
 * **Spring Projects** = “apps/utilities” you install depending on your needs.
 * **Umbrella** = the whole collection.
-
-
-## **5. Spring is a container + a set of infrastructure features**
-
-### ❌ What Most People Think Spring Is
-> ### “Spring is a framework with annotations like `@Component`, `@Autowired`, `@Service`…”
-
-
-### ✅ What Spring Actually Is
-> ### Spring is a container and orchestration framework for managing object creation, lifecycle, and dependencies at scale.
