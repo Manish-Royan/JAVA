@@ -175,7 +175,7 @@ public class Student implements Serializable {
 ### 👉 By default, bean properties are `null` unless explicitly set using `<property>`.
 ### Point to be Remember:
 
-[IMG]
+<img width="1919" height="1079" alt="Screenshot 2026-02-09 232227" src="https://github.com/user-attachments/assets/303a24e7-28f7-4c09-a7a2-0bc9872bb823" />
 
 ---
 
