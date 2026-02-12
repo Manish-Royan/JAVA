@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!-- 
+	- We will not create Bean Object in this XML 
+	- But we will scan our @Component annotated PoJo class
+-->
+	<context:component-scan base-package="com.learning.beans"></context:component-scan>
+	<!-- the moment component-scans and find's @Component annotation it will create object of the passed packaged class -->
+
+
+</beans>
+
+<!-- 
+	- In a Spring XML configuration file, <context:component-scan> is used to instruct the 
+	  Spring framework to perform component scanning.
+	- It scans specificed package in the application's classpath for classes annotated with annotations
+	  like @Componet, @Service, @Repository, and  @Controller. These discovered classes are the registered
+	  as Spring beans, enabling automatic dependency injection and other Spring features.
+ -->
