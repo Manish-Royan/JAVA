@@ -100,6 +100,8 @@ GPA: 4.0
 
 ## 🔍 **Comparison: XML vs Java-Based Configuration**
 
+<img width="1919" height="1079" alt="Screenshot 2026-02-12 150327" src="https://github.com/user-attachments/assets/f56b69ce-e805-47f7-8bda-47d0db2e2097" />
+
 | Feature | XML-Based | Java-Based (Annotation) |
 |--------|-----------|--------------------------|
 | **Configuration File** | `applicationContext.xml` | `@Configuration` class |
