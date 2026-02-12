@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>AnnotationComponentConfig</groupId>
+  <artifactId>AnnotationComponentConfig</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <release>21</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+  
+  <!-- Dependency Section -->
+	<dependencies>
+
+		<!-- 1. Spring Bean -->
+		<!-- Source: https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>7.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- 2. Spring Core -->
+		<!-- Source: https://mvnrepository.com/artifact/org.springframework/spring-core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>7.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- 3. Spring Context -->
+		<!-- Source: https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>7.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- 4. Spring Expression -->
+		<!-- Source: https://mvnrepository.com/artifact/org.springframework/spring-expression -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>7.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- 5. Common Logging -->
+		<!-- Source: https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.3.5</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- 6. Spring AOP -->
+		<!-- Source: https://mvnrepository.com/artifact/org.springframework/spring-aop -->
+		<dependency>
+    			<groupId>org.springframework</groupId>
+    			<artifactId>spring-aop</artifactId>
+    			<version>7.0.1</version>
+    			<scope>compile</scope>
+		</dependency>
+
+	</dependencies>
+  
+</project>
