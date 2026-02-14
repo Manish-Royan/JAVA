@@ -128,7 +128,7 @@ ApplicationContext context = new ClassPathXmlApplicationContext("applicationCont
 Student s = (Student) context.getBean("student"); // Container controls it
 ```
 
-[IMG]
+<img width="1408" height="768" alt="PojoVSSpringbean" src="https://github.com/user-attachments/assets/d7b829a4-ae94-4ea6-bd0b-232a0bcfdcfb" />
 
 ### 🔍 Key Differences: POJO vs Spring Bean
 
