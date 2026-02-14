@@ -41,6 +41,7 @@
 # 1. `singleton` Scope (The Default — 90%+ of real-world beans)
 
 ✅ What it means in Spring
+
 **Singleton** means:
 > **one instance per Spring container** (per `ApplicationContext`), cached and reused.
 
@@ -143,6 +144,7 @@ public class SynchronizedCounterService {
 
 
 ✅ What it means
+
 **Prototype** means:
 > a **new instance** is created **every time the container is asked** for that bean.
 
@@ -260,3 +262,106 @@ public class Main {
 }
 ```
 > 👉 **Prototype** beans are created fresh every time you ask for them.
+
+## 🪤The famous trap: prototype bean injected into a singleton
+
+➡️ This is one of the most frequently asked interview / debugging questions.
+
+### 🤔 What beginners expect
+> “If I inject a prototype into a singleton, I’ll get a new prototype each time I use it.”
+
+### ⁉️What actually happens
+Spring resolves dependencies **at injection time**. So if a singleton depends on a prototype, Spring typically creates **one prototype instance** and injects it into the singleton **once**.
+
+Result:
+- your singleton holds a single prototype instance
+- you do **not** get a fresh prototype per method call
+
+#### 🫨 This surprises many people.
+
+### 📌Example of: The Classic "Singleton depends on Prototype" Problem
+
+```java
+@Service
+public class ReportService {                // ← singleton (default)
+
+    @Autowired
+    private ReportGenerator generator;      // ← prototype
+
+    public Report createDailyReport() {
+        // Does NOT create new generator each time!
+        return generator.generate();
+    }
+}
+```
+
+👉 Even though `ReportGenerator` is prototype, because `ReportService` is singleton, Spring injects **only one** instance of `generator` when `ReportService` is created — and keeps reusing it.
+
+## ✅ Correct ways to use prototype from singleton (Core solutions)
+
+### Option A: `ObjectProvider<T>` (recommended, modern Spring)
+Instead of injecting the prototype directly, inject a provider and request a new instance when needed.
+
+Conceptually:
+- singleton has `ObjectProvider<PrototypeBean>`
+- each time you call `getObject()`, Spring creates a new prototype
+
+Why this is good:
+- lazy creation
+- no tight coupling to the container APIs like `ApplicationContext` (still Spring-specific, but clean)
+- easy to test (you can fake provider)
+
+**Gotcha:** You still own destruction/cleanup for prototype instances.
+
+```java
+@Service
+public class ReportService {
+
+    private final ObjectProvider<ReportGenerator> generatorProvider;
+
+    public ReportService(ObjectProvider<ReportGenerator> generatorProvider) {
+        this.generatorProvider = generatorProvider;
+    }
+
+    public Report createDailyReport() {
+        ReportGenerator fresh = generatorProvider.getObject();   // ← new each time
+        return fresh.generate();
+    }
+}
+```
+---
+
+### Option B: Lookup method injection (`@Lookup`) (works, but more “magic”)
+Spring can override a method to return a new prototype each time.
+
+It’s valid, but for learning and maintainability, `ObjectProvider` is usually clearer.
+
+```java
+@Component
+public abstract class ReportService {
+
+    // Spring will override this method at runtime
+    @Lookup
+    protected abstract ReportGenerator getGenerator();
+
+    public Report createDailyReport() {
+        return getGenerator().generate();   // ← fresh instance every call
+    }
+}
+```
+---
+
+### Option C: Ask the container directly (`ApplicationContext#getBean`)
+It works, but it’s the most coupled option.
+Your singleton now “knows about the container”, which hurts design/testability.
+
+⚠️ Use only when necessary.
+
+```java
+@Autowired
+private ApplicationContext ctx;
+
+public Report createDailyReport() {
+    return ctx.getBean(ReportGenerator.class).generate();
+}
+```
