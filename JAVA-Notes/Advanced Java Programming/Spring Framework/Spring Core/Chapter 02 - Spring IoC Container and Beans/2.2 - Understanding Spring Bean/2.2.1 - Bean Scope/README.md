@@ -55,7 +55,7 @@
 *   **What it is:** Only **one single instance** of the bean is created for the entire Spring IoC container.
 *   **💭Analogy:** Think of a central water cooler in an office. Everyone in the office goes to the *same* water cooler to get water.
 *   **How it works:** When the Spring container starts, it creates the singleton bean. It stores this single instance in a cache. Every time any part of your application asks for this bean, the container returns the exact same instance from the cache.
-*   **Example:**
+*   **📌Example:**
 
     ```java
     @Component
@@ -136,3 +136,127 @@ public class SynchronizedCounterService {
 | **Performance**    | High                  | Lower                     | 
 | **Complexity**     | Low                   | Medium                    | 
 | **Best Use Case**  | Simple counters/logic | Complex multi-step logic  | 
+---
+
+# 2. `prototype` Scope
+
+
+
+✅ What it means
+**Prototype** means:
+> a **new instance** is created **every time the container is asked** for that bean.
+
+🛄 Example cases where prototype makes sense:
+- objects that hold temporary state
+- builders
+- per-operation strategies
+- non-thread-safe objects you don’t want shared
+
+➡️ This is the opposite of `singleton`.
+
+*   **What it is:** A **new instance** of the bean is created **every single time** it is requested from the container.
+*   **💭Analogy:** Think of a vending machine that dispenses a new can of soda every time you press the button. Each person gets their own can; they don't share one.
+*   **How it works:** Every time your code calls `context.getBean("myPrototypeBean")`, Spring creates a new object, wires its dependencies, and hands it over to you.
+*   **⚠️Important Lifecycle Note:** For prototype beans, the Spring container does **not** manage the full lifecycle. It creates and configures the object, but it's up to your application to handle its destruction. Spring will not call the `@PreDestroy` method on a prototype bean.
+*   **📌Example:**
+
+    ```java
+    @Component
+    @Scope("prototype") // or @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+    public class ShoppingCart { ... }
+    ```
+    ```java
+    // In your application
+    ShoppingCart cart1 = context.getBean(ShoppingCart.class);
+    ShoppingCart cart2 = context.getBean(ShoppingCart.class);
+
+    // This will print "false" because they are two separate objects
+    System.out.println(cart1 == cart2);
+    ```
+
+*   **When to use it:** For any bean that needs to hold state for a specific task or user. A `ShoppingCart` is the classic example because each user must have their own separate cart.
+
+* **Key characteristics**
+    - New instance created **every single time** the bean is requested (via `getBean()`, `@Autowired`, constructor-arg, etc.)
+    - Container **does not** call destruction callbacks (`@PreDestroy`, `DisposableBean`)
+    - Very useful when you want beans to hold conversational / per-use state
+
+* **Real-world examples**
+
+    ```java
+    @Component
+    @Scope("prototype")
+    public class TicketGenerator {
+        private final String ticketId = UUID.randomUUID().toString();
+        // ...
+    }
+    ```
+    - Report generators that accumulate temporary data
+    - Builders / factories that should not be reused
+    - Some machine-learning / simulation objects per calculation
+
+### ⚠️ Most important prototype gotcha (lifecycle)
+✅Spring will:
+- create the prototype bean
+- inject dependencies
+- run initialization callbacks
+
+❌ But Spring will **not** manage the full lifecycle afterward:
+> It generally will **not** call destroy callbacks automatically for prototype beans
+
+### 👉 So if your prototype bean holds resources (files, sockets, etc.), you must close them yourself.
+
+> **Memory/resource gotcha:** Prototype scope is easy to misuse and cause leaks if you assume Spring will clean it up like singletons.
+
+## 📌Example: Singleton vs Prototype
+
+### Singleton Bean
+```java
+@Configuration
+public class AppConfig {
+    @Bean
+    @Scope("singleton")  // default
+    public HelloService helloService() {
+        return new HelloService();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        HelloService s1 = context.getBean(HelloService.class);
+        HelloService s2 = context.getBean(HelloService.class);
+
+        System.out.println(s1 == s2); // true → same instance
+    }
+}
+```
+
+> 👉 **Singleton** beans are shared — every request gets the same object.
+
+---
+
+### Prototype Bean
+```java
+@Configuration
+public class AppConfig {
+    @Bean
+    @Scope("prototype")
+    public HelloService helloService() {
+        return new HelloService();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        HelloService s1 = context.getBean(HelloService.class);
+        HelloService s2 = context.getBean(HelloService.class);
+
+        System.out.println(s1 == s2); // false → different instances
+    }
+}
+```
+> 👉 **Prototype** beans are created fresh every time you ask for them.
