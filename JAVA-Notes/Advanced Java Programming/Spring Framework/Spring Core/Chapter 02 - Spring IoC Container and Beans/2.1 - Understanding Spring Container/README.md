@@ -154,3 +154,6 @@ Student s = (Student) context.getBean("student"); // Container controls it
 - The term **“Bean”** comes from JavaBeans (a standard for reusable software components).  
 - Spring extended this idea: *“If the container manages it, it’s a Bean.”*  
 - This is why **Spring Beans are always POJOs**, but **not all POJOs are Spring Beans**.
+
+
+> ### ‼️ Important Concept: Spring Beans are by default Singleton (one object per container)
