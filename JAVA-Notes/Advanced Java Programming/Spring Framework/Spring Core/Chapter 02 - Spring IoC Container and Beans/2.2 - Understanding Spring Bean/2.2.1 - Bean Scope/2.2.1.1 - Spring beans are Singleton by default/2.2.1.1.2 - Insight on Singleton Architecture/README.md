@@ -73,7 +73,7 @@ Not entire machine.
 Not entire universe 😄
 
 ##
-## 🌿** Why is this safe?**
+## 🌿**Why is this safe?**
 
 Because most Spring beans are:
 
