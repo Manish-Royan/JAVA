@@ -365,3 +365,98 @@ public Report createDailyReport() {
     return ctx.getBean(ReportGenerator.class).generate();
 }
 ```
+
+## `@Lazy` and scopes (interaction)
+`@Lazy` controls **when** a bean is created, not **how many** instances exist.
+
+- `@Lazy` + singleton: created when first used
+- `@Lazy` + prototype: still new per request, but each instance is created lazily at request time anyway
+
+> **Gotcha:** `@Lazy` can shift errors from startup-time to runtime, making failures appear later.
+
+## How scopes relate to bean identity and caching (mental model)
+Spring’s container maintains internal caches for singletons:
+- first creation → store instance → return same instance every time
+
+For prototype:
+- no cache (in general)
+- creation happens on each request
+
+> **Deep insight:** This is why prototype doesn’t get full lifecycle management: there’s no central place where the container “owns” the instance long-term.
+
+## 🧐 Choosing scope: practical rules
+### Use `singleton` when:
+- the bean is stateless
+- the bean is thread-safe
+- you want shared infrastructure (services, repositories, config)
+
+### Use `prototype` when:
+- you need a fresh instance per operation
+- the bean is stateful and not safe to share
+- you’re okay managing cleanup manually (if it holds resources)
+
+> **Rule of thumb:** Prefer singleton unless you have a clear reason.
+
+
+## 📃 Interview-grade gotchas (but also real-world)
+1. **Singleton scope != thread safety**
+2. **Prototype injected into singleton behaves like singleton** unless you use `provider`/`lookup`
+3. **Prototype destroy methods not called automatically**
+4. **Multiple ApplicationContexts → multiple singleton instances**
+5. **Scopes are a container concept**; `new` ignores them completely
+
+
+# 3. Web-Aware Scopes (request, session, application, websocket)
+
+These scopes are only available in a web application environment (i.e., when you are using `spring-web`). So we'll only have a quick overview of this scope.
+
+### 1️⃣ `request` Scope
+*   **What it is:** A single bean instance is created for the lifecycle of a single HTTP request.
+*   **💭Analogy:** A hotel key card that works only for the duration of your stay. A new guest gets a new key card for their stay.
+*   **How it works:** When a web request hits your application, Spring creates a new instance of the request-scoped bean. This bean is available anywhere within that same request (e.g., from the controller to the service layer). Once the server sends the response back to the client, the bean is destroyed.
+*   **When to use it:** For holding request-specific data, like user authentication details for a single request or theming information.
+
+### 2️⃣ `session` Scope
+*   **What it is:** A single bean instance is created for the lifecycle of a user's HTTP Session.
+*   **💭Analogy:** A shopping cart at an online store. It's yours and follows you around the site as long as you're logged in or your session is active. A different user gets a completely different cart.
+*   **How it works:** Spring creates a new instance for a new user session. That same instance is returned for all requests that belong to that same session. When the user logs out or the session times out, the bean is destroyed.
+*   **When to use it:** For holding user-specific data that needs to persist across multiple requests, like a user profile or, again, a shopping cart.
+
+### 3️⃣ `application` Scope
+*   **What it is:** A single bean instance is created for the lifecycle of the entire `ServletContext` (i.e., for the entire time your web application is running).
+*   **How it works:** This is very similar to `singleton`, but it's specifically tied to the web application's `ServletContext`. For most practical purposes in a single web app, it behaves just like a singleton.
+*   **When to use it:** For application-wide data that needs to be shared across all users and all requests, like a cache of country codes or some global configuration.
+
+---
+
+### 💬 Quick Memory Aid
+
+- **singleton** = one forever (default)
+- **prototype** = new every time I ask
+- **request** = reborn with every HTTP request
+- **session** = lives as long as browser tab/session
+- **application** = one per deployed web app
+- **websocket** = one per open socket
+
+---
+
+## 👀 Quick Comparison Table — When to Use Which
+| Scope | Description | Example Use Case | Analogy          |
+|-------|-------------|------------------|------------------|
+| **Singleton** (default) | One shared instance per Spring Container. | Services, utility classes. | Office Water Cooler    |
+| **Prototype** | A new instance every time `getBean()` is called. | Stateful objects, per-request data. | Vending Machine Soda   |
+| **Request** (Web only) | One bean per HTTP request. | Web controllers handling request data. |Hotel Key Card         |
+| **Session** (Web only) | One bean per HTTP session. | User session data. | Online Shopping Cart   |
+| **Application** (Web only) | One bean per ServletContext (shared across app). | Global caches, app-wide resources. | Public Notice Board    |
+| **Websocket** (Web only) | One bean per WebSocket lifecycle. | Real-time chat or streaming sessions. | ❌  |
+
+---
+
+##  Why Scope Matters
+- **Singleton** → efficient, memory-friendly, but not good for stateful data.  
+- **Prototype** → flexible, but can be heavy if overused.  
+- **Web scopes** → perfect for request/session-specific data in web apps.  
+
+---
+
+> ### Understanding bean scopes is crucial for building robust and memory-efficient Spring applications. It gives you precise control over the lifecycle of your objects.
