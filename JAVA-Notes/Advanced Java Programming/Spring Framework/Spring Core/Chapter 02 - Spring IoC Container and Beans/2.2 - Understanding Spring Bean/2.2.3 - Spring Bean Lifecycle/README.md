@@ -15,7 +15,7 @@ Understanding it is critical for:
 
 # ⌛ Lifecycle of Bean
 
-[IMG]
+<img width="1322" height="615" alt="JavaBean" src="https://github.com/user-attachments/assets/73aa051f-6bf0-4eb2-bff7-bd6cfc621b84" />
 
 ## **1st Phase: Loading Bean Definitions**
 - Spring loads bean definitions from various sources such as `XML-configuration` files, `Java-based` configuration classes or `component scanning`.
