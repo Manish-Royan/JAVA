@@ -5,7 +5,7 @@ SOLID is a set of **five foundational design principles** for writing maintainab
 
 They’re about **making code easier to maintain, extend, and reason about**, especially as projects grow. These are five core principles of object-oriented design. **Think of them as the "grammar rules" of clean code**.
 
-<img width="2720" height="2160" alt="SOLID_principles_java" src="https://github.com/user-attachments/assets/57347292-3d35-476e-80bd-de2a8a5f1cba" />
+<img width="2720" height="2160" alt="SOLID_principles_java" src="https://github.com/user-attachments/assets/b80629d3-bb25-4ff0-b68f-441f28b8408e" />
 
 - **S** – Single Responsibility Principle (SRP)
 - **O** – Open/Closed Principle (OCP)
