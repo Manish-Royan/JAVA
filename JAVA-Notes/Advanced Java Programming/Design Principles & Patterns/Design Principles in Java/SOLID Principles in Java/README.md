@@ -1,4 +1,4 @@
-<img width="189" height="150" alt="SOLID_principles_java" src="https://github.com/user-attachments/assets/81e304d6-f17d-4b3b-91f0-9c46ceff16d7" /># SOLID Principles in Java
+# SOLID Principles in Java
 
 ## 1. What are the SOLID Principles?
 SOLID is a set of **five foundational design principles** for writing maintainable, scalable, and flexible object-oriented code. Coined by **Robert C. Martin ("Uncle Bob")**, these principles help developers avoid "code rot" and reduce bugs by promoting loose coupling, high cohesion, and testability. While language-agnostic, they are especially relevant in Java due to its strong OOP foundation.
